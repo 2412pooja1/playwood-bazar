@@ -1065,7 +1065,7 @@ function Index() {
                       <div className="sub-div1">
                         <img src={generateImageUrl(el.image)}
                           alt="" />
-                       
+                       git
                       </div>
                     </Col>
                     <div>
