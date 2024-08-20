@@ -7,14 +7,8 @@ import { MdCall } from "react-icons/md";
 import { RiMessage2Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Autoplay, Navigation } from "swiper";
+import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Row, Col, Container } from "react-bootstrap";
-import { LuPhoneCall } from "react-icons/lu";
-import location from '../assets/image/home/image-removebg-preview (17) 1.png'
-import grlm from '../assets/image/home/Mask Group.png'
-import grls from '../assets/image/home/Mask Group (1).png'
-import img4 from '../assets/image/home/Group 1000004263.png'
 import banner1 from "../assets/images/banner1.png";
 import banner2 from "../assets/images/banner2.jpg";
 import banner3 from "../assets/images/banner3.jpg";
@@ -23,12 +17,7 @@ import banner5 from "../assets/images/banner5.jpg";
 import banner6 from "../assets/images/banner6.jpg";
 import banner7 from "../assets/images/banner7.jpg";
 import chkimg from "../assets/images/checkimg.png";
-import img1 from "../assets/image/home/imgdelhi.png";
-import img2 from "../assets/image/home/imgmumbai.png";
-import img3 from "../assets/image/home/imgkolkata.png";
-import img7 from "../assets/image/home/imghyderabad.png";
-import img5 from "../assets/image/home/imggujarat.png";
-import '../assets/css/home.css'
+
 import successgif from "../assets/images/verified.gif";
 import { fetchToken } from "../firebase";
 import { getForHomepage } from "../services/Advertisement.service";
@@ -47,8 +36,7 @@ import { generateImageUrl } from "../services/url.service";
 import { toastSuccess } from "../utils/toastutill";
 import CountdownTimer from "./Utility/CountdownTimer";
 import { errorToast } from "./Utility/Toast";
-import Ellipse from '../assets/image/home/Ellipse 27.png'
-import playbanner from '../assets/image/home/Group 1000004149.png'
+
 function Index() {
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
   const [categoryArr, setcategoryArr] = useState([]);
@@ -211,8 +199,9 @@ function Index() {
     try {
       let date = new Date();
       date.setDate(date.getDate() - 1);
-      let enddate = `${date.getFullYear()}-${(date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1)
-        }-${(date.getDate() + 1 < 10 ? "0" : "") + date.getDate()}`;
+      let enddate = `${date.getFullYear()}-${
+        (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1)
+      }-${(date.getDate() + 1 < 10 ? "0" : "") + date.getDate()}`;
       let { data: res } = await getAllFlashSales("endDate=" + enddate);
       if (res.data) {
         // console.log(res.data, "flash sales");
@@ -289,23 +278,6 @@ function Index() {
       slidesPerView: 3,
     },
     1200: {
-      slidesPerView: 3,
-    },
-    1400: {
-      slidesPerView: 4,
-    },
-  };
-  const states = {
-    0: {
-      slidesPerView: 2,
-    },
-    576: {
-      slidesPerView: 3,
-    },
-    992: {
-      slidesPerView: 3,
-    },
-    1200: {
       slidesPerView: 4,
     },
     1400: {
@@ -346,13 +318,7 @@ function Index() {
       slidesPerView: 3,
     },
   };
-  const cities = [
-    { imgSrc: img1, name: "Delhi" },
-    { imgSrc: img2, name: "Mumbai" },
-    { imgSrc: img3, name: "Kolkata" },
-    { imgSrc: img7, name: "Hyderabad" },
-    { imgSrc: img5, name: "Gujarat" },
-  ];
+
   const blogbreakpont = {
     0: {
       slidesPerView: 1,
@@ -400,11 +366,7 @@ function Index() {
   };
 
   window.addEventListener("scroll", handleScroll);
-  const [activeTab, setActiveTab] = useState("blog");
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
   return (
     <main>
       <section className="mb-80">
@@ -439,374 +401,118 @@ function Index() {
       </section>
 
       <section className="category mb-80">
-
-
-
-        <Container fluid className="categoriesback p-5">
-          <div className="container">
-            <div className="title-section with-btn mb-5">
-              <h1 className="heading "> Categories</h1>
-
-            </div>
+        <div className="container">
+          <div className="title-section with-btn mb-5">
+            <h1 className="heading bottom-line brown">Product Categories</h1>
+            <Link to="/shop" className="btn btn-custom btn-link-yellow">
+              View All
+            </Link>
           </div>
-          <Row>
-            <Swiper
-              modules={[Autoplay, Navigation]}
-              spaceBetween={20}
-              slidesPerView={1}
-              autoplay={{ disableOnInteraction: false }}
-              speed={1500}
-              loop
-              breakpoints={{
-                0: {
-                  slidesPerView: 2,
-                },
-                576: {
-                  slidesPerView: 3,
-                },
-                992: {
-                  slidesPerView: 3,
-                },
-                1200: {
-                  slidesPerView: 6,
-                },
-                1400: {
-                  slidesPerView: 8,
-                }
-              }}
-              navigation={{
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-              }}
-            >
-              <div>
-                {categoryArr &&
-                  categoryArr
-                    .filter((el, index) =>
-                      index <= (isDisplayingAll ? categoryArr.length - 1 : 5)
-                    )
-                    .map((item, index) => (
-                      <SwiperSlide key={index}>
+        </div>
+
+        <div className="container">
+          {/* slice(0,isDisplayingAll ?categoryArr.length : 6) */}
+          <ul className="row g-0">
+            {categoryArr &&
+              categoryArr &&
+              categoryArr
+                .filter(
+                  (el, index) =>
+                    index <= (isDisplayingAll ? categoryArr.length - 1 : 5)
+                )
+                .map((item, index) => {
+                  return (
+                    <li key={index} className="col-12 col-md-6 col-lg-4">
+                      <div className="box">
                         <Link to={`Shop?categories=${item._id}`}>
-                          <Col className="d-grid text-center align-items-center justify-content-center">
-                            <div className="categoriescircle rounded-circle ctimg d-grid align-items-center justify-content-center">
-                              <img
-                                src={generateImageUrl(item.image)}
-                                className="p-4 img-fluid"
-                                alt={item.name}
-                              />
-                            </div>
-                            <p className="fw-bolder fs-6">{item.name}</p>
-                          </Col>
+                          <img src={generateImageUrl(item.image)} alt="" />
+                          {/* <img src={chkimg} alt="" /> */}
                         </Link>
-                      </SwiperSlide>
-                    ))}
-              </div>
-              {/* <div className="swiper-button-next "></div> */}
-              {/* <div className="swiper-button-prev"></div> */}
-            </Swiper>
-          </Row>
-
-        </Container>
-      </section>
-      <section>
-        <Container fluid>
-          <div className="container">
-            <div className="title-section mb-5">
-              <h1 className="heading text-start ">
-                Products May You Like
-              </h1>
-
-            </div>
-          </div>
-          <Row className="d-flex  justify-content-center ">
-            <Col lg={2} xs={5} className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0">
-              <img src={grlm} alt="" className=" img-fluid" />
-              <div className=" d-flex justify-content-center">< LuPhoneCall className="phn rounded-circle p-2 " /></div>
-              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
-              <p className="text-center"><img src={location} alt="" />Chennai</p>
-              <div className=" d-flex justify-content-center">
-                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">1 Get Deal</button></div>
-            </Col>
-            <Col lg={2} xs={5} className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0">
-              <img src={grlm} alt="" className=" img-fluid" />
-              <div className=" d-flex justify-content-center">< LuPhoneCall className="phn rounded-circle p-2 " /></div>
-              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
-              <p className="text-center"><img src={location} alt="" />Chennai</p>
-              <div className=" d-flex justify-content-center">
-                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">1 Get Deal</button></div>
-            </Col>
-            <Col lg={2} xs={5} className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0">
-              <img src={grlm} alt="" className=" img-fluid" />
-              <div className=" d-flex justify-content-center">< LuPhoneCall className="phn rounded-circle p-2 " /></div>
-              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
-              <p className="text-center"><img src={location} alt="" />Chennai</p>
-              <div className=" d-flex justify-content-center">
-                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">1 Get Deal</button></div>
-            </Col>
-            <Col lg={2} xs={5} className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0">
-              <img src={grlm} alt="" className=" img-fluid" />
-              <div className=" d-flex justify-content-center">< LuPhoneCall className="phn rounded-circle p-2 " /></div>
-              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
-              <p className="text-center"><img src={location} alt="" />Chennai</p>
-              <div className=" d-flex justify-content-center">
-                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">1 Get Deal</button></div>
-            </Col>
-          </Row>
-          <div className="d-flex  justify-content-center mt-5">
-            <button className=" border-0 rounded-5 px-4 py-3 vvall text-white fw-bold fs-5">View All</button>
-          </div>
-        </Container>
-
-      </section>
-
-
-      <section className=" mt-5 ">
-        <Container className=" mt-5 ">
-          <Row className=" newpeoductback ">
-            <Col lg={9} xs={12} className="newprdrw">
-              <Swiper
-                modules={[Autoplay, Navigation]}
-                spaceBetween={20}
-                slidesPerView={5}
-                autoplay={{ disableOnInteraction: false }}
-                speed={1500}
-                breakpoints={fretureprod}
-              >
-                {advertisementsArr &&
-                  advertisementsArr.map((el, index) => {
-                    return (
-                      <SwiperSlide key={index}>
-                        <div className="vender-box">
-                          <div className="newprdcrd">
-                            <img
-                              src={generateImageUrl(el.image)}
-                              alt=""
-                              className="img-fluid"
-                            />
-                            <div className="d-flex justify-content-center">
-                              <LuPhoneCall className="phn rounded-circle p-2" />
-                            </div>
-                            <h6 className="fs-6">{el.message}</h6>
-                            <button
-                              onClick={() => navigate(`/ShopDetail/${el?.productSlug}`)}
-                              className="newprdbtn py-2 text-white"
-                            >
-                              Get Quotes
-                            </button>
-                          </div>
+                        <div className="text">
+                          <Link to={`Shop?categories=${item._id}`}>
+                            <h5>{item.name}</h5>
+                          </Link>
                         </div>
-                      </SwiperSlide>
-                    );
-                  })}
-
-                {/* Add Products Button on the Last Slide */}
-                <SwiperSlide>
-                  <div className="addfrmmain">
-                    <Link
-                      to="/AddPromotions"
-                      className="addfrm p-2"
-                    >
-                      +
-                    </Link>
-                  </div>
-                </SwiperSlide>
-              </Swiper>
-
-
-            </Col>
-            <Col lg={3} className="  d-lg-flex d-none align-items-center " onClick={() => navigate('/AddPromotions')}>
-              <div className=" newprdround fs-1  text-white rounded-circle p-3 text-center  ">New Arrivals</div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
-      <section>
-        <div className="main_Profiles">
-          <div class="emp_Profiles  col-md-6 col-lg-3 mb-5 mb-lg-0">
-            <div className="Profile_cards">
-              <img className="Profile_icn" src={Ellipse} alt="ellipse" />
-              <p className="profile_text  fs-4 fw-bold">
-                Keshav Enterprises <br />
-                <span className="fs-6">
-                  Product <span className="fw-light">_N.A</span>
-                </span>
-              </p>
-              <div className="Profile_bottom mt-3">
-                <p className="m-5">Rating - 4.5</p>
-                <a
-                  className="Profile_bottom_icn btn-social rounded-circle mx-1 "
-                  href=""
-                >
-                  <LuPhoneCall />
-                </a>
-              </div>
-            </div>
-            <div className="Profile_cards">
-              <img className="Profile_icn " src={Ellipse} alt="ellipse" />
-              <p className="profile_text  fs-4 fw-bold">
-                Keshav Enterprises <br />
-                <span className="fs-6">
-                  Product <span className="fw-light">_N.A</span>
-                </span>
-              </p>
-              <div className="Profile_bottom mt-3">
-                <p className="m-5">Rating - 4.5</p>
-                <a
-                  className="Profile_bottom_icn btn-social rounded-circle mx-1 "
-                  href=""
-                >
-                  <LuPhoneCall />
-                </a>
-              </div>
-            </div>
-            <div className="Profile_cards">
-              <img className="Profile_icn" src={Ellipse} alt="ellipse" />
-              <p className="profile_text  fs-4 fw-bold">
-                Keshav Enterprises <br />
-                <span className="fs-6">
-                  Product <span className="fw-light">_N.A</span>
-                </span>
-              </p>
-              <div className="Profile_bottom mt-3">
-                <p className="m-5">Rating - 4.5</p>
-                <a
-                  className="Profile_bottom_icn btn-social rounded-circle mx-1  "
-                  href=""
-                >
-                  <LuPhoneCall />
-                </a>
-              </div>
-            </div>
-            <div className="Profile_cards">
-              <img className="Profile_icn" src={Ellipse} alt="ellipse" />
-              <p className="profile_text  fs-4 fw-bold">
-                Keshav Enterprises <br />
-                <span className="fs-6">
-                  Product <span className="fw-light">_N.A</span>
-                </span>
-              </p>
-              <div className="Profile_bottom mt-3 d-flex d-inline-flex align-items-center justify-content-end">
-                <p className="m-5">Rating - 4.5</p>
-                <a
-                  className="Profile_bottom_icn btn-social rounded-circle mx-1 "
-                  href=""
-                >
-                  <LuPhoneCall />
-                </a>
-              </div>
-            </div>
+                      </div>
+                    </li>
+                  );
+                })}
+          </ul>
+          <div className="text-center">
+            <button
+              className="btn btn-custom btn-yellow mt-2"
+              onClick={() => setIsDisplayingAll((prev) => !prev)}
+            >
+              {isDisplayingAll ? "View Less" : "View All"}
+            </button>
           </div>
         </div>
       </section>
-      {flashSalesArr && flashSalesArr.length > 0 && (
-        <section className=" mt-5 ">
-          <Container className=" mt-5 ">
-            <Row className=" flashpeoductback d-lg-flex  justify-content-center ">
-              <Col lg={3} xs={8} className="  d-lg-flex  justify-content-center align-items-center " onClick={() => navigate('/AddPromotions')}>
-                <img src={img4} className=" img-fluid " alt="" />            </Col>
-              <Col lg={9} xs={12} className="newprdrw">
 
-                <Swiper
-                  modules={[Autoplay]}
-                  spaceBetween={5}
-                  autoplay={{ disableOnInteraction: false }}
-                  speed={1500}
-                  breakpoints={flashsale}
-                >
-                  {flashSalesArr &&
-                    flashSalesArr.length > 0 &&
-                    flashSalesArr.map((el, index) => {
-                      return (
-                        <SwiperSlide key={index}>
-                          <div className="newprdcrd text-center">
-                            <div className="position-relative">
-                              <CountdownTimer targetDate={el.endDate} />
-                              <Link to={`/ShopDetail/${el?.productId?.slug}`}>
-                                <img
-                                  src={generateImageUrl(el.productId.mainImage)}
-                                  alt=""
-                                  className="img-fluid ims"
-                                />
-                                <div className="overlyasper"></div>
-                              </Link>
-
-
-                            </div>
-                            <div className="d-flex justify-content-center"
-                              onClick={() => {
-                                currentUserHasActiveSubscription
-                                  ? window.alert(
-                                    `${el?.userId?.companyObj?.phone}`
-                                  )
-                                  : errorToast("Take subscription");
-                              }}>
-                              <LuPhoneCall className="phn rounded-circle p-2" />
-                            </div>
-                            <div className="d-flex justify-content-center">
-                              <h6>{el?.description}</h6>
-                            </div>
-                            <h6 className=" text-center  prdtitle">
-                              <Link to={`/ShopDetail/${el?.productId?.slug}`}>
-                                {el?.productId?.name}
-                              </Link>
-                            </h6>
-                            <ul className="">
-                              <li>
-                                {el.discountType == "Percentage"
-                                  ? `${el.discountValue}% OFF`
-                                  : `Flat ${el.discountValue} OFF`}
-                              </li>
-                            </ul>
-                            <div>
-                              <h6 className="old">
-                                <span className="prize">₹{el?.price}</span>
-                                <span className="small text-muted">
-                                  {el.pricetype
-                                    ? "/ " + el.pricetype
-                                    : "/ Sq ft"}
-                                </span>
-                              </h6>
-                              <h6 className="new">
-                                <span className="prize">
-                                  ₹{el?.salePrice}
-                                </span>
-                                <span className="small text-muted">
-                                  {el.pricetype
-                                    ? "/ " + el.pricetype
-                                    : "/ Sq ft"}
-                                </span>
-                              </h6>
-                            </div>
-                            <button
-                              onClick={() => navigate(`/ShopDetail/${el?.productId?.slug}`)}
-                              className="newprdbtn py-2 text-white"
-                            >
-                              Get Quotes
-                            </button>
-                          </div>
-                        </SwiperSlide>
-                      );
-                    })}
-                  <SwiperSlide>
-                    <div className="addfrmmain">
+      <section className="gray-bg ptb-80 px-4pc">
+        <div className="container">
+          <div className="title-section with-btn mb-5">
+            <h1 className="heading bottom-line brown">New Products</h1>
+            {isAuthorized && (
+              <Link
+                to="/AddPromotions"
+                className="btn btn-custom btn-link-yellow"
+              >
+                Add Products
+              </Link>
+            )}
+          </div>
+          <Swiper
+            modules={[Autoplay]}
+            spaceBetween={20}
+            slidesPerView={5}
+            autoplay={{ disableOnInteraction: false }}
+            speed={1500}
+            breakpoints={fretureprod}
+            // loop
+          >
+            {advertisementsArr &&
+              advertisementsArr.map((el, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div className="vender-box">
+                      <div className="inner">
+                        {el.isVideo ? (
+                          <a target="__blank" href={generateImageUrl(el.image)}>
+                            <video
+                              src={generateImageUrl(el.image)}
+                              playsinline
+                              autoPlay
+                              muted
+                              className="img"
+                              height={140}
+                              width={"100%"}
+                            />
+                          </a>
+                        ) : (
+                          <img
+                            src={generateImageUrl(el.image)}
+                            alt=""
+                            className="img"
+                          />
+                        )}
+                        <h6 className="title">{el.message}</h6>
+                      </div>
                       <Link
-                        to="/AddPromotions"
-                        className="addfrm p-2"
+                        to={`/ShopDetail/${el?.productSlug}`}
+                        className="btn btn-custom btn-yellow"
                       >
-                        +
+                        Get Quotes
                       </Link>
                     </div>
                   </SwiperSlide>
-                </Swiper>
+                );
+              })}
+          </Swiper>
+        </div>
+      </section>
 
-              </Col>
-
-            </Row>
-          </Container>
-        </section>
-      )}
-      {/* {flashSalesArr && flashSalesArr.length > 0 && (
+      {flashSalesArr && flashSalesArr.length > 0 && (
         <section className="flash-sale mb-80 px-4pc gray-bg ptb-80">
           <div className="container-fluid">
             <div className="row align-items-center">
@@ -835,14 +541,15 @@ function Index() {
                       Add Flash Sale
                     </Link>
                   )}
+                  {/* <CountdownTimer targetDate={dateTimeAfterThreeDays} /> */}
                 </div>
               </div>
               <div className="col-12 col-md-8">
-                <div className="view-all text-end mb-4">
+                {/* <div className="view-all text-end mb-4">
                 <Link to="/" className="btn btn-custom btn-link-yellow">
                   View All
                 </Link>
-              </div>
+              </div> */}
                 <Swiper
                   modules={[Autoplay]}
                   spaceBetween={5}
@@ -855,45 +562,34 @@ function Index() {
                     flashSalesArr.map((el, index) => {
                       return (
                         <SwiperSlide key={index}>
-                          <div className="newprdcrd">
+                          <div className="product-box-2">
                             <div className="position-relative">
                               <CountdownTimer targetDate={el.endDate} />
                               <Link to={`/ShopDetail/${el?.productId?.slug}`}>
                                 <img
                                   src={generateImageUrl(el.productId.mainImage)}
                                   alt=""
-                                  className="img-fluid"
+                                  className="img"
                                 />
                                 <div className="overlyasper"></div>
                               </Link>
-
-
-                            </div>
-                            <div className="d-flex justify-content-center"
-                              onClick={() => {
-                                currentUserHasActiveSubscription
-                                  ? window.alert(
-                                    `${el?.userId?.companyObj?.phone}`
-                                  )
-                                  : errorToast("Take subscription");
-                              }}>
-                              <LuPhoneCall className="phn rounded-circle p-2" />
-                            </div>
-                            <div className="d-flex justify-content-center">
-                              <h6>{el?.description}</h6>
-                            </div>
-                            <h6 className=" text-center  prdtitle">
-                              <Link to={`/ShopDetail/${el?.productId?.slug}`}>
-                                {el?.productId?.name}
-                              </Link>
-                            </h6>
-                            <ul className="">
+                              <h6 className="title">
+                                <Link to={`/ShopDetail/${el?.productId?.slug}`}>
+                                  {el?.productId?.name}
+                                </Link>
+                              </h6>
+                              <ul className="tags">
                                 <li>
                                   {el.discountType == "Percentage"
                                     ? `${el.discountValue}% OFF`
                                     : `Flat ${el.discountValue} OFF`}
                                 </li>
                               </ul>
+                            </div>
+                            <div className="d-flex justify-content-center">
+                              <h6>{el?.description}</h6>
+                            </div>
+                            <div className="content">
                               <div>
                                 <h6 className="old">
                                   <span className="prize">₹{el?.price}</span>
@@ -914,12 +610,19 @@ function Index() {
                                   </span>
                                 </h6>
                               </div>
-                            <button
-                              onClick={() => navigate(`/ShopDetail/${el?.productId?.slug}`)}
-                              className="newprdbtn py-2 text-white"
-                            >
-                              Get Quotes
-                            </button>
+                              <button
+                                className="call-btn"
+                                onClick={() => {
+                                  currentUserHasActiveSubscription
+                                    ? window.alert(
+                                        `${el?.userId?.companyObj?.phone}`
+                                      )
+                                    : errorToast("Take subscription");
+                                }}
+                              >
+                                <MdCall />
+                              </button>
+                            </div>
                           </div>
                         </SwiperSlide>
                       );
@@ -929,118 +632,8 @@ function Index() {
             </div>
           </div>
         </section>
-      )} */}
-      {/* states */}
-      <section>
-        <img src={playbanner} className=" img-fluid  " alt="" />
-      </section>
+      )}
 
-
-      <section style={{ backgroundColor: "#F5F1E8" }}>
-        <p className="text-center fw-bold m-3" style={{ fontSize: "55px" }}>
-          States
-        </p>
-        <Container
-          fluid
-          className=" px-5 text-center fw-bold"
-
-        >
-          <Swiper
-            modules={[Autoplay]}
-            spaceBetween={5}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            speed={1500}
-            breakpoints={states}
-          >
-            {cities.map((city, index) => (
-              <SwiperSlide key={index}>
-                <div>
-                  <img src={city.imgSrc} className=" img-fluid" alt={city.name} />
-                  <p className="text-center">{city.name}</p>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </Container>
-
-      </section>
-
-      <div className="blog-main-container-1 d-flex flex-wrap flex-column align-items-center gap-5 my-5">
-        <div className="tabs">
-          <div
-            className={`tab ${activeTab === "blog" ? "active" : ""}`}
-            onClick={() => handleTabClick("blog")}
-          >
-            BLOG
-          </div>
-          <div
-            className={`tab ${activeTab === "video" ? "active" : ""}`}
-            onClick={() => handleTabClick("video")}
-          >
-            VIDEO
-          </div>
-        </div>
-        <section className="blog_main d-flex flex-wrap ">
-          <Row className="sub_blog  flex-md-row mx-3">
-            <Col>
-              <div className="sub-div1">
-                {/* <img src={Blog1} alt="" /> */}
-                <div>
-                  {" "}
-                  <p>
-                    Why Should Plywood <br /> Businesses Choose Our <br />{" "}
-                    Platform for Registration? <br />
-                    <span>Are you a part of the booming p</span>
-                  </p>
-                  <button className=" blog_btn ">Read more</button>
-                </div>
-              </div>
-            </Col>
-            <Col>
-              <div className="sub-div2">
-                {/* <img src={Blog2} alt="" /> */}
-                <p>
-                  Why Should Plywood <br /> Businesses Choose Our <br /> Platform
-                  for Registration? <br />
-                  <span>Are you a part of the booming p</span>
-                </p>
-                <button className="blog_btn">Read more</button>
-              </div>
-            </Col>
-          </Row>
-          {/* <Row className="second_row d-flex flex-wrap mx-3">
-            <Col>
-              <iframe
-                className="sub-div3"
-                width="260"
-                height="315"
-                src="https://www.youtube.com/embed/T1jcDyJwYvo?si=679kEMy_JvztyTir"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-              ></iframe>
-            </Col>
-            <Col>
-              <iframe
-                className="sub-div4"
-                width="260"
-                height="315"
-                src="https://www.youtube.com/embed/T1jcDyJwYvo?si=679kEMy_JvztyTir"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-              ></iframe>
-            </Col>
-          </Row> */}
-        </section>
-      </div>
       <section className="ptb-80 px-4pc">
         <div className="container">
           <div className="title-section with-btn mb-5">
@@ -1061,13 +654,6 @@ function Index() {
               blogsArr.map((el, index) => {
                 return (
                   <SwiperSlide key={index}>
-                    <Col>
-                      <div className="sub-div1">
-                        <img src={generateImageUrl(el.image)}
-                          alt="" />
-                       
-                      </div>
-                    </Col>
                     <div>
                       <div className="blog_listing mb-0">
                         <div className="blog_listing_img">

@@ -83,20 +83,9 @@
 
 }
 .Header .Acc_icn {
-  background-color: rgb(255, 255, 255) !important;
+  background-color: rgb(255, 255, 255);
   border: solid #d7ad8b 3px;
-  color: black !important;
-  height: 50px;
-  width: 50px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-.Acc_icn {
-  background-color: rgb(255, 255, 255) !important;
-  border: solid #d7ad8b 3px;
-  color: black !important;
+  color: black;
   height: 50px;
   width: 50px;
   display: flex;
@@ -119,10 +108,7 @@
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
 }
-.form-control:focus {
-  box-shadow: none !important;
-  border-color: white !important;
-}
+
 .Header .Search_section {
   width: 500px;
 }
@@ -134,21 +120,12 @@
   width: 100% !important;
   background-color: #ab8c71 !important;
 }
-.Header .searchbar.form-control {
-  color: #fffbfb !important;
-  padding-left: 20px;
-}
 .Header .searchbar::placeholder {
   color: #fffbfb !important;
   font-family: "Poppins", sans-serif !important;
   opacity: 1;
   position: absolute;
   margin-left: 5%;
-  letter-spacing: 1px !important;
-}
-.Header .searchbar.form-control:focus{
-  color: #fffbfb !important;
-  padding-left: 20px;
 }
 .Header .searchicn {
   display: flex;
@@ -171,22 +148,8 @@
   font-family: "Poppins", sans-serif !important;
   border: solid #ffffff 3px !important;
 }
-.mblogo{
-  background: linear-gradient(356.07deg, rgba(217, 217, 217, 0) 10.9%, rgba(107, 78, 55, 0.542902) 36.79%, #6B4E37 79.16%);
-
-}
 
 @media (max-width: 768px) {
-  .form-control{
-    width: auto !important;
-  }
-  .searchBox{
-    width: auto !important;
-    left: auto !important;
-
-  }
-  .btn-close{
-    height: auto;}
   .Header .logo {
     margin-left: 100px !important;
     padding: 10px !important;

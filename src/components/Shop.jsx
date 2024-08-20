@@ -131,25 +131,27 @@ function Shop() {
 
   return (
     <main>
+       <PageBanner
+                img={images.top_banner
+                  // shopImage && shopImage !== ""
+                  //   ? generateImageUrl(shopImage)
+                  //   : 
+                }
+                className="mx-0"
+              />
       <section className="shop-page shoppagepading mb-80 px-4pc mt-5">
         <div className="container-fluid">
+       
           <div className="row">
-            <div className="col-12 col-md-4 col-lg-3 col-xl-3 d-none d-lg-block">
+            <div className="col-12  d-none d-lg-block">
               <ShopFilter
                 handleApplyFilter={handleApplyFilter}
                 handleClearFilter={handleClearFilter}
               />
             </div>
 
-            <div className="col-12 col-md-12  col-lg-9 col-xl-9">
-              <PageBanner
-                img={
-                  shopImage && shopImage !== ""
-                    ? generateImageUrl(shopImage)
-                    : images.top_banner
-                }
-                className="mx-0"
-              />
+            <div className="col-12 ">
+             
               <ul className="product-name my-4">
                 <li>
                   <p className="text-muted">Vendors</p>

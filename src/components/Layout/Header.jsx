@@ -11,10 +11,6 @@ import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Button, Form, Row, Col } from "react-bootstrap";
-import { BsX } from 'react-icons/bs'; // Import close icon
-import logo2 from '../../assets/image/home/image 110.png'
-
 import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
 import { MdAccountCircle } from "react-icons/md";
 import { IoLogoWhatsapp } from "react-icons/io";
@@ -70,19 +66,16 @@ import yout from '../../assets/image/home/11 1.png'
 function Header() {
   const dispatch = useDispatch();
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const [showSearchBox, setShowSearchBox] = useState(false);
-
   const userObj = useSelector((state) => state.auth.user);
   const tempLoginObj = useSelector((state) => state.auth.tempLoginObj);
   let role = useSelector((state) => state.auth.role);
   const ref = useRef();
-  const formRef = useRef(null);
   const location = useLocation();
   const [showcatgoryNav, setShowcatgoryNav] = useState(true);
   const [searchBy, setSearchBy] = useState(false);
   const [searchType, setSearchType] = useState("vendor");
   const [searchList, setSearchList] = useState([
-    { name: "Search By keyword", checked: true, type: "vendor" },
+    { name: "search by keyword", checked: true, type: "vendor" },
     { name: "Search By Product", checked: false, type: "product" },
   ]);
 
@@ -534,277 +527,43 @@ function Header() {
   }, [location]);
 
   const [mobileshowmenu, setmobileshowmenu] = useState(false);
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (formRef.current && !formRef.current.contains(event.target)) {
-        setShowSearchBar(false);
-      }
-    };
 
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [formRef]);
   return (
     <>
-      <>
-        {windowWidth > 992 ? (
-          <Container fluid className="Header"><div className="Sub_Headere py-2 ">
-            <div className="main_logo d-inline-flex align-items-center mx-5">
-              <a
-                href="index.html"
-                className="navbar-brand d-flex align-items-center"
-              >
-                <img className="logo" src={logo} alt="" />
+      <Container fluid className="Header">
+        <div className="Sub_Headere py-2">
+          <div className="main_logo d-inline-flex align-items-center mx-5">
+            <a
+              href="index.html"
+              className="navbar-brand d-flex align-items-center"
+            >
+              <img className="logo" src={logo} alt="" />
+            </a>
+          </div>
+          <div className="social_icons col-lg-6 px-5 text-end d-inline-flex align-items-center justify-content-end">
+            <div className="d-flex">
+              <a className="icn p-2 btn-social rounded-circle mx-2" href="">
+                <img src={fb} className=" img-fluid" />
+
+              </a>
+              <a className="icn p-2 btn-social rounded-circle mx-2" href="">
+                <img src={inst} className=" img-fluid" />
+              </a>
+              <a className="icn p-2 btn-social rounded-circle mx-2" href="">
+                <img src={yout} className=" img-fluid" />
+
+              </a>
+              <a className="icn p-2 btn-social rounded-circle mx-2" href="">
+                <img src={whp} className=" img-fluid" />
               </a>
             </div>
-            <div className="social_icons col-lg-6 px-5 text-end d-inline-flex align-items-center justify-content-end">
-              <div className="d-flex">
-                <a className="icn p-2 btn-social rounded-circle mx-2" href="">
-                  <img src={fb} className=" img-fluid" />
-
-                </a>
-                <a className="icn p-2 btn-social rounded-circle mx-2" href="">
-                  <img src={inst} className=" img-fluid" />
-                </a>
-                <a className="icn p-2 btn-social rounded-circle mx-2" href="">
-                  <img src={yout} className=" img-fluid" />
-
-                </a>
-                <a className="icn p-2 btn-social rounded-circle mx-2" href="">
-                  <img src={whp} className=" img-fluid" />
-                </a>
-              </div>
-              <button className="Dbtn btn-primary rounded-pill ms-3 py-2 ls-3  px-4">
-                Download App
-              </button>
-            </div>
+            <button className="Dbtn btn-primary rounded-pill ms-3 py-2 ls-3  px-4">
+              Download App
+            </button>
           </div>
-            <div className="Navbar ">
-              <div className="Sub_navbar">
-                <Navbar className="w-100">
-                  <Container fluid>
-                    <div className="d-flex align-items-center justify-content-between w-100 flex-wrap">
-                      <div className="contact d-flex align-items-center flex-wrap">
-                        <a className="callicn rounded-circle mx-2" href="">
-                          <IoCallOutline />
-                        </a>
-                        <p
-                          className="me-3 mt-3 ms-1 text-white"
-                          style={{ fontSize: "15px" }}
-                        >
-                          948323445243
-                        </p>
-                        <p
-                          className="number me-5 mt-3 text-white"
-                          style={{ fontSize: "15px" }}
-                        >
-                          832344524394
-                        </p>
-                      </div>
-                      <Form className="Search_section d-flex me-3 justify-content-end flex-grow-1 position-relative"
-                        onClick={() => {
-                          setSearchBy(!searchBy);
-                        }}
-                        onFocus={() => setShowSearchBar(true)}
-                        ref={formRef}
-                      >
-                        <Form.Control
-                          type="search"
-                          className="searchbar rounded-pill"
-                          placeholder={checkSearchMode()}
-                          aria-label="Search"
-                          value={searchText}
-                          onChange={(e) =>
-                            handleSearchText(e.target.value)
-                          }
-                        />
-                        <a
-                          className="searchicn position-absolute top-50 end-0 translate-middle-y me-1 text-white d-inline-flex align-items-center justify-content-center"
-                          href=""
-                        >
-                          <FiSearch />
-                        </a>
-                        {searchText != "" && showSearchBar && (
-                          <div className="searchBox listsearch">
-                            <div
-                              className="searchBoxCloseIcon"
-                              onClick={() => {
-                                setShowSearchBar(false);
-                              }}
-                            >
-                              X
-                            </div>
-                            {searchResultArr &&
-                              searchResultArr.length > 0 ? (
-                              searchResultArr.map((el, index) => {
-                                return (
-                                  <div key={index}>
-                                    <Link
-                                      to={`/Supplier/${el?._id}`}
-                                      onClick={() =>
-                                        setShowSearchBar(false)
-                                      }
-                                      onFocus={() => setShowSearchBar(true)}
-                                    >
-                                      <p>{el?.companyObj?.name}</p>
-                                    </Link>
-                                  </div>
-                                );
-                              })
-                            ) : (
-                              <div>
-                                {/* <Link to={`/ShopDetail/${el?.slug}`} onFocus={() => setShowSearchBar(true)}> */}
-                                <p>No results found</p>
-                                {/* </Link> */}
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </Form>
-
-                      <div className=" d-flex align-items-center flex-wrap me-5">
-                        <Button className="navbtn Register rounded-pill me-2">
-                          <Link
-                            to="/Register"
-                            className=" text-white"
-
-                          >
-                            Register
-                          </Link>
-                        </Button>
-                        <Button className="navbtn rounded-pill me-2">
-
-                          <Link
-                            to="/"
-                            className=" text-white"
-
-                          >
-                            Subscription
-                          </Link>
-                        </Button>
-                        <Button
-                          className="Acc_icn btn-social rounded-circle mx-2"
-                          style={{ fontSize: "2rem" }}
-
-                          onClick={() => setSignInModal(true)}
-
-                        >
-                          <MdAccountCircle />
-                        </Button>
-                      </div>
-                    </div>
-                  </Container>
-                </Navbar>
-              </div></div>
-          </Container>) : (
-          <>
-            <Container className=" mblogo">  <Row>
-              <Col xs={7}><div className=" py-2">
-                <img src={logo2} alt="" className=" img-fluid" />
-              </div></Col>
-              <Col xs={5}>
-                <Row>
-                  <Col xs={4}  className=" py-2">
-                    <a
-                      className="Acc_icn  rounded-circle "
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setShowSearchBar(!showSearchBar);
-                      }}
-                    >
-                      <FiSearch />
-                    </a>
-                    <Form
-                      className={`Search_section d-flex  justify-content-end flex-grow-1 position-relative ${showSearchBar ? '' : 'collapsed'}`}
-                      onClick={() => setShowSearchBar(true)}
-                      ref={formRef}
-                    >
-                      {showSearchBar && (
-                        <>
-                          <Form.Control
-                            type="search"
-                            className="searchbar rounded-pill"
-                            placeholder={checkSearchMode()}
-                            aria-label="Search"
-                            value={searchText}
-                            onChange={(e) => handleSearchText(e.target.value)}
-                          />
-                          <button
-                            className="btn-close   bg-white rounded-circle p-3 fw-bolder"
-                            style={{ right: '3rem' }} // Positioning the close bu0tton
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setShowSearchBar(false);
-                            }}
-                          >
-
-                          </button>
-                        </>
-                      )}
-
-                      {searchText !== "" && showSearchBar && (
-                        <div className="searchBox listsearch">
-
-                          {searchResultArr && searchResultArr.length > 0 ? (
-                            searchResultArr.map((el, index) => (
-                              <div key={index}>
-                                <Link
-                                  to={`/Supplier/${el?._id}`}
-                                  onClick={() => setShowSearchBar(false)}
-                                  onFocus={() => setShowSearchBar(true)}
-                                >
-                                  <p>{el?.companyObj?.name}</p>
-                                </Link>
-                              </div>
-                            ))
-                          ) : (
-                            <div>
-                              <p>No results found</p>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </Form>
-                  </Col>
-                  <Col xs={4}  className=" py-2">
-                    <Button
-                      className="Acc_icn btn-social rounded-circle 
-                  "
-                      style={{ fontSize: "2rem" }}
-
-                      onClick={() => setSignInModal(true)}
-
-                    >
-                      <MdAccountCircle />
-                    </Button>
-                  </Col>
-                  <Col xs={4} className=" py-2">
-                    <Button
-                      className="Acc_icn btn-social rounded-circle"
-                      style={{ fontSize: "2rem" }}
-
-                      onClick={() => setSignInModal(true)}
-
-                    >
-                      <MdAccountCircle />
-                    </Button>
-                  </Col>
-                </Row>
-              </Col>
-            </Row></Container>
-
-
-
-          </>)}
-
-
-      </>
-
-      {/* <header className="reverheadermobile sticky-top bg-light">
+        </div>
+      </Container>
+      <header className="reverheadermobile sticky-top bg-light">
 
 
         <div className="middlebar_new">
@@ -827,14 +586,17 @@ function Header() {
                         <>
                           <form
                             className="search-bar"
+                          // onFocus={() => setShowSearchBar(true)}
                           >
                             <div
                               className="custom-search"
-
+                              // onFocus={() => {
+                              //   setSearchBy(!searchBy);
+                              // }}
                               onClick={() => {
                                 setSearchBy(!searchBy);
                               }}
-
+                            // onBlur={() => setSearchBy(!searchBy)}
                             >
                               <button
                                 className="yellow-bg btn text-white h-100 rounded-0"
@@ -845,7 +607,18 @@ function Header() {
                               >
                                 Search
                               </button>
-
+                              {/* <ul style={{ display: searchBy ? "block" : "none" }} className={`custom-search-list`}>
+                                {searchList.map((item, i) => {
+                                  return (
+                                    <li key={i} onClick={() => { handleCheckItem(item); setSearchBy(!searchBy) }}>
+                                      <label className="pointer">
+                                        <input type="radio" checked={item.checked} className="form-check-input" name="header-search-by" />
+                                        {item.name}
+                                      </label>
+                                    </li>
+                                  );
+                                })}
+                              </ul> */}
                             </div>
                             <div className="form-control flex-1">
                               <input
@@ -890,7 +663,9 @@ function Header() {
                                   })
                                 ) : (
                                   <div>
+                                    {/* <Link to={`/ShopDetail/${el?.slug}`} onFocus={() => setShowSearchBar(true)}> */}
                                     <p>No results found</p>
+                                    {/* </Link> */}
                                   </div>
                                 )}
                               </div>
@@ -908,7 +683,13 @@ function Header() {
                           >
                             <div
                               className="custom-search mobileserach "
-
+                            // onFocus={() => {
+                            //   setSearchBy(!searchBy);
+                            // }}
+                            // onClick={() => {
+                            //   setSearchBy(!searchBy);
+                            // }}
+                            // onBlur={() => setSearchBy(!searchBy)}
                             >
                               <button
                                 className="yellow-bg btn text-white h-100 rounded-0"
@@ -916,11 +697,26 @@ function Header() {
                                   e.preventDefault();
                                   navigate("/Shop");
                                 }}
-
+                              // onClick={(e) => {
+                              //   e.preventDefault();
+                              //   setSearchBy(!searchBy);
+                              // }}
                               >
                                 Search
+                                {/* <BiChevronDown /> */}
                               </button>
-
+                              {/* <ul style={{ display: searchBy ? "block" : "none" }} className={`custom-search-list`}>
+                                  {searchList.map((item, i) => {
+                                    return (
+                                      <li key={i} onClick={() => { handleCheckItem(item); setSearchBy(!searchBy) }}>
+                                        <label className="pointer">
+                                          <input type="radio" checked={item.checked} className="form-check-input" name="header-search-by" />
+                                          {item.name}
+                                        </label>
+                                      </li>
+                                    );
+                                  })}
+                                s</ul> */}
                             </div>
                             <div className="form-control flex-1">
                               <input
@@ -965,7 +761,9 @@ function Header() {
                                   })
                                 ) : (
                                   <div>
+                                    {/* <Link to={`/ShopDetail/${el?.slug}`} onFocus={() => setShowSearchBar(true)}> */}
                                     <p>No results found</p>
+                                    {/* </Link> */}
                                   </div>
                                 )}
                               </div>
@@ -1013,16 +811,23 @@ function Header() {
                         {isAuthorized ? (
                           <div
                             className="sign-in-btn"
-
+                          // onClick={(e) => {
+                          //   alert('12asdf')
+                          //   e.preventDefault();
+                          // }}
                           >
                             <div
                               className="custom-search"
-
+                              // onFocus={() => setShowSignIn(!showSignIn)}
+                              // onBlur={() => setShowSignIn(!showSignIn)}
                               onClick={() => setShowSignIn(!showSignIn)}
                             >
                               <button
                                 className="text-dark d-flex align-items-center"
-
+                              // onClick={(e) => {
+                              //   alert('12asdf')
+                              //   e.preventDefault();
+                              // }}
                               >
                                 <img src={images.user} alt="" />
                                 {userObj?.name}
@@ -1064,7 +869,13 @@ function Header() {
                           <div
                             className="sign-in-btn"
                             onClick={() => setShowSignIn(!showSignIn)}
+                          // onFocus={() => setShowSignIn(!showSignIn)}
+                          //  onBlur={() => setShowSignIn(!showSignIn)}
 
+                          // onClick={(e) => {
+                          //   alert('12asdf')
+                          //   e.preventDefault();
+                          // }}
                           >
                             <div className="custom-search">
                               <button
@@ -1122,6 +933,8 @@ function Header() {
           </div>
         </div>
 
+        {/* ------------------------------------------------- onely mobile show menu 2nd page menu------------------------------- */}
+        {/* ------------------------------------------------- onely mobile show menu 2nd page menu------------------------------- */}
         {mobileshowmenu && (
           <div className="mobileheader d-lg-none">
             <div className="container">
@@ -1147,11 +960,14 @@ function Header() {
 
                       <Navbar.Offcanvas
                         className="mainnavigation"
-
+                        // id="bottomNavbar-expand-lg"
+                        // aria-labelledby="bottomNavbarLabel-expand-lg"
+                        // placement="end"
 
                         id={`offcanvasNavbar-expand-lg`}
                         aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
                         placement="end"
+                      // className="navbar_top_offcanvas"
                       >
                         <Offcanvas.Header closeButton>
                           <Offcanvas.Title id="bottomNavbarLabel-expand-lg">
@@ -1262,6 +1078,8 @@ function Header() {
             </div>
           </div>
         )}
+        {/* ------------------------------------------------- onely mobile show menu 2nd page menu end ------------------------------- */}
+        {/* ------------------------------------------------- onely mobile show menu 2nd page menu end ------------------------------- */}
 
         {showcatgoryNav && (
           <Navbar
@@ -1269,6 +1087,7 @@ function Header() {
             expanded={navbartollge}
             expand="lg"
             ref={wrapper2Ref}
+            // className="navbar_top bg-white navbartop px-4pc"
             className="bottom-bar sticky-top topnavigation"
           >
             <Container fluid>
@@ -1283,11 +1102,14 @@ function Header() {
 
               <Navbar.Offcanvas
                 className="mainnavigation"
-
+                // id="bottomNavbar-expand-lg"
+                // aria-labelledby="bottomNavbarLabel-expand-lg"
+                // placement="end"
 
                 id={`offcanvasNavbar-expand-lg`}
                 aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
                 placement="end"
+              // className="navbar_top_offcanvas"
               >
                 <Offcanvas.Header closeButton>
                   <Offcanvas.Title id="bottomNavbarLabel-expand-lg">
@@ -1389,7 +1211,9 @@ function Header() {
                           categoryArr.map((category, index) => (
                             <>
                               <div
-
+                                // className="nav-link"
+                                // key={index}
+                                // onClick={() => handleCheckCategory(category)}
                                 className={`nav-link ${activeCategory == category?._id
                                   ? "active"
                                   : ""
@@ -1399,7 +1223,34 @@ function Header() {
                               >
                                 <Link to="/">{category?.name} </Link>
 
-
+                                {/* {category.checked && category.subCategoryArr &&
+                                category.subCategoryArr.length > 0 && (
+                                  <div
+                                    className="custom-dropdowns"
+                                    style={{ marginTop: -5, zIndex: -1 }}
+                                    key={index}
+                                  >
+                                    <div className="container">
+                                      <div className="custom-dropdown-inner">
+                                        <ul className="category-list">
+                                          {category.subCategoryArr &&
+                                            category.subCategoryArr.map(
+                                              (subcategory, index2) => (
+                                                <li key={index2}>
+                                                  <a
+                                                    href={`/Shop?categories=${category._id}&sub=${subcategory.slug}`}
+                                                    className="link"
+                                                  >
+                                                    {subcategory.name}
+                                                  </a>
+                                                </li>
+                                              )
+                                            )}
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                )} */}
                               </div>
                               {category.checked &&
                                 category.subCategoryArr &&
@@ -1443,7 +1294,7 @@ function Header() {
             </Container>
           </Navbar>
         )}
-      </header> */}
+      </header>
 
       <Modal show={signInModal} centered onHide={() => setSignInModal(false)}>
         <Modal.Body className="sign-in-modal custom-modal">
