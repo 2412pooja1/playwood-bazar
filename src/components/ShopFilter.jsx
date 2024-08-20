@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import Accordion from "react-bootstrap/Accordion";
+import { Accordion, Row, Col } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
@@ -135,172 +135,191 @@ function ShopFilter({ handleApplyFilter, handleClearFilter, handleClose }) {
 
   return (
     <div className="shop-filter">
-      <div className="box pb-0">
-        <div className="row">
-          <div className="col-12 mb-3 d-flex justify-content-between align-items-center">
-            <h5 className="title">Choose Filters</h5>
-            {/* <button className="btn btn-outline btn-outline-custom" style={{ fontSize: 12 }} type="button" onClick={() => { handleApplyFilter(); handleClose && handleClose() }}>
-              Apply
-            </button> */}
-            <button
-              className="clear_filter"
-              // style={{ fontSize: 12 }}
-              type="button"
-              onClick={() => {
-                navigate("/Shop");
-                handleResetStates();
-                handleClose && handleClose();
-              }}
-            >
-              Clear
-            </button>
-          </div>
-        </div>
-      </div>
+   
 
       <Accordion>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>
-            <div className="accordianHeading">Vendor Types</div>
-          </Accordion.Header>
-          <Accordion.Body>
-            <div className="box">
-              {/* <h5 className="title">User Types </h5> */}
-              {/* <div className="price-range"> */}
-              <ul className="list comm-list">
-                {usertypes &&
-                  usertypes.length > 0 &&
-                  usertypes.map((el, index) => {
-                    return (
-                      <li>
-                        <label>
-                          <div>
-                            <input
-                              type="checkbox"
-                              onChange={(e) => toggleSelected(index)}
-                              checked={isChecked(index)}
-                              className="form-check-input"
-                            />
-                          </div>
-                          <p> {el?.name} </p>
-                        </label>
-                      </li>
-                    );
-                  })}
-              </ul>
-              {/* </div> */}
-            </div>
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="1">
-          <Accordion.Header>
+        <Row className=" d-flex justify-content-center text-center align-items-center">
+          {/* <Col lg={1}></Col> */}
+          <Col md={2}>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <div className="text-center">Vendor Types</div>
+              </Accordion.Header>
+              <Accordion.Body>
+                <div className="box">
+                  {/* <h5 className="title">User Types </h5> */}
+                  {/* <div className="price-range"> */}
+                  <ul className="list comm-list">
+                    {usertypes &&
+                      usertypes.length > 0 &&
+                      usertypes.map((el, index) => {
+                        return (
+                          <li>
+                            <label>
+                              <div>
+                                <input
+                                  type="checkbox"
+                                  onChange={(e) => toggleSelected(index)}
+                                  checked={isChecked(index)}
+                                  className="form-check-input"
+                                />
+                              </div>
+                              <p> {el?.name} </p>
+                            </label>
+                          </li>
+                        );
+                      })}
+                  </ul>
+                  {/* </div> */}
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Col>
+          <Col md={2}>
             {" "}
-            <div className="accordianHeading"> Categories</div>
-          </Accordion.Header>
-          <Accordion.Body>
-            <CategoryFilter />
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="2">
-          <Accordion.Header>
-            <div className="accordianHeading">Location </div>
-          </Accordion.Header>
-          <Accordion.Body>
-            <LocationFilter />
-          </Accordion.Body>
-        </Accordion.Item>
-
-        <Accordion.Item eventKey="3">
-          <Accordion.Header>
-            <div className="accordianHeading"> Rating </div>
-          </Accordion.Header>
-          <Accordion.Body>
-            <div className="box">
-              {/* <h5 className="title">Rating </h5> */}
-              <div className="price-range" onClick={() => setValue(4)}>
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  // onChange={() => toggleSelected(el._id)}
-                  checked={returnBooleanIfChecked(4)}
-                />
-                <ReactStars
-                  edit={false}
-                  count={5}
-                  size={24}
-                  value={4}
-                  activeColor="#ffd700"
-                />{" "}
-                & Up
+            <Accordion.Item eventKey="0">
+              
+              <Accordion.Header>
+                {" "}
+                <div className="accordianHeading"> Categories</div>
+              </Accordion.Header>
+              <Accordion.Body>
+                <CategoryFilter />
+              </Accordion.Body>
+            </Accordion.Item>
+          </Col>
+          <Col md={3}>
+            <div className="row">
+              <div className="col-12 mb-3 d-flex justify-content-between align-items-center">
+                <h5 className="title">Choose Filters</h5>
+                {/* <button className="btn btn-outline btn-outline-custom" style={{ fontSize: 12 }} type="button" onClick={() => { handleApplyFilter(); handleClose && handleClose() }}>
+              Apply
+            </button> */}
+                <button
+                  className="clear_filter"
+                  // style={{ fontSize: 12 }}
+                  type="button"
+                  onClick={() => {
+                    navigate("/Shop");
+                    handleResetStates();
+                    handleClose && handleClose();
+                  }}
+                >
+                  Clear
+                </button>
+                <div className="row">
+                <div className="col-12">
+                  {/* btn btn-outline btn-outline-custom */}
+                  <button
+                    className="apply_buttn "
+                    type="button"
+                    onClick={() => {
+                      handleApplyFilter();
+                      handleClose && handleClose();
+                    }}
+                  >
+                    Apply
+                  </button>
+                </div>
               </div>
-              <div className="price-range" onClick={() => setValue(3)}>
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  // onChange={() => toggleSelected(el._id)}
-                  checked={returnBooleanIfChecked(3)}
-                />
-                <ReactStars
-                  edit={false}
-                  count={5}
-                  size={24}
-                  value={3}
-                  activeColor="#ffd700"
-                />{" "}
-                & Up
               </div>
-              <div className="price-range" onClick={() => setValue(2)}>
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  // onChange={() => toggleSelected(el._id)}
-                  checked={returnBooleanIfChecked(2)}
-                />
-                <ReactStars
-                  edit={false}
-                  count={5}
-                  size={24}
-                  value={2}
-                  activeColor="#ffd700"
-                />{" "}
-                & Up
-              </div>
-              <div className="price-range" onClick={() => setValue(1)}>
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  // onChange={() => toggleSelected(el._id)}
-                  checked={returnBooleanIfChecked(1)}
-                />
-                <ReactStars
-                  edit={false}
-                  count={5}
-                  size={24}
-                  value={1}
-                  activeColor="#ffd700"
-                />{" "}
-                & Up
-              </div>
+              
             </div>
-          </Accordion.Body>
-        </Accordion.Item>
+          </Col>
+          <Col md={2}>
+            {" "}
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <div className="accordianHeading">Location </div>
+              </Accordion.Header>
+              <Accordion.Body>
+                <LocationFilter />
+              </Accordion.Body>
+            </Accordion.Item>{" "}
+          </Col>
+
+          <Col md={2}>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <div className="accordianHeading"> Rating </div>
+              </Accordion.Header>
+              <Accordion.Body>
+                <div className="box">
+                  {/* <h5 className="title">Rating </h5> */}
+                  <div className="price-range" onClick={() => setValue(4)}>
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      // onChange={() => toggleSelected(el._id)}
+                      checked={returnBooleanIfChecked(4)}
+                    />
+                    <ReactStars
+                      edit={false}
+                      count={5}
+                      size={24}
+                      value={4}
+                      activeColor="#ffd700"
+                    />{" "}
+                    & Up
+                  </div>
+                  <div className="price-range" onClick={() => setValue(3)}>
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      // onChange={() => toggleSelected(el._id)}
+                      checked={returnBooleanIfChecked(3)}
+                    />
+                    <ReactStars
+                      edit={false}
+                      count={5}
+                      size={24}
+                      value={3}
+                      activeColor="#ffd700"
+                    />{" "}
+                    & Up
+                  </div>
+                  <div className="price-range" onClick={() => setValue(2)}>
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      // onChange={() => toggleSelected(el._id)}
+                      checked={returnBooleanIfChecked(2)}
+                    />
+                    <ReactStars
+                      edit={false}
+                      count={5}
+                      size={24}
+                      value={2}
+                      activeColor="#ffd700"
+                    />{" "}
+                    & Up
+                  </div>
+                  <div className="price-range" onClick={() => setValue(1)}>
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      // onChange={() => toggleSelected(el._id)}
+                      checked={returnBooleanIfChecked(1)}
+                    />
+                    <ReactStars
+                      edit={false}
+                      count={5}
+                      size={24}
+                      value={1}
+                      activeColor="#ffd700"
+                    />{" "}
+                    & Up
+                  </div>
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Col>
+          {/* <Col lg={1}></Col> */}
+
+        </Row>
       </Accordion>
 
-      <div className="row">
-        <div className="col-12">
-          {/* btn btn-outline btn-outline-custom */}
-          <button
-            className="apply_buttn "
-            type="button"
-            onClick={() => {
-              handleApplyFilter();
-              handleClose && handleClose();
-            }}
-          >
-            Apply
-          </button>
-        </div>
-      </div>
+     
 
       {/* <LocationFilter /> */}
     </div>

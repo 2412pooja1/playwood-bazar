@@ -175,8 +175,17 @@ body {
 .heading {
   // line-height: 50px;
   font-weight: 700;
-  letter-spacing: 2px !important;
- 
+
+  &.bottom-line {
+    width: max-content;
+    margin: 0 auto;
+    padding-bottom: 1pc;
+    background-image: url("../images/decor/line.png");
+    background-repeat: no-repeat;
+    background-size: 250px;
+    background-position: center bottom;
+    font-weight: 500;
+  }
 }
 
 .title-section {
