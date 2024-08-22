@@ -5,6 +5,8 @@ import { Link, useParams } from "react-router-dom";
 import { images } from "./Utility/Images";
 import { getBlogBySlugApi } from "../services/Blog.service";
 import { generateImageUrl } from "../services/url.service";
+import "../assets/css/Blog.css"
+
 export default function BlogDetail() {
     const [blogDetails, setBlogDetails] = useState({});
     const params = useParams()
@@ -35,6 +37,9 @@ export default function BlogDetail() {
                     <div className="row">
                         <div className="col-12">
                             <div className="blog-box">
+                                <div className="header-blog-news">
+                                    <div>BLOG / NEWS</div>
+                                </div>
                                 <div className="image">
                                     <img
                                         src={generateImageUrl(blogDetails.image)}

@@ -8,6 +8,7 @@ import { getAllProducts } from "../../services/Product.service";
 import { getTicketsbyUserId } from "../../services/UserTicket.service";
 import { errorToast } from "../Utility/Toast";
 import Accordion from "react-bootstrap/Accordion";
+import "../../assets/css/help.css"
 
 export default function UserTickets() {
   let userObj = useSelector((state) => state.auth.user);
@@ -183,9 +184,9 @@ export default function UserTickets() {
           )}
 
           <div className="row d-flex mt-5 align-items-center justify-content-between"></div>
-          <div className="row justify-content-center">
+          <div className="row justify-content-center faq-container1">
             <div className="col-12 col-md-10">
-              <h4 className="yellow">FAQ</h4>
+              <h1>FAQ</h1>
             </div>
             <div className="col-12 col-md-10">
               <Accordion className="mt-3">

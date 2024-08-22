@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Table } from "react-bootstrap";
 import { BsArrowRight } from "react-icons/bs";
 import { FaArrowUp, FaHandshake } from "react-icons/fa";
 import { GiReceiveMoney } from "react-icons/gi";
@@ -9,12 +9,12 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import { LuPhoneCall } from "react-icons/lu";
-import location from '../assets/image/home/image-removebg-preview (17) 1.png'
-import grlm from '../assets/image/home/Mask Group.png'
-import grls from '../assets/image/home/Mask Group (1).png'
-import img4 from '../assets/image/home/Group 1000004263.png'
+import location from "../assets/image/home/image-removebg-preview (17) 1.png";
+import grlm from "../assets/image/home/Mask Group.png";
+import grls from "../assets/image/home/Mask Group (1).png";
+import img4 from "../assets/image/home/Group 1000004263.png";
 import banner1 from "../assets/images/banner1.png";
 import banner2 from "../assets/images/banner2.jpg";
 import banner3 from "../assets/images/banner3.jpg";
@@ -28,7 +28,7 @@ import img2 from "../assets/image/home/imgmumbai.png";
 import img3 from "../assets/image/home/imgkolkata.png";
 import img7 from "../assets/image/home/imghyderabad.png";
 import img5 from "../assets/image/home/imggujarat.png";
-import '../assets/css/home.css'
+import "../assets/css/home.css";
 import successgif from "../assets/images/verified.gif";
 import { fetchToken } from "../firebase";
 import { getForHomepage } from "../services/Advertisement.service";
@@ -47,8 +47,18 @@ import { generateImageUrl } from "../services/url.service";
 import { toastSuccess } from "../utils/toastutill";
 import CountdownTimer from "./Utility/CountdownTimer";
 import { errorToast } from "./Utility/Toast";
-import Ellipse from '../assets/image/home/Ellipse 27.png'
-import playbanner from '../assets/image/home/Group 1000004149.png'
+import Ellipse from "../assets/image/home/Ellipse 27.png";
+import playbanner from "../assets/image/home/Group 1000004149.png";
+import { FaPhoneVolume } from "react-icons/fa6";
+import icon1 from "../assets/image/home/images/1.png";
+import mancrp from "../assets/image/home/images/mancrp.png";
+import { IoMdMailOpen } from "react-icons/io";
+import { BiSolidMessage } from "react-icons/bi";
+import { MdThumbUp } from "react-icons/md";
+import { IoLocationSharp } from "react-icons/io5";
+import greenimg from "../assets/image/home/images/greenlam1.png";
+import "../assets/css/Blog.css"
+
 function Index() {
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
   const [categoryArr, setcategoryArr] = useState([]);
@@ -113,19 +123,7 @@ function Index() {
     }
   };
 
-  const [blogsArr, setBlogsArr] = useState([]);
-  const [blogVideoArr, setBlogVideoArr] = useState([]);
 
-  const handleGetBlogs = async () => {
-    try {
-      let { data: res } = await getBlogApi();
-      if (res.data) {
-        setBlogsArr(res.data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   function getCurrentDimension() {
     return {
@@ -145,21 +143,35 @@ function Index() {
     };
   }, [screenSize]);
 
-  const handleGetBlogVideo = async () => {
-    try {
-      let { data: res } = await getBlogVideoApi();
-      if (res.data) {
-        setBlogVideoArr(res.data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const [blogsArr, setBlogsArr] = useState([]);
+  // const [blogVideoArr, setBlogVideoArr] = useState([]);
 
-  useEffect(() => {
-    handleGetBlogs();
-    handleGetBlogVideo();
-  }, []);
+  // const handleGetBlogs = async () => {
+  //   try {
+  //     let { data: res } = await getBlogApi();
+  //     if (res.data) {
+  //       setBlogsArr(res.data);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // const handleGetBlogVideo = async () => {
+  //   try {
+  //     let { data: res } = await getBlogVideoApi();
+  //     if (res.data) {
+  //       setBlogVideoArr(res.data);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   handleGetBlogs();
+  //   handleGetBlogVideo();
+  // }, []);
 
   const navigate = useNavigate();
 
@@ -211,8 +223,9 @@ function Index() {
     try {
       let date = new Date();
       date.setDate(date.getDate() - 1);
-      let enddate = `${date.getFullYear()}-${(date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1)
-        }-${(date.getDate() + 1 < 10 ? "0" : "") + date.getDate()}`;
+      let enddate = `${date.getFullYear()}-${
+        (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1)
+      }-${(date.getDate() + 1 < 10 ? "0" : "") + date.getDate()}`;
       let { data: res } = await getAllFlashSales("endDate=" + enddate);
       if (res.data) {
         // console.log(res.data, "flash sales");
@@ -405,6 +418,44 @@ function Index() {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
+
+  const [blogsArr, setBlogsArr] = useState([]);
+  const [showBlogs, setShowBlogs] = useState(true);
+  const [blogVideoArr, setBlogVideoArr] = useState([]);
+
+  const handleGetBlogs = async () => {
+      try {
+          let { data: res } = await getBlogApi();
+          if (res.data) {
+              setBlogsArr(res.data);
+          }
+      }
+      catch (err) {
+          console.log(err)
+      }
+  }
+
+
+  const handleGetBlogVideo = async () => {
+      try {
+          let { data: res } = await getBlogVideoApi();
+          if (res.data) {
+              setBlogVideoArr(res.data);
+          }
+      }
+      catch (err) {
+          console.log(err)
+      }
+  }
+
+
+  useEffect(() => {
+      handleGetBlogs()
+      handleGetBlogVideo()
+  }, [])
+
+
   return (
     <main>
       <section className="mb-80">
@@ -439,14 +490,10 @@ function Index() {
       </section>
 
       <section className="category mb-80">
-
-
-
         <Container fluid className="categoriesback p-5">
           <div className="container">
             <div className="title-section with-btn mb-5">
               <h1 className="heading "> Categories</h1>
-
             </div>
           </div>
           <Row>
@@ -472,7 +519,7 @@ function Index() {
                 },
                 1400: {
                   slidesPerView: 8,
-                }
+                },
               }}
               navigation={{
                 nextEl: ".swiper-button-next",
@@ -482,8 +529,9 @@ function Index() {
               <div>
                 {categoryArr &&
                   categoryArr
-                    .filter((el, index) =>
-                      index <= (isDisplayingAll ? categoryArr.length - 1 : 5)
+                    .filter(
+                      (el, index) =>
+                        index <= (isDisplayingAll ? categoryArr.length - 1 : 5)
                     )
                     .map((item, index) => (
                       <SwiperSlide key={index}>
@@ -506,60 +554,182 @@ function Index() {
               {/* <div className="swiper-button-prev"></div> */}
             </Swiper>
           </Row>
-
         </Container>
       </section>
-      <section>
+
+      {/* <section>
         <Container fluid>
           <div className="container">
             <div className="title-section mb-5">
-              <h1 className="heading text-start ">
-                Products May You Like
-              </h1>
-
+              <h1 className="heading text-start ">Products May You Like</h1>
             </div>
           </div>
           <Row className="d-flex  justify-content-center ">
-            <Col lg={2} xs={5} className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0">
+            <Col
+              lg={2}
+              xs={5}
+              className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0"
+            >
               <img src={grlm} alt="" className=" img-fluid" />
-              <div className=" d-flex justify-content-center">< LuPhoneCall className="phn rounded-circle p-2 " /></div>
-              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
-              <p className="text-center"><img src={location} alt="" />Chennai</p>
               <div className=" d-flex justify-content-center">
-                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">1 Get Deal</button></div>
+                <LuPhoneCall className="phn rounded-circle p-2 " />
+              </div>
+              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
+              <p className="text-center">
+                <img src={location} alt="" />
+                Chennai
+              </p>
+              <div className=" d-flex justify-content-center">
+                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
+                  1 Get Deal
+                </button>
+              </div>
             </Col>
-            <Col lg={2} xs={5} className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0">
+            <Col
+              lg={2}
+              xs={5}
+              className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0"
+            >
               <img src={grlm} alt="" className=" img-fluid" />
-              <div className=" d-flex justify-content-center">< LuPhoneCall className="phn rounded-circle p-2 " /></div>
-              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
-              <p className="text-center"><img src={location} alt="" />Chennai</p>
               <div className=" d-flex justify-content-center">
-                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">1 Get Deal</button></div>
+                <LuPhoneCall className="phn rounded-circle p-2 " />
+              </div>
+              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
+              <p className="text-center">
+                <img src={location} alt="" />
+                Chennai
+              </p>
+              <div className=" d-flex justify-content-center">
+                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
+                  1 Get Deal
+                </button>
+              </div>
             </Col>
-            <Col lg={2} xs={5} className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0">
+            <Col
+              lg={2}
+              xs={5}
+              className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0"
+            >
               <img src={grlm} alt="" className=" img-fluid" />
-              <div className=" d-flex justify-content-center">< LuPhoneCall className="phn rounded-circle p-2 " /></div>
-              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
-              <p className="text-center"><img src={location} alt="" />Chennai</p>
               <div className=" d-flex justify-content-center">
-                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">1 Get Deal</button></div>
+                <LuPhoneCall className="phn rounded-circle p-2 " />
+              </div>
+              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
+              <p className="text-center">
+                <img src={location} alt="" />
+                Chennai
+              </p>
+              <div className=" d-flex justify-content-center">
+                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
+                  1 Get Deal
+                </button>
+              </div>
             </Col>
-            <Col lg={2} xs={5} className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0">
+            <Col
+              lg={2}
+              xs={5}
+              className="prdcrd d-grid align-items-center justify-content-center mx-lg-3 mx-0 mt-5 mt-lg-0 px-0"
+            >
               <img src={grlm} alt="" className=" img-fluid" />
-              <div className=" d-flex justify-content-center">< LuPhoneCall className="phn rounded-circle p-2 " /></div>
-              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
-              <p className="text-center"><img src={location} alt="" />Chennai</p>
               <div className=" d-flex justify-content-center">
-                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">1 Get Deal</button></div>
+                <LuPhoneCall className="phn rounded-circle p-2 " />
+              </div>
+              <h4 className=" text-center fw-bolder">Greenlam Laminates</h4>
+              <p className="text-center">
+                <img src={location} alt="" />
+                Chennai
+              </p>
+              <div className=" d-flex justify-content-center">
+                <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
+                  1 Get Deal
+                </button>
+              </div>
             </Col>
           </Row>
           <div className="d-flex  justify-content-center mt-5">
-            <button className=" border-0 rounded-5 px-4 py-3 vvall text-white fw-bold fs-5">View All</button>
+            <button className=" border-0 rounded-5 px-4 py-3 vvall text-white fw-bold fs-5">
+              View All
+            </button>
           </div>
         </Container>
+      </section> */}
 
+      <section>
+        <Container className="product-container-section">
+          <h1 className="heading text-center">Products May You Like</h1>
+          <Row>
+            <Col className="d-flex justify-content-center align-items-center py-4" xxl={3} xl={3} lg={6} md={6} sm={6} xs={6}>
+              <div className="box_Product1">
+                <img src={greenimg} alt="" />
+                <span className="icn_Product">
+                  <LuPhoneCall />
+                </span>
+                <div className="product_icn_text">
+                  <span className="green-1">Greenlam Laminates</span>
+                  <span className="chennai">
+                    <IoLocationSharp /> Chennai
+                  </span>
+                  <span className="Rs-1">₹3360</span>
+                </div>
+                <button>1 Get Deal</button>
+              </div>
+            </Col>
+            <Col className="d-flex justify-content-center align-items-center py-4" xxl={3} xl={3} lg={6} md={6} sm={6} xs={6}>
+              <div className="box_Product1">
+                <img src={greenimg} alt="" />
+                <span className="icn_Product">
+                  <LuPhoneCall />
+                </span>
+                <div className="product_icn_text">
+                  <span className="green-1">Greenlam Laminates</span>
+                  <span className="chennai">
+                    <IoLocationSharp /> Chennai
+                  </span>
+                  <span className="Rs-1">₹3360</span>
+                </div>
+                <button>1 Get Deal</button>
+              </div>
+            </Col>
+            <Col className="d-flex justify-content-center align-items-center py-4" xxl={3} xl={3} lg={6} md={6} sm={6} xs={6}>
+              <div className="box_Product1">
+                <img src={greenimg} alt="" />
+                <span className="icn_Product">
+                  <LuPhoneCall />
+                </span>
+                <div className="product_icn_text">
+                  <span className="green-1">Greenlam Laminates</span>
+                  <span className="chennai">
+                    <IoLocationSharp /> Chennai
+                  </span>
+                  <span className="Rs-1">₹3360</span>
+                </div>
+                <button>1 Get Deal</button>
+              </div>
+            </Col>
+            <Col className="d-flex justify-content-center align-items-center py-4" xxl={3} xl={3} lg={6} md={6} sm={6} xs={6}>
+              <div className="box_Product1">
+                <img src={greenimg} alt="" />
+                <span className="icn_Product">
+                  <LuPhoneCall />
+                </span>
+                <div className="product_icn_text">
+                  <span className="green-1">Greenlam Laminates</span>
+                  <span className="chennai">
+                    <IoLocationSharp /> Chennai
+                  </span>
+                  <span className="Rs-1">₹3360</span>
+                </div>
+                <button>1 Get Deal</button>
+              </div>
+            </Col>
+          </Row>
+          <div className="d-flex justify-content-center align-items-center mt-3">
+            <button className="border-0 rounded-5 px-4 py-3 vvall text-white fw-bold fs-5" style={{backgroundColor:"rgba(96, 50, 0, 1)"}}>
+              View All
+            </button>
+          </div>
+        </Container>
       </section>
-
 
       <section className=" mt-5 ">
         <Container className=" mt-5 ">
@@ -589,7 +759,9 @@ function Index() {
                             </div>
                             <h6 className="fs-6">{el.message}</h6>
                             <button
-                              onClick={() => navigate(`/ShopDetail/${el?.productSlug}`)}
+                              onClick={() =>
+                                navigate(`/ShopDetail/${el?.productSlug}`)
+                              }
                               className="newprdbtn py-2 text-white"
                             >
                               Get Quotes
@@ -603,110 +775,147 @@ function Index() {
                 {/* Add Products Button on the Last Slide */}
                 <SwiperSlide>
                   <div className="addfrmmain">
-                    <Link
-                      to="/AddPromotions"
-                      className="addfrm p-2"
-                    >
+                    <Link to="/AddPromotions" className="addfrm p-2">
                       +
                     </Link>
                   </div>
                 </SwiperSlide>
               </Swiper>
-
-
             </Col>
-            <Col lg={3} className="  d-lg-flex d-none align-items-center " onClick={() => navigate('/AddPromotions')}>
-              <div className=" newprdround fs-1  text-white rounded-circle p-3 text-center  ">New Arrivals</div>
+            <Col
+              lg={3}
+              className="  d-lg-flex d-none align-items-center "
+              onClick={() => navigate("/AddPromotions")}
+            >
+              <div className=" newprdround fs-1  text-white rounded-circle p-3 text-center  ">
+                New Arrivals
+              </div>
             </Col>
           </Row>
         </Container>
       </section>
+
       <section>
-        <div className="main_Profiles">
-          <div class="emp_Profiles  col-md-6 col-lg-3 mb-5 mb-lg-0">
-            <div className="Profile_cards">
-              <img className="Profile_icn" src={Ellipse} alt="ellipse" />
-              <p className="profile_text  fs-4 fw-bold">
-                Keshav Enterprises <br />
-                <span className="fs-6">
-                  Product <span className="fw-light">_N.A</span>
-                </span>
-              </p>
-              <div className="Profile_bottom mt-3">
-                <p className="m-5">Rating - 4.5</p>
-                <a
-                  className="Profile_bottom_icn btn-social rounded-circle mx-1 "
-                  href=""
-                >
-                  <LuPhoneCall />
-                </a>
+        <Container className="main_Profiles my-5">
+          <h1 className="text-center mb-4">Top profiles</h1>
+          <Row>
+            <Col
+              className="d-flex justify-content-center align-items-center py-4"
+              xxl={3}
+              xl={6}
+              lg={6}
+              md={6}
+              sm={6}
+              xs={6}
+            >
+              <div className="component-container1">
+                <img src={icon1} alt="" className="img" />
+                <div className="sub-container1">
+                  <span className="p1">Keshav Enterprise</span>
+                  <span className="p2">
+                    Product - <span>N.A</span>
+                  </span>
+                </div>
+                <div className="sub-container2">
+                  <span className="p3">Rating - 4.5</span>
+                  <span className="phone-icon">
+                    <FaPhoneVolume />
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className="Profile_cards">
-              <img className="Profile_icn " src={Ellipse} alt="ellipse" />
-              <p className="profile_text  fs-4 fw-bold">
-                Keshav Enterprises <br />
-                <span className="fs-6">
-                  Product <span className="fw-light">_N.A</span>
-                </span>
-              </p>
-              <div className="Profile_bottom mt-3">
-                <p className="m-5">Rating - 4.5</p>
-                <a
-                  className="Profile_bottom_icn btn-social rounded-circle mx-1 "
-                  href=""
-                >
-                  <LuPhoneCall />
-                </a>
+            </Col>
+            <Col
+              className="d-flex justify-content-center align-items-center py-4"
+              xxl={3}
+              xl={6}
+              lg={6}
+              md={6}
+              sm={6}
+              xs={6}
+            >
+              <div className="component-container1">
+                <img src={icon1} alt="" className="img" />
+                <div className="sub-container1">
+                  <span className="p1">Keshav Enterprise</span>
+                  <span className="p2">
+                    Product - <span>N.A</span>
+                  </span>
+                </div>
+                <div className="sub-container2">
+                  <span className="p3">Rating - 4.5</span>
+                  <span className="phone-icon">
+                    <FaPhoneVolume />
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className="Profile_cards">
-              <img className="Profile_icn" src={Ellipse} alt="ellipse" />
-              <p className="profile_text  fs-4 fw-bold">
-                Keshav Enterprises <br />
-                <span className="fs-6">
-                  Product <span className="fw-light">_N.A</span>
-                </span>
-              </p>
-              <div className="Profile_bottom mt-3">
-                <p className="m-5">Rating - 4.5</p>
-                <a
-                  className="Profile_bottom_icn btn-social rounded-circle mx-1  "
-                  href=""
-                >
-                  <LuPhoneCall />
-                </a>
+            </Col>
+            <Col
+              className="d-flex justify-content-center align-items-center py-4"
+              xxl={3}
+              xl={6}
+              lg={6}
+              md={6}
+              sm={6}
+              xs={6}
+            >
+              <div className="component-container1">
+                <img src={icon1} alt="" className="img" />
+                <div className="sub-container1">
+                  <span className="p1">Keshav Enterprise</span>
+                  <span className="p2">
+                    Product - <span>N.A</span>
+                  </span>
+                </div>
+                <div className="sub-container2">
+                  <span className="p3">Rating - 4.5</span>
+                  <span className="phone-icon">
+                    <FaPhoneVolume />
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className="Profile_cards">
-              <img className="Profile_icn" src={Ellipse} alt="ellipse" />
-              <p className="profile_text  fs-4 fw-bold">
-                Keshav Enterprises <br />
-                <span className="fs-6">
-                  Product <span className="fw-light">_N.A</span>
-                </span>
-              </p>
-              <div className="Profile_bottom mt-3 d-flex d-inline-flex align-items-center justify-content-end">
-                <p className="m-5">Rating - 4.5</p>
-                <a
-                  className="Profile_bottom_icn btn-social rounded-circle mx-1 "
-                  href=""
-                >
-                  <LuPhoneCall />
-                </a>
+            </Col>
+            <Col
+              className="d-flex justify-content-center align-items-center py-4"
+              xxl={3}
+              xl={6}
+              lg={6}
+              md={6}
+              sm={6}
+              xs={6}
+            >
+              <div className="component-container1">
+                <img src={icon1} alt="" className="img" />
+                <div className="sub-container1">
+                  <span className="p1">Keshav Enterprise</span>
+                  <span className="p2">
+                    Product - <span>N.A</span>
+                  </span>
+                </div>
+                <div className="sub-container2">
+                  <span className="p3">Rating - 4.5</span>
+                  <span className="phone-icon">
+                    <FaPhoneVolume />
+                  </span>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </section>
+
       {flashSalesArr && flashSalesArr.length > 0 && (
         <section className=" mt-5 ">
           <Container className=" mt-5 ">
             <Row className=" flashpeoductback d-lg-flex  justify-content-center ">
-              <Col lg={3} xs={8} className="  d-lg-flex  justify-content-center align-items-center " onClick={() => navigate('/AddPromotions')}>
-                <img src={img4} className=" img-fluid " alt="" />            </Col>
+              <Col
+                lg={3}
+                xs={8}
+                className="  d-lg-flex  justify-content-center align-items-center "
+                onClick={() => navigate("/AddPromotions")}
+              >
+                <img src={img4} className=" img-fluid " alt="" />{" "}
+              </Col>
               <Col lg={9} xs={12} className="newprdrw">
-
                 <Swiper
                   modules={[Autoplay]}
                   spaceBetween={5}
@@ -730,17 +939,17 @@ function Index() {
                                 />
                                 <div className="overlyasper"></div>
                               </Link>
-
-
                             </div>
-                            <div className="d-flex justify-content-center"
+                            <div
+                              className="d-flex justify-content-center"
                               onClick={() => {
                                 currentUserHasActiveSubscription
                                   ? window.alert(
-                                    `${el?.userId?.companyObj?.phone}`
-                                  )
+                                      `${el?.userId?.companyObj?.phone}`
+                                    )
                                   : errorToast("Take subscription");
-                              }}>
+                              }}
+                            >
                               <LuPhoneCall className="phn rounded-circle p-2" />
                             </div>
                             <div className="d-flex justify-content-center">
@@ -768,9 +977,7 @@ function Index() {
                                 </span>
                               </h6>
                               <h6 className="new">
-                                <span className="prize">
-                                  ₹{el?.salePrice}
-                                </span>
+                                <span className="prize">₹{el?.salePrice}</span>
                                 <span className="small text-muted">
                                   {el.pricetype
                                     ? "/ " + el.pricetype
@@ -779,7 +986,9 @@ function Index() {
                               </h6>
                             </div>
                             <button
-                              onClick={() => navigate(`/ShopDetail/${el?.productId?.slug}`)}
+                              onClick={() =>
+                                navigate(`/ShopDetail/${el?.productId?.slug}`)
+                              }
                               className="newprdbtn py-2 text-white"
                             >
                               Get Quotes
@@ -790,18 +999,13 @@ function Index() {
                     })}
                   <SwiperSlide>
                     <div className="addfrmmain">
-                      <Link
-                        to="/AddPromotions"
-                        className="addfrm p-2"
-                      >
+                      <Link to="/AddPromotions" className="addfrm p-2">
                         +
                       </Link>
                     </div>
                   </SwiperSlide>
                 </Swiper>
-
               </Col>
-
             </Row>
           </Container>
         </section>
@@ -930,21 +1134,19 @@ function Index() {
           </div>
         </section>
       )} */}
+
+
       {/* states */}
+
       <section>
         <img src={playbanner} className=" img-fluid  " alt="" />
       </section>
-
 
       <section style={{ backgroundColor: "#F5F1E8" }}>
         <p className="text-center fw-bold m-3" style={{ fontSize: "55px" }}>
           States
         </p>
-        <Container
-          fluid
-          className=" px-5 text-center fw-bold"
-
-        >
+        <Container fluid className=" px-5 text-center fw-bold">
           <Swiper
             modules={[Autoplay]}
             spaceBetween={5}
@@ -958,17 +1160,21 @@ function Index() {
             {cities.map((city, index) => (
               <SwiperSlide key={index}>
                 <div>
-                  <img src={city.imgSrc} className=" img-fluid" alt={city.name} />
+                  <img
+                    src={city.imgSrc}
+                    className=" img-fluid"
+                    alt={city.name}
+                  />
                   <p className="text-center">{city.name}</p>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
         </Container>
-
       </section>
 
-      <div className="blog-main-container-1 d-flex flex-wrap flex-column align-items-center gap-5 my-5">
+
+      {/* <div className="blog-main-container-1 d-flex flex-wrap flex-column align-items-center gap-5 my-5">
         <div className="tabs">
           <div
             className={`tab ${activeTab === "blog" ? "active" : ""}`}
@@ -987,7 +1193,7 @@ function Index() {
           <Row className="sub_blog  flex-md-row mx-3">
             <Col>
               <div className="sub-div1">
-                {/* <img src={Blog1} alt="" /> */}
+                <img src={Blog1} alt="" />
                 <div>
                   {" "}
                   <p>
@@ -1001,17 +1207,17 @@ function Index() {
             </Col>
             <Col>
               <div className="sub-div2">
-                {/* <img src={Blog2} alt="" /> */}
+                <img src={Blog2} alt="" />
                 <p>
-                  Why Should Plywood <br /> Businesses Choose Our <br /> Platform
-                  for Registration? <br />
+                  Why Should Plywood <br /> Businesses Choose Our <br />{" "}
+                  Platform for Registration? <br />
                   <span>Are you a part of the booming p</span>
                 </p>
                 <button className="blog_btn">Read more</button>
               </div>
             </Col>
           </Row>
-          {/* <Row className="second_row d-flex flex-wrap mx-3">
+          <Row className="second_row d-flex flex-wrap mx-3">
             <Col>
               <iframe
                 className="sub-div3"
@@ -1038,10 +1244,11 @@ function Index() {
                 allowfullscreen
               ></iframe>
             </Col>
-          </Row> */}
+          </Row>
         </section>
-      </div>
-      <section className="ptb-80 px-4pc">
+      </div> */}
+
+      {/* <section className="ptb-80 px-4pc">
         <div className="container">
           <div className="title-section with-btn mb-5">
             <h1 className="heading bottom-line brown">Our Blogs</h1>
@@ -1063,13 +1270,12 @@ function Index() {
                   <SwiperSlide key={index}>
                     <Col>
                       <div className="sub-div1">
-                        <img src={generateImageUrl(el.image)}
-                          alt="" />
+                        <img src={generateImageUrl(el.image)} alt="" />
                         <div>
                           {" "}
                           <p>
-                            Why Should Plywood <br /> Businesses Choose Our <br />{" "}
-                            Platform for Registration? <br />
+                            Why Should Plywood <br /> Businesses Choose Our{" "}
+                            <br /> Platform for Registration? <br />
                             <span>Are you a part of the booming p</span>
                           </p>
                           <button className=" blog_btn ">Read more</button>
@@ -1106,8 +1312,9 @@ function Index() {
               })}
           </Swiper>
         </div>
-      </section>
-      <section className=" gray-bg mb-80  ptb-80 px-4pc">
+      </section> */}
+
+      {/* <section className=" gray-bg mb-80  ptb-80 px-4pc">
         <div className="container">
           <div className="title-section with-btn mb-5">
             <h1 className="heading bottom-line brown">Our Videos</h1>
@@ -1141,9 +1348,93 @@ function Index() {
               })}
           </Swiper>
         </div>
-      </section>
+      </section> */}
 
-      <section className="ptb-80 contact-us">
+
+
+      
+        <Container fluid className="main-blog">
+            <div className="blog2 new_blog2 blog_container top-banner ptb-80">
+                <div className="container-fluid d-flex justify-content-center align-items-center">
+                    <div className="row overlayflowscroll">
+                        <div className={`tab col-lg-2 col-12 ${showBlogs == true ? "active-tab" : "in-active"}`} onClick={() => setShowBlogs(true)}>
+                            <div className="blog2_heading">
+                                News
+                            </div>
+                        </div>
+                        &nbsp;
+                        <div className={`tab col-lg-2 col-12 ${showBlogs == false ? "active-tab" : "in-active"}`} onClick={() => setShowBlogs(false)}>
+                            <div className="blog2_heading">
+                                Video
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="blog2 new_blog2 blog_container ">
+                <div className="container-fluid">
+                    {
+                        showBlogs ?
+                            <div className="row news-1">
+                                {
+                                    blogsArr && blogsArr.length > 0 && blogsArr.map((el, index) => {
+                                        return (
+                                            <div key={index} className="col-xxl-3 col-xl-6 col-lg-6 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center align-items-center">
+                                                <div className="blog_listing">
+                                                    <div className="blog_listing_img">
+                                                        <img src={generateImageUrl(el.image)} alt="" className="img-fluid blogImage" />
+                                                    </div>
+                                                    <div className="list_content_blog">
+                                                        <h6>{el?.name}</h6>
+                                                        {/* <h4> How to Secure Your Ecommerce Website from Cyberattacks</h4> */}
+                                                        <div dangerouslySetInnerHTML={{ __html: el?.description.slice(0, 100) }}></div>
+                                                        <Link to={`/blog-detail/${el._id}`} className="btn blog_readmore">Read More <BsArrowRight className="blog_arrow" /></Link>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+
+                            </div>
+                            :
+                            <div className="row video-2">
+                                {
+                                    blogVideoArr && blogVideoArr.length > 0 && blogVideoArr.map((el, index) => {
+                                        return (
+                                            <div key={index} className="col-xxl-4 col-xl-6 col-lg-6 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center align-items-center">
+                                                <div className="blog_listing">
+                                                    <div className="blog_listing_img">
+                                                        {/* {el.url} */}
+                                                        {
+                                                            el.url && el.url.includes("http") &&
+                                                            <iframe src={(el.url)} allowFullScreen frameborder="0" className="img-fluid blogImage"></iframe>
+                                                        }
+                                                        {/* <img src={generateImageUrl(el.image)} alt="" className="img-fluid blogImage" /> */}
+                                                    </div>
+                                                    {/* <div className="list_content_blog">
+                                                        <h6>{el?.name}</h6>
+                                                        <div dangerouslySetInnerHTML={{ __html: el?.description.slice(0, 100) }}></div>
+                                                        <Link to={`/blog-detail/${el._id}`} className="btn blog_readmore">Read More <BsArrowRight className="blog_arrow" /></Link>
+                                                    </div> */}
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+
+                            </div>
+
+                    }
+                </div>
+            </div>
+        </Container>
+      
+
+
+
+      {/* <section className="ptb-80 contact-us">
         <div className="container">
           <div className="row gx-lg-5">
             <div className="col-12 col-md-6">
@@ -1229,7 +1520,116 @@ function Index() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+
+      <Container fluid className="custom-container">
+        <Row className="custom-container-row">
+          <Col className="main_col_1">
+            <div className="main_conatiner">
+              <h1 className="fw-bold">
+                Get Free Quotes From Multiple Sellers{" "}
+              </h1>
+              <div className="custom-leftSection">
+                <div className="steps">
+                  <div className="step">
+                    <div className="icon-box">
+                      <IoMdMailOpen />
+                    </div>
+                    <div className="para1">
+                      Tell Us What <br /> You Need
+                    </div>
+                  </div>
+                  <div className="step">
+                    <div className="icon-box">
+                      <BiSolidMessage />
+                    </div>
+                    <div className="para1">
+                      Receive Free <br /> Quotes From <br /> Sellers
+                    </div>
+                  </div>
+                  <div className="step">
+                    <div className="icon-box">
+                      <MdThumbUp />
+                    </div>
+                    <div className="para1">
+                      Seal The <br /> Deal
+                    </div>
+                  </div>
+                </div>
+                <img className="Man-image" src={mancrp} alt="" />
+              </div>
+            </div>
+          </Col>
+          <Col className="main_col_2">
+            <Table className="custom-form">
+              <Col className="col_1">
+                <h2 className="right-h2">TELL US YOUR REQUIREMENT</h2>
+              </Col>
+              <Col className="col_2">
+                <div className="custom-form-input-container">
+                  <Form.Group
+                    controlId="formName"
+                    className="custom-input-group"
+                  >
+                    <Form.Control
+                      type="text"
+                      placeholder="Name*"
+                      className="custom-input"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    controlId="formMobile"
+                    className="custom-input-group"
+                  >
+                    <Form.Control
+                      type="tel"
+                      placeholder="Mobile No.*"
+                      className="custom-input"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    controlId="formAddress"
+                    className="custom-input-group"
+                  >
+                    <Form.Control
+                      type="text"
+                      placeholder="Address*"
+                      className="custom-input"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    controlId="formProduct"
+                    className="custom-input-group"
+                  >
+                    <Form.Control
+                      type="text"
+                      placeholder="Product / Service*"
+                      className="custom-input"
+                      value={productName}
+                      onChange={(e) => setProductName(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+              </Col>
+              <Col className="col_3">
+                <Button
+                  type="submit"
+                  className="submit-button"
+                  onClick={(e) => handleSubmitRequirement(e)}
+                >
+                  SUBMIT
+                </Button>
+              </Col>
+            </Table>
+          </Col>
+        </Row>
+      </Container>
 
       <Modal show={signInModal} centered onHide={() => setSignInModal(false)}>
         <Modal.Body className="sign-in-modal custom-modal">

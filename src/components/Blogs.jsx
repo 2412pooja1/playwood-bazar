@@ -8,10 +8,11 @@ import { getBlogApi } from '../services/Blog.service';
 import { generateImageUrl } from '../services/url.service';
 import PageBanner from './Utility/PageBanner';
 import { getBlogVideoApi } from '../services/BlogVideo.service';
+import "../assets/css/Blog.css"
 
 export default function Blogs() {
     const [blogsArr, setBlogsArr] = useState([]);
-    const [showBlogs, setShowBlogs] = useState(false);
+    const [showBlogs, setShowBlogs] = useState(true);
     const [blogVideoArr, setBlogVideoArr] = useState([]);
 
     const handleGetBlogs = async () => {
@@ -74,17 +75,17 @@ export default function Blogs() {
             <PageBanner img={images.top_banner} title="We connect Buyers & Sellers" desp="Plywood bazar is India's largest online B2B marketplace, connecting buyers with suppliers." className="mx-0" />
 
             <div className="blog2 new_blog2 blog_container top-banner ptb-80">
-                <div className="container-fluid">
+                <div className="container-fluid d-flex justify-content-center align-items-center">
                     <div className="row overlayflowscroll">
-                        <div className={`col-lg-2 col-12 ${showBlogs == true ? "active-tab" : "in-active"}`} onClick={() => setShowBlogs(true)}>
+                        <div className={`tab col-lg-2 col-12 ${showBlogs == true ? "active-tab" : "in-active"}`} onClick={() => setShowBlogs(true)}>
                             <div className="blog2_heading">
-                                <h3>News</h3>
+                                News
                             </div>
                         </div>
                         &nbsp;
-                        <div className={`col-lg-2 col-12 ${showBlogs == false ? "active-tab" : "in-active"}`} onClick={() => setShowBlogs(false)}>
+                        <div className={`tab col-lg-2 col-12 ${showBlogs == false ? "active-tab" : "in-active"}`} onClick={() => setShowBlogs(false)}>
                             <div className="blog2_heading">
-                                <h3>Videos</h3>
+                                Video
                             </div>
                         </div>
                     </div>
@@ -97,11 +98,11 @@ export default function Blogs() {
                 <div className="container-fluid">
                     {
                         showBlogs ?
-                            <div className="row">
+                            <div className="row news-1">
                                 {
                                     blogsArr && blogsArr.length > 0 && blogsArr.map((el, index) => {
                                         return (
-                                            <div key={index} className="col-lg-4 col-sm-6 col-md-6">
+                                            <div key={index} className="col-xxl-3 col-xl-6 col-lg-6 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center align-items-center">
                                                 <div className="blog_listing">
                                                     <div className="blog_listing_img">
                                                         <img src={generateImageUrl(el.image)} alt="" className="img-fluid blogImage" />
@@ -120,11 +121,11 @@ export default function Blogs() {
 
                             </div>
                             :
-                            <div className="row">
+                            <div className="row video-2">
                                 {
                                     blogVideoArr && blogVideoArr.length > 0 && blogVideoArr.map((el, index) => {
                                         return (
-                                            <div key={index} className="col-lg-4 col-sm-6 col-md-6">
+                                            <div key={index} className="col-xxl-4 col-xl-6 col-lg-6 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center align-items-center">
                                                 <div className="blog_listing">
                                                     <div className="blog_listing_img">
                                                         {/* {el.url} */}
@@ -462,10 +463,10 @@ export default function Blogs() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
 
-            <section className="banner mb-80">
+            {/* <section className="banner mb-80">
                 <div className="container">
                     <div className="outer-box">
                         <div className="row justify-content-between gx-5">
