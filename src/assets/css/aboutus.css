@@ -32,7 +32,31 @@
     align-items: center;
     justify-content: center;
 }
+.AboutUS_Header1 .Header_text h1{
+    
+    font-size: 3.5rem;
+    font-weight: 600;
+}
+.AboutUS_Header1 .Header_text p{
+    text-align: justify;  
+}
 
+
+@media (max-width: 480px) {
+    .AboutUS_Header1 .Header_text h1{
+        font-size: 2rem;
+        font-weight: 600;
+        padding: 2vmi;
+    }
+  }
+  
+ 
+  @media (min-width: 768px) {
+    .AboutUS_Header1 .Header_text h1{
+        font-size: 3rem;
+        font-weight: 600;
+    }
+  }
 
 
 

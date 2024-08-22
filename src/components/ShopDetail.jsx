@@ -19,6 +19,8 @@ import { generateImageUrl } from "../services/url.service";
 import { toastError, toastSuccess } from "../utils/toastutill";
 import { images } from "./Utility/Images";
 import { errorToast, successToast } from "./Utility/Toast";
+import star from '../assets/image/home/images/star.png'
+import { Row, Col, Container, Form, Button, Table } from "react-bootstrap";
 
 function ShopDetail() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -44,24 +46,24 @@ function ShopDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [productObj, setproductObj] = useState("");
-const [imagearray, setImagearray] = useState([]);
+  const [imagearray, setImagearray] = useState([]);
   const [similarProductArr, setSimilarProductArr] = useState([]);
-  
-  
+
+
   const handleGetProductBySlug = async (slug) => {
     try {
       let { data: res } = await getProductById(slug);
       console.log(res.data, "product obj")
       setproductObj(res.data);
       setBigImg(generateImageUrl(res.data.mainImage));
-      let imagArr =[];
-      if(res.data.mainImage){
+      let imagArr = [];
+      if (res.data.mainImage) {
         imagArr.push({
-          image:res.data.mainImage
+          image: res.data.mainImage
         })
       }
-      if(res.data.imageArr && res.data.imageArr?.length > 0){
-        setImagearray([...imagArr,...res.data.imageArr])
+      if (res.data.imageArr && res.data.imageArr?.length > 0) {
+        setImagearray([...imagArr, ...res.data.imageArr])
       }
       handleGetProductReview(res.data?._id);
       handleGetSimilarProduct(res.data.categoryId);
@@ -257,7 +259,7 @@ const [imagearray, setImagearray] = useState([]);
 
   return (
     <main>
-      <section className="product-page mb-80 mt-5">
+      <section className="product-page mb-80 mt-5 py-5" >
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-lg-4">
@@ -269,25 +271,25 @@ const [imagearray, setImagearray] = useState([]);
                   {imagearray &&
                     imagearray.map((item, i) => {
                       return (
-                        
-                          item?.image &&  item.image != '' && (
-                            <li key={i} onClick={() => setBigImg(generateImageUrl(item.image))}>
-                          <img src={generateImageUrl(item.image)} alt="" />
-                        </li>
-                          )
-                        
-                        
+
+                        item?.image && item.image != '' && (
+                          <li key={i} onClick={() => setBigImg(generateImageUrl(item.image))}>
+                            {/* <img src={generateImageUrl(item.image)} alt="" /> */}
+                          </li>
+                        )
+
+
                       );
                     })}
                 </ul>
               </div>
             </div>
-            <div className="col-12 col-lg-5">
-              <div className="mid">
+            <div className="col-12 col-lg-5  d-flex flex-column align-items-center justify-content-center">
+              <div className="mid d-flex flex-column align-items-center justify-content-center bg-light">
                 <h2 className="heading line-height-normal title">{productObj?.name}</h2>
-                <ul className="info">
+                <ul className="info text-dark">
                   {productObj && productObj?.brandObj && (
-                    <li>
+                    <li className="">
                       Brand <span className="text-dark">{productObj?.brandObj?.name}</span>
                     </li>
                   )}
@@ -322,17 +324,17 @@ const [imagearray, setImagearray] = useState([]);
                     {/* <p>{productObj?.shortDescription}</p> */}
                   </div>
                 )}
-                <div className="btns">
+                <div className=" pt-3 ">
                   {isPriceVisible ? (
-                    <div className="btn btn-custom btn-brown rounded-1"> {`INR ${productObj?.sellingprice}`}</div>
+                    <div className="btn btn-custom  rounded-1 "> {`INR ${productObj?.sellingprice}`}</div>
                   ) : (
-                    <button onClick={() => currentUserHasActiveSubscription ? setIsPriceVisible(true) : errorToast("You do not have a valid subscription to perform this action")} className="btn btn-custom btn-brown rounded-1">
+                    <button onClick={() => currentUserHasActiveSubscription ? setIsPriceVisible(true) : errorToast("You do not have a valid subscription to perform this action")} className="btn btn-custom text-white  rounded-pill" style={{ background: "#603200" }}>
                       Get Latest Price
                     </button>
-                    
+
                   )}
                   {authObj?.isAuthorized && (
-                    <button onClick={() => handleCreateLead()} className="btn btn-custom btn-yellow rounded-1">
+                    <button onClick={() => handleCreateLead()} className="btn btn-custom rounded-1">
                       Contact Supplier
                     </button>
                   )}
@@ -340,8 +342,8 @@ const [imagearray, setImagearray] = useState([]);
               </div>
             </div>
             <div className="col-12 col-lg-3">
-              <div className="right">
-                <div className="d-flex justify-content-between" style={{ position: "relative" }}>
+              <div className="right bg-transparent" >
+                {/* <div className="d-flex justify-content-between" style={{ position: "relative" }}>
 
                   <h6 className="heading" onClick={() => currentUserHasActiveSubscription && navigate(`/Supplier/${productObj?.createdByObj?.userObj._id}`)}>{currentUserHasActiveSubscription ?
                     `${productObj?.createdByObj?.userObj?.companyObj?.name ?
@@ -355,8 +357,8 @@ const [imagearray, setImagearray] = useState([]);
                     productObj?.createdByObj?.userObj?.isVerified &&
                     <img style={{ height: 80, position: "absolute", right: 0 }} src={images.verified} alt="" />
                   }
-                </div>
-                <ul className="info">
+                </div> */}
+                <ul className="info d-flex flex-column bg-light">
                   <li>
                     {
                       productObj?.createdByObj?.userObj?.profileImage ? (
@@ -371,11 +373,29 @@ const [imagearray, setImagearray] = useState([]);
                           } alt="" className="img" />)
                     }
                   </li>
-                  <li className="flex-1">
-                    <p style={{ maxWidth: "75%" }}>
+                  <div className=" d-flex  align-items-center justify-content-center" style={{ position: "relative" }}>
+
+                    <h6 className="heading " onClick={() => currentUserHasActiveSubscription && navigate(`/Supplier/${productObj?.createdByObj?.userObj._id}`)}>{currentUserHasActiveSubscription ?
+                      `${productObj?.createdByObj?.userObj?.companyObj?.name ?
+                        productObj?.createdByObj?.userObj?.companyObj?.name :
+                        "Plywood Bazar"}` :
+                      `${productObj?.createdByObj?.userObj?.companyObj?.name ?
+                        `${productObj?.createdByObj?.userObj?.companyObj?.name}***` :
+                        "Plywood Bazar***"}`
+                        .slice(0, 4)}</h6>
+                    {/* {
+                    productObj?.createdByObj?.userObj?.isVerified &&
+                    <img style={{ height: 80, position: "absolute", right: 0 }} src={images.verified} alt="" />
+                  } */}
+                  </div>
+                  <li className="flex-1 d-flex flex-column align-items-center justify-content-center gap-3">
+                    <p style={{ maxWidth: "100%" }}>
                       <ImLocation className="brown" />
+
                       {`${currentUserHasActiveSubscription ? (productObj?.createdByObj?.userObj?.companyObj?.address ? productObj?.createdByObj?.userObj?.companyObj?.address : "NA") : (productObj?.createdByObj?.userObj?.companyObj?.address ? `${productObj?.createdByObj?.userObj?.companyObj?.address}***` : "NA").slice(0, 2)}`}
+
                     </p>
+                    <img className="star_img" src={star} alt="" />
                     {
                       currentUserHasActiveSubscription &&
                       <div className="supplier-rating">
@@ -389,8 +409,20 @@ const [imagearray, setImagearray] = useState([]);
                       GST- {currentUserHasActiveSubscription ? (productObj?.createdByObj?.userObj?.companyObj?.gstNumber ? productObj?.createdByObj?.userObj?.companyObj?.gstNumber : "NA") : ((productObj?.createdByObj?.userObj?.companyObj?.gstNumber ? `${productObj?.createdByObj?.userObj?.companyObj?.gstNumber}***` : "NA").slice(0, 2))}
                     </p>
                   </li>
+                  <div className="my-3">
+                    {isMobileNumberVisible ? (
+                      <a href={`tel:${productObj?.createdByObj?.userObj?.companyObj?.phone}`} className="btn btn-sm  w-100  " style={{ width: '100%' }}>
+                        {productObj?.createdByObj?.userObj?.companyObj?.phone}
+                      </a>
+                    ) : (
+                      <button onClick={() => { currentUserHasActiveSubscription ? setIsMobileNumberVisible(true) : errorToast("You do not have a valid subscription to perform this action") }} className="btn btn-sm btn-yellow w-100 ">
+                        View Mobile Number
+                      </button>
+                    )}
+                    {/* <p className="text-danger">72% Response Rate</p> */}
+                  </div>
                 </ul>
-                <div className="my-3">
+                {/* <div className="my-3">
                   {isMobileNumberVisible ? (
                     <a href={`tel:${productObj?.createdByObj?.userObj?.companyObj?.phone}`} className="btn btn-sm btn-yellow w-100  ">
                       {productObj?.createdByObj?.userObj?.companyObj?.phone}
@@ -400,20 +432,20 @@ const [imagearray, setImagearray] = useState([]);
                       View Mobile Number
                     </button>
                   )}
-                  {/* <p className="text-danger">72% Response Rate</p> */}
-                </div>
-                <ul className="list-circle border-bottom pb-3 mb-3">
-                  {/* {
+                  <p className="text-danger">72% Response Rate</p>
+                </div> */}
+                {/* <ul className="list-circle border-bottom pb-3 mb-3"> */}
+                {/* {
                     productObj?.createdByObj?.userObj?.isVerified &&
                     <img src={images.verified} style={{ width: 130 }} alt="" />
                   } */}
 
-                  {/* <li>Leading Supplier</li>
+                {/* <li>Leading Supplier</li>
                   <li>TrustSEAL Verified</li>
                   <li>Distributor / Channel Partner</li> */}
-                  {/* <li>Company Video</li> */}
-                </ul>
-                <h6 className="heading text-center">Looking for more Verified Exporters?</h6>
+                {/* <li>Company Video</li> */}
+                {/* </ul> */}
+                <h6 className="heading text-center ">Looking for more Verified Exporters?</h6>
                 <button onClick={() => handleConnectNow()} className="btn btn-sm btn-brown w-100">
                   Connect Now
                 </button>
@@ -423,94 +455,10 @@ const [imagearray, setImagearray] = useState([]);
         </div>
       </section>
 
-      <section className="product-tabs mb-80">
-        <div className="container">
-          <ul className="tabs">
-            {ProductTabs.map((item, i) => {
-              return (
-                <li className={item.active ? "active" : ""} key={i} onClick={() => ActiveTab(i)}>
-                  {item.name}
-                </li>
-              );
-            })}
-          </ul>
-          <div className="tab-description">
-            {ProductTabs.map((item, i) => {
-              if (item.active && item.tab === "1") {
-                return (
-                  <div className="tab-inner">
-                    <ul className="info">
-                      {productObj && productObj?.brandObj && (
-                        <li>
-                          Brand <span className="text-dark">{productObj?.brandObj?.name}</span>
-                        </li>
-                      )}
-                      {productObj?.specification && (
-                        <>
-                          {productObj?.specification?.thickness && (
-                            <li>
-                              Thickness <span className="text-dark">{productObj?.specification?.thickness ? productObj?.specification?.thickness : "NA"}</span>
-                            </li>
-                          )}
-                          {productObj?.specification?.thickness && (
-                            <li>
-                              Usage/Application <span className="text-dark">{productObj?.specification?.application ? productObj?.specification?.application : "NA"}</span>
-                            </li>
-                          )}
-                          {productObj?.specification?.thickness && (
-                            <li>
-                              Grade <span className="text-dark">{productObj?.specification?.grade ? productObj?.specification?.grade : "NA"}</span>
-                            </li>
-                          )}
-
-                          {productObj?.specification?.thickness && (
-                            <li>
-                              Color <span className="text-dark">{productObj?.specification?.color ? productObj?.specification?.color : "NA"}</span>
-                            </li>
-                          )}
-
-                          {productObj?.specification?.thickness && (
-                            <li>
-                              Wood Type <span className="text-dark">{productObj?.specification?.wood ? productObj?.specification?.wood : "NA"}</span>
-                            </li>
-                          )}
-
-                          {productObj?.specification?.thickness && (
-                            <li>
-                              Glue Used <span className="text-dark">{productObj?.specification?.glue ? productObj?.specification?.glue : "NA"}</span>
-                            </li>
-                          )}
-                          {productObj?.specification?.thickness && (
-                            <li>
-                              Warranty <span className="text-dark">{productObj?.specification?.warranty ? productObj?.specification?.warranty : "NA"}</span>
-                            </li>
-                          )}
-                        </>
-                      )}
-                    </ul>
-                  </div>
-                );
-              }
-              if (item.active && item.tab === "2") {
-                return (
-                  <div className="tab-inner">
-                    {productObj?.longDescription && (
-                      <div className="desp">
-                        {/* <p>{productObj?.longDescription}</p> */}
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="products mb-80 gray-bg ptb-80">
+      <section className="products mb-80 gray-bg ptb-80 ">
         <div className="container">
           <div className="title-section with-btn">
-            <h1 className="heading bottom-line brown">Similar Products</h1>
+            <h1 className="heading text-start">Similar Products</h1>
             {/* <Link to="/" className="btn btn-custom btn-yellow">
               View All
             </Link> */}
@@ -529,16 +477,18 @@ const [imagearray, setImagearray] = useState([]);
                 return (
                   <SwiperSlide>
                     <div className="product-box">
+                     
+                      <Link to={`/ShopDetail/${el?.slug}`}>{el?.mainImage ? <img src={generateImageUrl(el?.mainImage)} alt="" className="img" /> : <img src={images.category_5} alt="" className="img" />}</Link>
+                     
+                      <div className="content ">
                       <button className="call-btn">
                         <MdCall />
                       </button>
-                      <Link to={`/ShopDetail/${el?.slug}`}>{el?.mainImage ? <img src={generateImageUrl(el?.mainImage)} alt="" className="img" /> : <img src={images.category_5} alt="" className="img" />}</Link>
-                      <div className="content">
-                        <h6 className="title">
-                          <Link to={`/ShopDetail/${el?.slug}`}>{el.name}</Link>
+                        <h6 className="title ">
+                          <Link className="text-white fs-5" to={`/ShopDetail/${el?.slug}`}>{el.name}</Link>
                         </h6>
-                        <h6 className="size">Size (Sq ft): {el?.specification?.size ? el?.specification?.size : "N.A."}</h6>
-                        <h6 className="prize">₹{el.sellingprice}/Sq ft</h6>
+                        <h6 className="size text-white fw-light">Size (Sq ft): {el?.specification?.size ? el?.specification?.size : "N.A."}</h6>
+                        <h6 className="prize text-white">₹{el.sellingprice}/Sq ft</h6>
                       </div>
                     </div>
                   </SwiperSlide>
@@ -547,6 +497,164 @@ const [imagearray, setImagearray] = useState([]);
           </Swiper>
         </div>
       </section>
+
+      <section className="product-tabs mb-80 d-flex  align-items-center justify-content-center">
+        <Row className="container d-flex   align-items-end ">
+          <Col className="col-lg-6 col-sm-12 ">
+            <ul className="tabs">
+              {ProductTabs.map((item, i) => {
+                return (
+                  <li className={item.active ? "active" : ""} key={i} onClick={() => ActiveTab(i)}>
+                    {item.name}
+                  </li>
+                );
+              })}
+            </ul>
+            <div className=" tab-description">
+              {ProductTabs.map((item, i) => {
+                if (item.active && item.tab === "1") {
+                  return (
+                    <div className="tab-inner">
+                      <ul className="info text-white ">
+                        {productObj && productObj?.brandObj && (
+                          <li>
+                            Brand <span className="text-white fw-bold">{productObj?.brandObj?.name}</span>
+                          </li>
+                        )}
+                        {productObj?.specification && (
+                          <>
+                            {productObj?.specification?.thickness && (
+                              <li>
+                                Thickness <span className="text-white fw-bold">{productObj?.specification?.thickness ? productObj?.specification?.thickness : "NA"}</span>
+                              </li>
+                            )}
+                            {productObj?.specification?.thickness && (
+                              <li>
+                                Usage/Application <span className="text-white fw-bold">{productObj?.specification?.application ? productObj?.specification?.application : "NA"}</span>
+                              </li>
+                            )}
+                            {productObj?.specification?.thickness && (
+                              <li>
+                                Grade <span className="text-white fw-bold">{productObj?.specification?.grade ? productObj?.specification?.grade : "NA"}</span>
+                              </li>
+                            )}
+
+                            {productObj?.specification?.thickness && (
+                              <li>
+                                Color <span className="text-white fw-bold">{productObj?.specification?.color ? productObj?.specification?.color : "NA"}</span>
+                              </li>
+                            )}
+
+                            {productObj?.specification?.thickness && (
+                              <li>
+                                Wood Type <span className="text-white fw-bold">{productObj?.specification?.wood ? productObj?.specification?.wood : "NA"}</span>
+                              </li>
+                            )}
+
+                            {productObj?.specification?.thickness && (
+                              <li>
+                                Glue Used <span className="text-white fw-bold">{productObj?.specification?.glue ? productObj?.specification?.glue : "NA"}</span>
+                              </li>
+                            )}
+
+                            {productObj?.specification?.thickness && (
+                              <li>
+                                Warranty <span className="text-white fw-bold">{productObj?.specification?.warranty ? productObj?.specification?.warranty : "NA"}</span>
+                              </li>
+                            )}
+                          </>
+                        )}
+                      </ul>
+                    </div>
+                  );
+                }
+                if (item.active && item.tab === "2") {
+                  return (
+                    <div className="tab-inner">
+                      {productObj?.longDescription && (
+                        <div className="desp">
+                          {/* <p>{productObj?.longDescription}</p> */}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+              })}
+            </div>
+          </Col>
+          <Col className="col-lg-6 col-sm-12 main_col_2 ">
+            <Table className="custom-form">
+              <Col className="col_1">
+                <h2 className="right-h2">TELL US YOUR REQUIREMENT</h2>
+              </Col>
+              <Col className="col_2">
+                <div className="custom-form-input-container">
+                  <Form.Group
+                    controlId="formName"
+                    className="custom-input-group"
+                  >
+                    <Form.Control
+                      type="text"
+                      placeholder="Name*"
+                      className="custom-input"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    controlId="formMobile"
+                    className="custom-input-group"
+                  >
+                    <Form.Control
+                      type="tel"
+                      placeholder="Mobile No.*"
+                      className="custom-input"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    controlId="formAddress"
+                    className="custom-input-group"
+                  >
+                    <Form.Control
+                      type="text"
+                      placeholder="Address*"
+                      className="custom-input"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    controlId="formProduct"
+                    className="custom-input-group"
+                  >
+                    <Form.Control
+                      type="text"
+                      placeholder="Product / Service*"
+                      className="custom-input"
+                      value={productName}
+                      onChange={(e) => setProductName(e.target.value)}
+                    />
+                  </Form.Group>
+                </div>
+              </Col>
+              <Col className="col_3">
+                <Button
+                  type="submit"
+                  className="submit-button"
+                  onClick={(e) => handleSubmitRequirement(e)}
+                >
+                  SUBMIT
+                </Button>
+              </Col>
+            </Table>
+          </Col>
+        </Row>
+
+      </section>
+
+
 
       {/* <section className="mb-80">
         <div className="container">

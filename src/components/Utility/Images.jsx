@@ -1,6 +1,6 @@
 import logo from "../../assets/images/logo1.png";
 import user from "../../assets/images/icon/user.png";
-import category_1 from "../../assets/images/category_1.jfif";
+import category_1 from "../../assets/image/home/images/image 138.png"
 import category_2 from "../../assets/images/category_2.jfif";
 import category_3 from "../../assets/images/category_3.jfif";
 import category_4 from "../../assets/images/category_4.jfif";

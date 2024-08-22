@@ -82,8 +82,8 @@ const Aboutus = () => {
             </Col>
             <Col className="Header_text">
               <div>
-                <h1>ABOUT US</h1>
-                <p>
+                <h1 className="text-center">ABOUT US</h1>
+                <p className="mx-3">
                   Plywoodbazar. com is India's largest online B2B market place brought
                   a platform to interact with Manufacturers, Distributors ,Dealers,
                   Wholesalers and Retailers of Furniture, Plywood, Hardware &
@@ -102,7 +102,7 @@ const Aboutus = () => {
 
         <Container fluid className="Company_mission_main d-flex flex-column flex-md-row align-items-center">
           <Col lg={7} className="Company_text fs-5 mb-4 mb-md-0">
-            <h1 className="text-white py-3">Company Mission</h1>
+            <h1 className="text-white py-3 fw-bold">Company Mission</h1>
             <p>
               Plywood Bazar.com is a startup that is working to improve this
               unorganized furniture, interior and exterior industry by coordinating
@@ -121,7 +121,7 @@ const Aboutus = () => {
         {/* team section */}
 
         <Container fluid className="p-5 d-flex flex-wrap flex-column align-items-center justify-content-center gap-5">
-      <h1>OUR TEAM</h1>
+      <h1 className="fw-bold">OUR TEAM</h1>
       <Row className="Team_main gap-2">
         <Col className="Team_cards">
           <div className="SubTeam_cards">
@@ -198,7 +198,7 @@ const Aboutus = () => {
 
 
         <Container fluid className="onboard_container  d-flex flex-wrap flex-column align-items-center justify-content-center ">
-          <h1 className="">Why you should onboard with us</h1>
+          <h1 className="fw-bold pt-5">Why you should onboard with us</h1>
           <Row className="onboard_row p-3 ">
             <Col lg={4} className="py-3" >
             <div className="onboard_col ">
