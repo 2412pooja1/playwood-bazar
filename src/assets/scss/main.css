@@ -1522,7 +1522,7 @@ footer .footer {
   font-weight: 600;
 }
 .blog_listing .list_content_blog p {
-  margin: 12px 0;
+  margin: 0;
 }
 .blog_listing .list_content_blog .btn.blog_readmore {
   color: #000;

@@ -70,7 +70,7 @@ function Footer() {
 
   return (
     <>
-      <section className="py-4 news-letter">
+      {/* <section className="py-4 news-letter">
         <div className="container">
           <div className="row align-items-end gx-lg-5 justify-content-center">
             <div className="col-12 col-md-4">
@@ -100,7 +100,7 @@ function Footer() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* ============================================================================= */}
       <footer>
         <div className="footer">
