@@ -65,7 +65,7 @@ export default function MyLeads() {
                 <div className="col-6 ms-2 pt-2 profile-section-Heading mb-3">My Leads</div>
             </div>
 
-            <div className="rounded">
+            {/* <div className="rounded">
                 <div className="">
                 <div className="row">
                     {
@@ -75,6 +75,84 @@ export default function MyLeads() {
                                     <>
                                     
                                         <div className="col-md-6">
+                                        <div key={index} className='profile-section-container'>
+                                        <div className="row flex_deraction_row">
+                                            <div className="col-6">
+                                                <h4><b>{el?.userObj?.name}</b></h4>
+                                            </div>
+                                            <div className="col-12 ">
+                                                <div className="theme-outline-button">
+                                                    Contacted On -  {moment(el?.createdAt).format("DD-MM-YYYY")}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row mt-4">
+                                            <div className="col-3 my-1">
+                                                User Name:
+                                            </div>
+                                            <div className="col-9  my-1">
+                                                {el?.userObj?.name}
+                                            </div>
+                                            <div className="col-3 my-1">
+                                                Phone:
+                                            </div>
+                                            <div className="col-9  my-1">
+                                                {el?.userObj?.phone}
+                                            </div>
+                                            <div className="col-3 my-1">
+                                                Email:
+                                            </div>
+                                            <div className="col-9  my-1">
+                                                {el?.userObj?.email}
+                                            </div>
+                                            <div className="col-3 my-1">
+                                                Contacted On:
+                                            </div>
+                                            <div className="col-9  my-1">
+                                                {new Date(el?.createdAt).toDateString()}
+                                            </div>
+                                        </div>
+                                    </div>
+                                        </div>
+                                   
+                                   
+                                    </>
+                                )
+                            })
+                            :
+                            userSubscriptionBlocked ?
+                                <>
+                                    <div className="col-6 ms-2 profile-section-Sub-Heading">Your subscription has been blocked by admin please contact admin for further details   </div>
+                                </>
+                                :
+
+                                <>
+                                    <div className="col-6 ms-2 profile-section-Sub-Heading">You have {leadsArr ? leadsArr.length : 0} leads , get a subscription to view the leads   </div>
+                                    <div className="d-flex justify-content-end">
+                                        <div className="theme-outline-button" onClick={() => navigate("/Subscription")}>
+                                            View Subsciptions
+                                        </div>
+                                    </div>
+                                </>
+
+                    }
+
+                    </div>
+
+
+                </div>
+
+            </div> */}
+            <div className="rounded">
+                <div className="">
+                <div className="row">
+                    {
+                        (userSubscriptionExpired == false) && (userSubscriptionBlocked == false) ?
+                            leadsArr && leadsArr.length > 0 && leadsArr.map((el, index) => {
+                                return (
+                                    <>
+                                    
+                                        <div className="col-md-4 col-12">
                                         <div key={index} className='profile-section-container'>
                                         <div className="row flex_deraction_row">
                                             <div className="col-6">
@@ -143,7 +221,6 @@ export default function MyLeads() {
                 </div>
 
             </div>
-
 
         </div >
     )
