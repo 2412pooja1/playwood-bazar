@@ -1,5 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import React, { useEffect, useCallback, useState, useRef } from "react";
+import { debounce } from "lodash";
+import {
+  getUserNotifications,
+  searchVendorFromDb,
+  sentOtp,
+} from "../services/User.service";
+import { OverlayTrigger, Row, Tooltip, Form } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
@@ -10,11 +16,78 @@ import { getBrandApi } from "../services/brand.service";
 import { getCityApi } from "../services/city.service";
 import { toastError } from "../utils/toastutill";
 import { ROLES } from "../utils/Roles.utils";
+import { Col } from "react-bootstrap";
+import { FiSearch } from "react-icons/fi";
+import {
+  Link,
+
+} from "react-router-dom";
+import filter from '../assets/image/home/image 140.png'
 function ShopFilter({ handleApplyFilter, handleClearFilter, handleClose }) {
   const navigate = useNavigate();
   let role = useSelector((state) => state.auth.role);
+  const formRef = useRef(null);
 
+  const [searchBy, setSearchBy] = useState(false);
+  const [searchType, setSearchType] = useState("vendor");
+  const [searchList, setSearchList] = useState([
+    { name: "Search By keyword", checked: true, type: "vendor" },
+    { name: "Search By Product", checked: false, type: "product" },
+  ]);
+  const [searchText, setSearchText] = useState("");
+  const [displaySearchResults, setDisplaySearchResults] = useState(false);
+  const [searchResultArr, setSearchResultArr] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [showSearchBar, setShowSearchBar] = useState(false);
+
+  const handleCheckItem = (obj) => {
+    let tempArr = searchList.map((el) => {
+      if (el.name == obj.name) {
+        el.checked = true;
+      } else {
+        el.checked = false;
+      }
+
+      return el;
+    });
+    setSearchText("");
+    setSearchType(obj.type);
+    setSearchList([...tempArr]);
+    setSearchResultArr([]);
+  };
+  const checkSearchMode = () => {
+    return searchList.find((el) => el.checked)?.name;
+  };
+  const handleSearchText = (value) => {
+    setSearchText(value);
+    debounceSearch(value);
+  };
+  const debounceSearch = useCallback(
+    debounce((nextVal) => handleSearchFromDb(nextVal), 1000),
+    [searchType]
+  );
+
+  const handleSearchFromDb = async (value) => {
+    try {
+      console.log(searchType, "handleSearchText");
+
+      if (value != "") {
+        const { data: res } = await searchVendorFromDb(
+          `search=${value}&role=${role}`
+        );
+        if (res) {
+          console.log(res.data, "handleSearchText vendor");
+          setShowSearchBar(true);
+          setSearchResultArr(res.data);
+        } else {
+          setShowSearchBar(true);
+          setDisplaySearchResults([]);
+        }
+      }
+    } catch (error) {
+      toastError(error);
+    }
+  };
 
   const setValue = (rating) => {
     setSearchParams((searchParams) => {
@@ -134,161 +207,253 @@ function ShopFilter({ handleApplyFilter, handleClearFilter, handleClose }) {
   // }
 
   return (
-    <div className="shop-filter">
-      <div className="box pb-0">
-        <div className="row">
-          <div className="col-12 mb-3 d-flex justify-content-between align-items-center">
-            <h5 className="title">Choose Filters</h5>
-            {/* <button className="btn btn-outline btn-outline-custom" style={{ fontSize: 12 }} type="button" onClick={() => { handleApplyFilter(); handleClose && handleClose() }}>
-              Apply
-            </button> */}
-            <button
-              className="clear_filter"
-              // style={{ fontSize: 12 }}
-              type="button"
-              onClick={() => {
-                navigate("/Shop");
-                handleResetStates();
-                handleClose && handleClose();
-              }}
-            >
-              Clear
-            </button>
-          </div>
-        </div>
-      </div>
+    <div className=" shopfilterposition" >
+  
 
-      <Accordion>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>
-            <div className="accordianHeading">Vendor Types</div>
-          </Accordion.Header>
-          <Accordion.Body>
-            <div className="box">
-              {/* <h5 className="title">User Types </h5> */}
-              {/* <div className="price-range"> */}
-              <ul className="list comm-list">
-                {usertypes &&
-                  usertypes.length > 0 &&
-                  usertypes.map((el, index) => {
-                    return (
-                      <li>
-                        <label>
+      <Row className=" d-flex  justify-content-center">
+        <Col lg={10} className=" px-5 shop-filter py-3">
+          <Accordion>
+            <Row>
+              <Col lg={2}>
+
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>
+                    <div className="accordianHeading">Vendor Types</div>
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <div className="box">
+                      {/* <h5 className="title">User Types </h5> */}
+                      {/* <div className="price-range"> */}
+                      <ul className="list comm-list">
+                        {usertypes &&
+                          usertypes.length > 0 &&
+                          usertypes.map((el, index) => {
+                            return (
+                              <li>
+                                <label>
+                                  <div>
+                                    <input
+                                      type="checkbox"
+                                      onChange={(e) => toggleSelected(index)}
+                                      checked={isChecked(index)}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+                                  <p> {el?.name} </p>
+                                </label>
+                              </li>
+                            );
+                          })}
+                      </ul>
+                      {/* </div> */}
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Col>
+              <Col lg={2}>
+
+                <Accordion.Item eventKey="1">
+                  <Accordion.Header>
+                    {" "}
+                    <div className="accordianHeading"> Categories</div>
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <CategoryFilter />
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Col>
+              <Col lg={4} className="d-flex justify-content-centre align-items-center">
+                <div className=" choosefilter d-flex justify-content-centre align-items-center rounded-5 Header">
+                  <Form className=" d-flex serchform rounded-5  position-relative w-100"
+
+                    onClick={() => {
+                      setSearchBy(!searchBy);
+                    }}
+                    onFocus={() => setShowSearchBar(true)}
+                    ref={formRef}
+                  >
+
+
+
+
+
+                    <div className="searchbar rounded-pill d-flex row">
+                      <div className="col-2 d-flex justify-content-centre align-items-center">  <img src={filter} className="img-fluid"alt="" /></div>
+                      <div className=" col-8">
+                        <Form.Control
+                          type="search"
+                          className="searchbar2"
+                          placeholder={checkSearchMode()}
+                          aria-label="Search"
+                          value={searchText}
+                          onChange={(e) =>
+                            handleSearchText(e.target.value)
+                          }
+                        />
+                      </div>
+
+                      <div className="col-2">
+                        <a
+                          className="searchicn position-absolute top-50 end-0 translate-middle-y me-1 text-white d-inline-flex align-items-center justify-content-center"
+                          href=""
+                        >
+                          <FiSearch />
+                        </a>
+                      </div>
+                    </div>
+
+                    {searchText != "" && showSearchBar && (
+                      <div className="searchBox listsearch">
+                        <div
+                          className="searchBoxCloseIcon"
+                          onClick={() => {
+                            setShowSearchBar(false);
+                          }}
+                        >
+                          X
+                        </div>
+                        {searchResultArr &&
+                          searchResultArr.length > 0 ? (
+                          searchResultArr.map((el, index) => {
+                            return (
+                              <div key={index}>
+                                <Link
+                                  to={`/Supplier/${el?._id}`}
+                                  onClick={() =>
+                                    setShowSearchBar(false)
+                                  }
+                                  onFocus={() => setShowSearchBar(true)}
+                                >
+                                  <p>{el?.companyObj?.name}</p>
+                                </Link>
+                              </div>
+                            );
+                          })
+                        ) : (
                           <div>
-                            <input
-                              type="checkbox"
-                              onChange={(e) => toggleSelected(index)}
-                              checked={isChecked(index)}
-                              className="form-check-input"
-                            />
+                            {/* <Link to={`/ShopDetail/${el?.slug}`} onFocus={() => setShowSearchBar(true)}> */}
+                            <p>No results found</p>
+                            {/* </Link> */}
                           </div>
-                          <p> {el?.name} </p>
-                        </label>
-                      </li>
-                    );
-                  })}
-              </ul>
-              {/* </div> */}
-            </div>
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="1">
-          <Accordion.Header>
-            {" "}
-            <div className="accordianHeading"> Categories</div>
-          </Accordion.Header>
-          <Accordion.Body>
-            <CategoryFilter />
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="2">
-          <Accordion.Header>
-            <div className="accordianHeading">Location </div>
-          </Accordion.Header>
-          <Accordion.Body>
-            <LocationFilter />
-          </Accordion.Body>
-        </Accordion.Item>
+                        )}
+                      </div>
+                    )}
+                  </Form>
+                  {/* <img src={filter} alt="" />
+                  <h5 className="title">Choose Filters</h5>
+                  <button className="btn btn-outline btn-outline-custom" style={{ fontSize: 12 }} type="button" onClick={() => { handleApplyFilter(); handleClose && handleClose() }}>
+                    Apply
+                  </button>
+                  <button
+                    className="clear_filter"
+                    // style={{ fontSize: 12 }}
+                    type="button"
+                    onClick={() => {
+                      navigate("/Shop");
+                      handleResetStates();
+                      handleClose && handleClose();
+                    }}
+                  >
+                    Clear
+                  </button> */}
+                </div>
+              </Col>
+              <Col lg={2}>
 
-        <Accordion.Item eventKey="3">
-          <Accordion.Header>
-            <div className="accordianHeading"> Rating </div>
-          </Accordion.Header>
-          <Accordion.Body>
-            <div className="box">
-              {/* <h5 className="title">Rating </h5> */}
-              <div className="price-range" onClick={() => setValue(4)}>
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  // onChange={() => toggleSelected(el._id)}
-                  checked={returnBooleanIfChecked(4)}
-                />
-                <ReactStars
-                  edit={false}
-                  count={5}
-                  size={24}
-                  value={4}
-                  activeColor="#ffd700"
-                />{" "}
-                & Up
-              </div>
-              <div className="price-range" onClick={() => setValue(3)}>
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  // onChange={() => toggleSelected(el._id)}
-                  checked={returnBooleanIfChecked(3)}
-                />
-                <ReactStars
-                  edit={false}
-                  count={5}
-                  size={24}
-                  value={3}
-                  activeColor="#ffd700"
-                />{" "}
-                & Up
-              </div>
-              <div className="price-range" onClick={() => setValue(2)}>
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  // onChange={() => toggleSelected(el._id)}
-                  checked={returnBooleanIfChecked(2)}
-                />
-                <ReactStars
-                  edit={false}
-                  count={5}
-                  size={24}
-                  value={2}
-                  activeColor="#ffd700"
-                />{" "}
-                & Up
-              </div>
-              <div className="price-range" onClick={() => setValue(1)}>
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  // onChange={() => toggleSelected(el._id)}
-                  checked={returnBooleanIfChecked(1)}
-                />
-                <ReactStars
-                  edit={false}
-                  count={5}
-                  size={24}
-                  value={1}
-                  activeColor="#ffd700"
-                />{" "}
-                & Up
-              </div>
-            </div>
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
+                <Accordion.Item eventKey="2">
+                  <Accordion.Header>
+                    <div className="accordianHeading">Location </div>
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <LocationFilter />
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Col>
+              <Col lg={2}>
 
-      <div className="row">
+                <Accordion.Item eventKey="3">
+                  <Accordion.Header>
+                    <div className="accordianHeading"> Rating </div>
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <div className="box">
+                      {/* <h5 className="title">Rating </h5> */}
+                      <div className="price-range" onClick={() => setValue(4)}>
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          // onChange={() => toggleSelected(el._id)}
+                          checked={returnBooleanIfChecked(4)}
+                        />
+                        <ReactStars
+                          edit={false}
+                          count={5}
+                          size={24}
+                          value={4}
+                          activeColor="#ffd700"
+                        />{" "}
+                        & Up
+                      </div>
+                      <div className="price-range" onClick={() => setValue(3)}>
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          // onChange={() => toggleSelected(el._id)}
+                          checked={returnBooleanIfChecked(3)}
+                        />
+                        <ReactStars
+                          edit={false}
+                          count={5}
+                          size={24}
+                          value={3}
+                          activeColor="#ffd700"
+                        />{" "}
+                        & Up
+                      </div>
+                      <div className="price-range" onClick={() => setValue(2)}>
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          // onChange={() => toggleSelected(el._id)}
+                          checked={returnBooleanIfChecked(2)}
+                        />
+                        <ReactStars
+                          edit={false}
+                          count={5}
+                          size={24}
+                          value={2}
+                          activeColor="#ffd700"
+                        />{" "}
+                        & Up
+                      </div>
+                      <div className="price-range" onClick={() => setValue(1)}>
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          // onChange={() => toggleSelected(el._id)}
+                          checked={returnBooleanIfChecked(1)}
+                        />
+                        <ReactStars
+                          edit={false}
+                          count={5}
+                          size={24}
+                          value={1}
+                          activeColor="#ffd700"
+                        />{" "}
+                        & Up
+                      </div>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Col>
+            </Row>
+          </Accordion>
+        </Col>
+      </Row>
+
+      {/* <div className="row">
         <div className="col-12">
-          {/* btn btn-outline btn-outline-custom */}
+          btn btn-outline btn-outline-custom
           <button
             className="apply_buttn "
             type="button"
@@ -300,7 +465,7 @@ function ShopFilter({ handleApplyFilter, handleClearFilter, handleClose }) {
             Apply
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* <LocationFilter /> */}
     </div>

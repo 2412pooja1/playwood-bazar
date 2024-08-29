@@ -3,7 +3,7 @@ import React from "react";
 export default function Policy() {
   return (
     <div className="dataContainer container my-5">
-      <h4 style={{ color: "#B08218" }}>About Privacy</h4>
+      <h4 style={{ color: "#603200" }}>About Privacy</h4>
       <ul>
         <li>
           This Privacy Policy governs the manner in which Plywoodbazar.com by
@@ -35,7 +35,7 @@ export default function Policy() {
           otherwise defined in this Privacy Policy.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>1. Information We Collect</h4>
+      <h4 style={{ color: "#603200" }}>1. Information We Collect</h4>
       <ul>
         <li>
           We may collect personal and non-personal identification information
@@ -64,7 +64,7 @@ export default function Policy() {
         <li>Any other information voluntarily submitted by the User</li>
       </ul>
 
-      <h4 style={{ color: "#B08218" }}>2. How We Use Collected Information </h4>
+      <h4 style={{ color: "#603200" }}>2. How We Use Collected Information </h4>
       <ul>
         <li>
           We may collect and use Users' personal information for the following
@@ -96,7 +96,7 @@ export default function Policy() {
           unsubscribe instructions at the bottom of each email.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>3. How We Protect Your Information</h4>
+      <h4 style={{ color: "#603200" }}>3. How We Protect Your Information</h4>
       <div>
         We adopt appropriate data collection, storage, and processing practices
         and security measures to protect against unauthorized access,
@@ -104,7 +104,7 @@ export default function Policy() {
         username, password, transaction information, and data stored on our
         Website.
       </div>
-      <h4 style={{ color: "#B08218" }}>
+      <h4 style={{ color: "#603200" }}>
         4. Sharing Your Personal Information{" "}
       </h4>
       <div>
@@ -114,12 +114,12 @@ export default function Policy() {
         regarding visitors and users with our business partners, trusted
         affiliates, and advertisers.
       </div>
-      <h4 style={{ color: "#B08218" }}>5. Third-Party Websites</h4>
+      <h4 style={{ color: "#603200" }}>5. Third-Party Websites</h4>
       <div>
         Users may find advertising or other content on our Website that links to
         the sites and services of our partners, suppliers, advertisers.
       </div>
-      <h4 style={{ color: "#B08218" }}>6. Information Collection and Use</h4>
+      <h4 style={{ color: "#603200" }}>6. Information Collection and Use</h4>
       <ul>
         <li>
           For a better experience, while using our Service, we may require you
@@ -137,7 +137,7 @@ export default function Policy() {
           app Google Play Services.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>7. Log Data</h4>
+      <h4 style={{ color: "#603200" }}>7. Log Data</h4>
       <ul>
         <li>
           We want to inform you that whenever you use our Service, in a case of
@@ -149,7 +149,7 @@ export default function Policy() {
           the Service, and other statistics.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>8. Cookies</h4>
+      <h4 style={{ color: "#603200" }}>8. Cookies</h4>
       <ul>
         <li>
           Cookies are files with a small amount of data that are commonly used
@@ -166,7 +166,7 @@ export default function Policy() {
           to use some portions of this Service.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>9. Service Providers</h4>
+      <h4 style={{ color: "#603200" }}>9. Service Providers</h4>
       <ul>
         <li>
           We may employ third-party companies and individuals due to the
@@ -179,7 +179,7 @@ export default function Policy() {
           to disclose or use the information for any other purpose.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>10. Security</h4>
+      <h4 style={{ color: "#603200" }}>10. Security</h4>
       <ul>
         <li>
           We value your trust in providing us your Personal Information, thus we
@@ -189,7 +189,7 @@ export default function Policy() {
           cannot guarantee its absolute security.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>11. Links to Other Sites</h4>
+      <h4 style={{ color: "#603200" }}>11. Links to Other Sites</h4>
       <ul>
         <li>
           This Service may contain links to other sites. If you click on a
@@ -200,7 +200,7 @@ export default function Policy() {
           or practices of any third-party sites or services.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>12. Children’s Privacy </h4>
+      <h4 style={{ color: "#603200" }}>12. Children’s Privacy </h4>
       <ul>
         <li>
           These Services do not address anyone under the age of 13. We do not
@@ -212,7 +212,7 @@ export default function Policy() {
           that we will be able to do necessary actions.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>13. Changes to This Privacy Policy</h4>
+      <h4 style={{ color: "#603200" }}>13. Changes to This Privacy Policy</h4>
       <ul>
         <li>
           We may update our Privacy Policy from time to time. Thus, you are
@@ -222,14 +222,14 @@ export default function Policy() {
           this page.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>14. Contact Us</h4>
+      <h4 style={{ color: "#603200" }}>14. Contact Us</h4>
       <ul>
         <li>
           If you have any questions or suggestions about our Privacy Policy, do
           not hesitate to contact us at admin@plywoodbazar.com
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>15. Contact Information</h4>
+      <h4 style={{ color: "#603200" }}>15. Contact Information</h4>
       <ul>
         <li>
           Where the Plywood Bazar.com mobile application are obtained from other

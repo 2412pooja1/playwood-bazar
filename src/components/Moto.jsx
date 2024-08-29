@@ -3,7 +3,7 @@ import founder from "../assets/images/founder.jpeg";
 export default function Moto() {
   return (
     <div className="dataContainer container my-5">
-      <h4 style={{ color: "#B08218" }}>Company Vision</h4>
+      <h4 style={{ color: "#603200" }}>Company Vision</h4>
       <ul>
         <li>
           Plywood Bazar.com is a startup that is working to improve this
@@ -66,8 +66,8 @@ export default function Moto() {
                   placeItems: "center",
                 }}
               >
-                <h4 style={{ color: "#B08218" }}>Let’s go together.</h4>
-                <h4 style={{ color: "#B08218" }}>Let’s grow together.</h4>
+                <h4 style={{ color: "#603200" }}>Let’s go together.</h4>
+                <h4 style={{ color: "#603200" }}>Let’s grow together.</h4>
               </div>
             </div>
             <div
@@ -89,7 +89,7 @@ export default function Moto() {
                   className="img-fluid"
                   style={{ width: 250, marginLeft: 50 }}
                 />
-                <h4 style={{ color: "#B08218", marginLeft: 65 }}>
+                <h4 style={{ color: "#603200", marginLeft: 65 }}>
                   Sandip Chothave
                 </h4>
                 <h5>Founder & CEO Plywood Bazar.com</h5>

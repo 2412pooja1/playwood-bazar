@@ -11,6 +11,8 @@ import client_2 from "../../assets/images/client_2.png";
 import client_3 from "../../assets/images/client_3.png";
 import vender from "../../assets/images/vender.png";
 import top_banner from "../../assets/images/top_banner.jpeg";
+import newvedor from "../../assets/image/home/Group 1000004112.png";
+
 import country_1 from "../../assets/images/country_1.png";
 import country_2 from "../../assets/images/country_2.png";
 import country_3 from "../../assets/images/country_3.png";
@@ -18,7 +20,7 @@ import review from "../../assets/images/review.jfif";
 import verified from "../../assets/images/verified.png";
 
 export const images = {
-  logo,
+  logo,newvedor,
   category_1, country_1,
   user, country_2,
   category_2, country_3,

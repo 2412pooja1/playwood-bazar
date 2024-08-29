@@ -346,8 +346,8 @@ export default function AddProducts() {
     <div className="container mt-3 mb-3">
       <div className="row pt-3">
         <div className="col-12 col-md-12">
-          <div className="right">
-            <h3 className="heading yellow">
+          <div className="right frormcontainer">
+            <h3 className="heading formheading yellow">
               {isEditingModeOn ? "Edit" : "Add"} Product
             </h3>
             <form className="form row">

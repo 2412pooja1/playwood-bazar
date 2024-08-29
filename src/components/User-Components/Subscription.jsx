@@ -73,7 +73,7 @@ export default function Subscription() {
                                     return (
                                         <div key={index} className="subscription-card">
                                             <div className="subscription-card-heading">{el?.name}</div>
-                                            <div className="subscription-card-price">₹ {el?.price}  <span style={{fontSize:15, color:'#b08218'}}>+18% GST </span></div>
+                                            <div className="subscription-card-price">₹ {el?.price}  <span style={{fontSize:15, color:'#603200'}}>+18% GST </span></div>
                                             {
                                                 el?.noOfMonth ?
                                                     <div className="subscription-card-days">{el?.noOfMonth} {el?.noOfMonth > 1 ? "months" : "month"}</div>

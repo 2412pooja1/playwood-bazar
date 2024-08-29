@@ -9,13 +9,14 @@ function PageBanner({ img, title, desp, className, edit, userId }) {
   return (
     <section
       onClick={() => window.open(img)}
-      className={`page-banner ${className ? className : ""}`}
+      className={`page-banner
+         ${className ? className : ""}`}
       style={{ backgroundImage: `url(${img})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", position: "relative" }}
     >
-      <div className="container">
+      <div className="container-fluid">
         {
           edit &&
-          <div onClick={() => { navigate("/Edit-Profile") }} style={{ position: "absolute", top: 10, right: 20, padding: "7px 12px", border: "solid 1px white", borderRadius: 110 }}>
+          <div onClick={() => { navigate("/Edit-Profile") }} style={{ position: "absolute", top: 10, right: 20, border: "solid 1px white", borderRadius: 110 }}>
             <FaEdit color="white" />
           </div>
         }

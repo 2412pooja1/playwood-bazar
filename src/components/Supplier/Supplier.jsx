@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AiFillHome, AiOutlineWhatsApp } from "react-icons/ai";
 import { BiClipboard, BiHeadphone } from "react-icons/bi";
 import { BsCalendarWeek, BsFillCheckCircleFill, BsStarFill } from "react-icons/bs";
-import { FaPhoneAlt, FaProductHunt, FaUserFriends } from "react-icons/fa";
+import { FaPhoneAlt, FaProductHunt, FaPhoneVolume } from "react-icons/fa";
 import { GrMail } from "react-icons/gr";
 import { ImLocation, ImOffice, ImUser } from "react-icons/im";
 import { images } from "../Utility/Images";
@@ -26,6 +26,7 @@ import { addReview, getReviewForProduct } from "../../services/ProductReview.ser
 import StarRatings from "react-star-ratings";
 import moment from "moment";
 import ReactStars from "react-rating-stars-component";
+import { MdOutlineEmail } from "react-icons/md";
 
 function Supplier() {
   const [quoteModal, setQuoteModal] = useState(false);
@@ -47,7 +48,7 @@ function Supplier() {
     {
       name: "Home",
       icon: <AiFillHome />,
-      active: true,
+      active: false,
       tab: "1",
     },
     {
@@ -59,7 +60,7 @@ function Supplier() {
     {
       name: "Our Products",
       icon: <FaProductHunt />,
-      active: false,
+      active: true,
       tab: "3",
     },
     {
@@ -262,21 +263,21 @@ function Supplier() {
 
   return (
     <main>
-      <PageBanner edit={editVisible} userId={params.id} img={supplierObj?.bannerImage && supplierObj.bannerImage != "" ? generateImageUrl(supplierObj?.bannerImage) : (supplierObj?.imagesArr && supplierObj?.imagesArr.length > 0 ? generateImageUrl(supplierObj?.imagesArr[1].image) : images.category_5)} className="supplierbanner  mt-4 mb-5" />
+      <PageBanner edit={editVisible} userId={params.id} img={supplierObj?.bannerImage && supplierObj.bannerImage != "" ? generateImageUrl(supplierObj?.bannerImage) : (supplierObj?.imagesArr && supplierObj?.imagesArr.length > 0 ? generateImageUrl(supplierObj?.imagesArr[1].image) : images.category_5)} className="supplierbanner" />
 
-      <section className="supplier-detail mb-80">
+      <section className="supplier-detail my-3">
         <div className="container-fluid">
           <div className="row box supplierlist">
-            <div className="col-lg-8 col-sm-6 col-md-6 col-xl-8 px-0">
-              <li className="left ">
+            <div className="col-12 d-flex justify-content-center">
+              <li className="left my-3">
                 <ul className="inner">
                   <li>
-                    <div className="image">
+                    <div className="image me-5">
                       <a href={generateImageUrl(supplierObj.profileImage)}>
                         <img
                           src={supplierObj.profileImage && supplierObj.profileImage != "" ? generateImageUrl(supplierObj.profileImage) : images.category_6}
                           alt=""
-                          className="img-thumbnail"
+
                         />
 
                       </a>
@@ -285,106 +286,109 @@ function Supplier() {
                   </li>
                   <li>
                     <ul className="inner1">
-                      <li className="icon-brown-list"
-                       
+                      <li className="icon-brown-list my-2"
+
                       >
                         <div className="icon brown">
-                          <ImOffice />
                         </div>
-                        <span className="heading">{supplierObj.companyObj?.name}</span>
+                        <h2 className="">{supplierObj.companyObj?.name}</h2>
                       </li>
-                      <li
-                        style={{ fontSize: 20 }}
+                      <li className=" my-2"
+
                       >
                         <a target="_blank" href={supplierObj.companyObj?.googleMapsLink} style={{ display: "flex", flexDirection: "row" }}>
-                          <div className="icon brown pe-2" >
+                          <div className="icon brown pe-2 fs-4" >
                             <ImLocation />
                           </div>
                           <span className="address">{supplierObj.companyObj?.address} {supplierObj?.cityObj?.name}, {supplierObj?.stateObj?.name}, {supplierObj?.countryObj?.name}</span>
                         </a>
                       </li>
-                      <li>
-                        <div className="icon brown">
-                          <BsFillCheckCircleFill />
-                        </div>
-                        {supplierObj.companyObj?.gstNumber}
-                      </li>
-                      <li>
-                        <div className="icon brown">
+                      <li className="my-2">
+                        <div className="icon brown pe-2 fs-5">
                           <BsStarFill />
                         </div>
                         {supplierObj.rating}
                       </li>
+                      <li className=" my-2">
+                        <div className="icon brown pe-2 fs-5">
+                          <BsFillCheckCircleFill />
+                        </div>
+                        {supplierObj.companyObj?.gstNumber}
+                      </li>
+
                     </ul>
+                    <div className="container">
+                      <div className=" row px-0" >
+
+                        <div className="d-grid d-lg-flex ">
+
+                          <div className=" px-3">
+                            <a
+
+
+                              onClick={() => currentUserHasActiveSubscription ? handleCreateLead() : errorToast("You do not have a valid subscription to perform this action")}
+                              href={currentUserHasActiveSubscription ? `tel:${supplierObj?.companyObj?.phone}` : "#"}
+                              className="btn btn-yellow btn-custom btn-hover with-icon"
+                            >
+                              <FaPhoneVolume className="wtsp me-3" />
+                              Call Now
+                            </a>
+                          </div>
+                          <div className=" px-3">
+                            <a
+                              onClick={() => currentUserHasActiveSubscription ? handleCreateLead() : errorToast("You do not have a valid subscription to perform this action")}
+                              href={currentUserHasActiveSubscription ? `mailto:${supplierObj?.companyObj?.email}` : '#'}
+                              className="btn btn-yellow btn-custom btn-hover with-icon"
+                            >
+                              <MdOutlineEmail className="emailic me-3" />
+                              Send Email
+                            </a>
+                          </div>
+                          <div className=" px-3">
+                            <a
+
+                              onClick={() => { if (currentUserHasActiveSubscription) { handleCreateLead(); window.open(`https://web.whatsapp.com/send?phone=${supplierObj?.companyObj?.phone}`) } else { errorToast("You do not have a valid subscription to perform this action") } }}
+                              className="btn btn-yellow btn-custom btn-hover with-icon "
+                            >
+                              <AiOutlineWhatsApp className="wtsp1 me-3" />
+                              Whatsapp
+                            </a>
+                          </div>
+                          <li>
+                            {
+                              supplierObj?.isVerified &&
+                              <img src={images.verified} style={{ width: 110, marginBottom: 20 }} alt="" />
+                            }
+                          </li>
+                        </div>
+
+                      </div>
+                    </div>
                   </li>
                 </ul>
               </li>
             </div>
-            <div className="col-lg-8 col-sm-6 col-md-6 col-xl-4">
-              <li className="right supplermartop" >
-                <ul>
 
-                  <li>
-                    <a
-
-
-                      onClick={() =>currentUserHasActiveSubscription ?  handleCreateLead() : errorToast("You do not have a valid subscription to perform this action")}
-                      href={currentUserHasActiveSubscription ? `tel:${supplierObj?.companyObj?.phone}` : "#"}
-                      className="btn btn-yellow btn-custom btn-hover with-icon"
-                    >
-                      <FaPhoneAlt />
-                      Call
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      onClick={() =>currentUserHasActiveSubscription ?  handleCreateLead() : errorToast("You do not have a valid subscription to perform this action")}
-                      href={currentUserHasActiveSubscription ? `mailto:${supplierObj?.companyObj?.email}` :'#'}
-                      className="btn btn-yellow btn-custom btn-hover with-icon"
-                    >
-                      <GrMail />
-                      Send Email
-                    </a>
-                  </li>
-                  <li>
-                    <a
-
-                      onClick={() => {if( currentUserHasActiveSubscription)    {handleCreateLead();window.open(`https://web.whatsapp.com/send?phone=${supplierObj?.companyObj?.phone}`)} else {errorToast("You do not have a valid subscription to perform this action") }}}
-                      className="btn btn-yellow btn-custom btn-hover with-icon"
-                    >
-                      <AiOutlineWhatsApp />
-                      Whatsapp
-                    </a>
-                  </li>
-                  <li>
-                    {
-                      supplierObj?.isVerified &&
-                      <img src={images.verified} style={{ width: 110, marginBottom: 20 }} alt="" />
-                    }
-                  </li>
-                </ul>
-              </li>
-            </div>
           </div>
 
         </div>
       </section>
 
-      <section className="product-tabs supplier-tabs mb-4">
-        <div className="container">
-          <ul className="tabs">
+      <section className=" ">
+        <div className="container supllertabs px-5 ">
+          <div className="row d-flex justify-content-center ">
             {tabs.map((item, i) => {
               return (
-                <li
-                  className={item.active ? "active" : ""}
+                <div
+                  className={`col-lg-2 px-lg-3 vlp my-2 ${item.active ? "active" : ""}`}
                   key={i}
                   onClick={() => ActiveTab(i)}
                 >
-                  <div className="icon">{item.icon}</div>{item.name}
-                </li>
+                  <div className=" fw-light py-3 ">{item.name}</div>
+                </div>
               );
             })}
-          </ul>
+          </div>
         </div>
       </section>
 
@@ -521,7 +525,7 @@ function Supplier() {
                         <div className="icon brown"><GiScales /></div>
                         <div className="content">
                           <h5 className="brown">Landline</h5>
-                          <p>{ currentUserHasActiveSubscription ?  supplierObj?.landline ? supplierObj?.landline : "Not provided" : "You do not have a valid subscription"}</p>
+                          <p>{currentUserHasActiveSubscription ? supplierObj?.landline ? supplierObj?.landline : "Not provided" : "You do not have a valid subscription"}</p>
                         </div>
                       </div>
                     </div>
@@ -560,28 +564,26 @@ function Supplier() {
         }
         if (item.active && item.tab === "3") {
           return (
-            <section className="category-page mb-80">
+            <section className="category-page my-3">
               <div className="container">
                 <ul className="row">
                   {productsArr && productsArr.length > 0 ? productsArr.map((item, i) => {
                     return (
                       <li className="col-12 col-md-3">
+
                         <div className="product-box">
-                          <button className="call-btn">
-                            <MdCall />
-                          </button>
-                          <Link to={`/ShopDetail/${item.slug}`}>
-                            <img src={generateImageUrl(item.mainImage)} alt="" className="img" />
-                            {/* <b className="text-dark">width:272px and height:215px</b> */}
-                          </Link>
-                          <div className="content">
-                            <h6 className="title">
-                              <Link to={`/ShopDetail/${item.slug}`}>{item.name}</Link>
-                            </h6>
-                            {/* <h6 className="size">Size (Sq ft): 8x4</h6> */}
-                            <h6 className="prize">
-                              <del className="text-secondary">₹ {item.price}</del> {item.sellingprice}{" "}
-                            </h6>
+
+                          <Link to={`/ShopDetail/${item?.slug}`}>{item?.mainImage ? <img src={generateImageUrl(item?.mainImage)} alt="" className="img" /> : <img src={images.category_5} alt="" className="img" />}</Link>
+
+                          <div className="content ">
+                            <button className="call-btn">
+                              <MdCall />
+                            </button>
+                            <div className="title ">
+                              <Link className="text-white fs-5" to={`/ShopDetail/${item?.slug}`}>{item.name}</Link>
+                            </div>
+                            <div className=" text-white fw-light">Size (Sq ft): {item?.specification?.size ? item?.specification?.size : "N.A."}</div>
+                            <div className=" text-white">₹{item.sellingprice}/Sq ft</div>
                           </div>
                         </div>
                       </li>
