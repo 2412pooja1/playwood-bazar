@@ -79,7 +79,7 @@ function Footer() {
 
   return (
     <>
-      <section className="py-4 news-letter">
+      {/* <section className="py-4 news-letter">
         <div className="container">
           <div className="row align-items-end gx-lg-5 justify-content-center">
             <div className="col-12 col-md-4">
@@ -110,7 +110,6 @@ function Footer() {
           </div>
         </div>
       </section>
-      {/* ============================================================================= */}
       <footer>
         <div className="footer">
           <div className="container">
@@ -157,31 +156,26 @@ function Footer() {
                         Privacy Policy
                       </Link>
 
-                      {/* <a target="_blank" href="https://plywoodbazar.com/Privacy Policy Plywood Bazar Updated.pdf">Privacy Policy</a> */}
-                    </li>
+                     </li>
                     <li>
                       <Link className="text-white" to="/Terms">
                         Terms & Condition
                       </Link>
-                      {/* <a target="_blank" href="https://plywoodbazar.com/Terms & Conditions Updated.pdf"></a> */}
-                    </li>
+                                             </li>
                     <li>
                       <Link className="text-white" to="/Refund">
                         Refund Policy
                       </Link>
-                      {/* <a target="_blank" href="https://plywoodbazar.com/Refund Policy Plywood Bazar.pdf"></a> */}
                     </li>
                     <li>
                       <Link className="text-white" to="/Moto">
                         Company Moto
                       </Link>
-                      {/* <a target="_blank" href="https://plywoodbazar.com/Moto - Vision.pdf"></a> */}
                     </li>
                     <li>
                       <Link className="text-white" to="#">
                         Testimonials
                       </Link>
-                      {/* <a target="_blank" href="https://plywoodbazar.com/Moto - Vision.pdf"></a> */}
                     </li>
                   </ul>
                 </div>
@@ -260,11 +254,7 @@ function Footer() {
                         <FaInstagram />
                       </a>
                     </li>
-                    {/* <li>
-                      <a className="text-white icon" href="#">
-                        <FaTwitter />
-                      </a>
-                    </li> */}
+                  
                     <li>
                       <a
                         className="text-white icon"
@@ -297,7 +287,7 @@ function Footer() {
             </p>
           </div>
         </div>
-      </footer>
+      </footer> */}
       <>
         <div className="footer">
           <div
