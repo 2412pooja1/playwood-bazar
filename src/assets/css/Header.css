@@ -131,8 +131,9 @@
 }
 
 .Header .Search_section {
-  width: 500px;
+  width: 350px !important;
 }
+
 
 .Header .searchbar {
   display: flex;

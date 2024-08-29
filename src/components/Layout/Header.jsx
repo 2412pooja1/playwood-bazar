@@ -701,12 +701,12 @@ function Header() {
               </div></div>
           </Container>) : (
           <>
-            <Container className=" mblogo">  <Row>
-              <Col xs={7}><div className=" py-2">
+            <Container className=" mblogo">  <Row className=" px-0">
+              <Col xs={6}><div className=" py-2">
                 <img src={logo2} alt="" className=" img-fluid" />
               </div></Col>
               <Col xs={5}>
-                <Row>
+                <Row className=" px-0">
                   <Col xs={4}  className=" py-2">
                     <a
                       className="Acc_icn  rounded-circle "
