@@ -12,6 +12,9 @@ import { errorToast } from "../Utility/Toast";
 import { toastError, toastSuccess } from "../../utils/toastutill";
 import ReactPaginate from "react-paginate";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
+import "../../assets/css/Products.css";
+import { IoSearch } from "react-icons/io5";
+import { FaPlus } from "react-icons/fa6";
 
 export default function Products() {
   let userObj = useSelector((state) => state.auth.user);
@@ -23,6 +26,41 @@ export default function Products() {
   const [productArr, setProductArr] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState("");
+
+  const customStyles = {
+    tableWrapper: {
+      style: {
+        // borderRadius: '10px',
+        // boxShadow: '15px 18px 35px 0px #00000040',
+        // border: '1px solid #c4b7b7',
+        // textAlign: 'center',
+        // overflow: 'hidden',
+      },
+    },
+    headCells: {
+      style: {
+        backgroundColor: '#6c4f37',
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: '1.3rem',
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '1vw 0',
+      },
+    },
+    cells: {
+      style: {
+        backgroundColor: '#f5f1e8',
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: '1.05rem',
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '0.5vw 0',
+        // textWrap: 'pretty',
+      },
+    },
+  };
 
   const columns = [
     {
@@ -58,14 +96,14 @@ export default function Products() {
           <button
             type="button"
             onClick={() => navigate(`/AddProducts?productId=${row.slug}`)}
-            className="btn btn-custom btn-yellow"
+            className="btn btn-custom btn-yellow action-button"
           >
             <FaPencilAlt />
           </button>
           <button
             type="button"
             onClick={() => handleDelteProduct(`${row._id}`)}
-            className="btn btn-custom btn-yellow ms-2"
+            className="btn btn-custom btn-yellow ms-2 action-button"
           >
             <FaTrash />
           </button>
@@ -148,32 +186,35 @@ export default function Products() {
   const [totalPages, setTotalPages] = useState(5);
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid main-product-container">
         <div className="row d-flex justify-content-center">
           <div className="col-12 col-md-10 mb-5">
-            <div className="row d-flex mt-5 align-items-center justify-content-between">
-              <div className="col-6 col-sm-4">
-                <h4 className="yellow">Your products</h4>
-              </div>
-              <div className="col-6 col-sm-4 d-flex justify-content-end">
+            <div className="row d-flex mt-5 px-3 align-items-center justify-content-between" style={{gap:"2vw 0"}}>
+              <div className="col-lg-8 col-sm-12 d-flex gap-3">
+                <h4 className="yellow h4">Your products</h4>
+                <div className="d-flex justify-content-center align-items-center create-button-plus-container">
                 <Link
                   to="/AddProducts"
                   className="yellow-bg btn text-white subsctiption-card-button"
                 >
-                  Add Product
+                  <FaPlus />
                 </Link>
+                </div>
               </div>
-            </div>
-            <div className="row d-flex justify-content-end mt-4">
-              <div className="col-12 col-sm-3">
+              <div className="col-lg-4 col-sm-6 search-box-button-container">
                 <input
                   type="text"
                   placeholder="Search products here ..."
                   onChange={(e) => handleChange(e.target.value)}
                   className="form-control"
                 />
+                <button>
+                  <IoSearch />
+                </button>
               </div>
             </div>
+            {/* <div className="row d-flex justify-content-end mt-4">
+            </div> */}
 
             <div className="react-dataTable">
               <DataTable
@@ -184,12 +225,13 @@ export default function Products() {
                 responsive
                 columns={columns}
                 sortIcon={<BiChevronDown />}
-                className="react-dataTable"
+                className="react-dataTable main-datatable-container"
                 data={productArr}
                 paginationServer
                 paginationTotalRows={totalElements}
                 onChangeRowsPerPage={handlePerRowsChange}
                 onChangePage={handlePageChange}
+                customStyles={customStyles}
                 // subHeaderComponent={
                 //     // <CustomHeader
                 //     //     store={store}

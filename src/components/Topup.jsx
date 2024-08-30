@@ -5,6 +5,7 @@ import { errorToast, successToast } from './Utility/Toast'
 import { useSelector } from 'react-redux';
 import { getAlltopups } from '../services/topup.service';
 import { buyTopup } from '../services/UserTopup.service';
+import "../assets/css/Topup.css"
 
 export default function Topup() {
 
@@ -59,7 +60,7 @@ export default function Topup() {
     }
 
     return (
-        <div className='container-fluid subscription-container'>
+        <div className='container-fluid subscription-container topup-subscription-container'>
             <div className="container">
                 <div className="subsctiption-heading">
                     Our topup plans
