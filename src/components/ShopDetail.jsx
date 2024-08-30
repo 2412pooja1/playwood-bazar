@@ -205,8 +205,10 @@ function ShopDetail() {
   const handleGetProductReview = async (id) => {
     try {
       let { data: res } = await getReviewForProduct(`productId=${id}`);
+
       if (res.message) {
         setProductReviewArr(res.data);
+        console.log(res.data)
       }
     } catch (err) {
       toastError(err);
@@ -242,10 +244,28 @@ function ShopDetail() {
       slidesPerView: 3,
     },
     1200: {
-      slidesPerView: 4,
+      slidesPerView: 5,
     },
     1400: {
-      slidesPerView: 4,
+      slidesPerView: 5,
+    },
+  }
+
+  const reviews = {
+    0: {
+      slidesPerView: 1,
+    },
+    576: {
+      slidesPerView: 1,
+    },
+    992: {
+      slidesPerView: 1,
+    },
+    1200: {
+      slidesPerView: 2,
+    },
+    1400: {
+      slidesPerView: 2,
     },
   }
 
@@ -256,10 +276,9 @@ function ShopDetail() {
 
 
 
-
   return (
     <main>
-      <section className="product-page mb-80 mt-5 py-5" >
+      <section className="product-page   py-5" >
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-lg-4">
@@ -455,8 +474,8 @@ function ShopDetail() {
         </div>
       </section>
 
-      <section className="products mb-80 gray-bg ptb-80 ">
-        <div className="container">
+      <section className="products gray-bg mt-2 ">
+        <div className="container-fluid">
           <div className="title-section with-btn">
             <h1 className="heading text-start">Similar Products</h1>
             {/* <Link to="/" className="btn btn-custom btn-yellow">
@@ -477,18 +496,18 @@ function ShopDetail() {
                 return (
                   <SwiperSlide>
                     <div className="product-box">
-                     
+
                       <Link to={`/ShopDetail/${el?.slug}`}>{el?.mainImage ? <img src={generateImageUrl(el?.mainImage)} alt="" className="img" /> : <img src={images.category_5} alt="" className="img" />}</Link>
-                     
+
                       <div className="content ">
-                      <button className="call-btn">
-                        <MdCall />
-                      </button>
-                        <h6 className="title ">
+                        <button className="call-btn">
+                          <MdCall />
+                        </button>
+                        <div className="title ">
                           <Link className="text-white fs-5" to={`/ShopDetail/${el?.slug}`}>{el.name}</Link>
-                        </h6>
-                        <h6 className="size text-white fw-light">Size (Sq ft): {el?.specification?.size ? el?.specification?.size : "N.A."}</h6>
-                        <h6 className="prize text-white">₹{el.sellingprice}/Sq ft</h6>
+                        </div>
+                        <div className=" text-white fw-light">Size (Sq ft): {el?.specification?.size ? el?.specification?.size : "N.A."}</div>
+                        <div className=" text-white">₹{el.sellingprice}/Sq ft</div>
                       </div>
                     </div>
                   </SwiperSlide>
@@ -498,9 +517,10 @@ function ShopDetail() {
         </div>
       </section>
 
-      <section className="product-tabs mb-80 d-flex  align-items-center justify-content-center">
-        <Row className="container d-flex   align-items-end ">
-          <Col className="col-lg-6 col-sm-12 ">
+      <section className="product-tabs mt-5 d-flex  align-items-start justify-content-center">
+        <Row className="container d-flex  align-items-start justify-content-between
+          ">
+          <Col className="col-lg-8col-sm-12 ">
             <ul className="tabs">
               {ProductTabs.map((item, i) => {
                 return (
@@ -573,7 +593,7 @@ function ShopDetail() {
                     <div className="tab-inner">
                       {productObj?.longDescription && (
                         <div className="desp">
-                          {/* <p>{productObj?.longDescription}</p> */}
+                          <p>{productObj?.longDescription}</p>
                         </div>
                       )}
                     </div>
@@ -582,10 +602,10 @@ function ShopDetail() {
               })}
             </div>
           </Col>
-          <Col className="col-lg-6 col-sm-12 main_col_2 ">
+          <Col className="col-lg-4 col-sm-12   d-flex  align-items-center">
             <Table className="custom-form">
               <Col className="col_1">
-                <h2 className="right-h2">TELL US YOUR REQUIREMENT</h2>
+                <h4 className="right-h2">TELL US YOUR REQUIREMENT</h4>
               </Col>
               <Col className="col_2">
                 <div className="custom-form-input-container">
@@ -656,7 +676,7 @@ function ShopDetail() {
 
 
 
-      {/* <section className="mb-80">
+      <section className="mb-80" style={{ background: "#FFF2E2" }}>
         <div className="container">
           <div className="title-section with-btn mb-5">
             <h1 className="heading bottom-line brown">Reviews</h1>
@@ -667,47 +687,58 @@ function ShopDetail() {
             )}
           </div>
           <div className="row gy-4">
-            {productReviewArr && productReviewArr.length > 0 ? (
-              productReviewArr.map((el, index) => {
-                return (
-                  <div key={index} className="col-12">
-                    <div className="product-review">
-                      <div className="top">
-                        <div className="name">
-                          <div>
-                            <h6>{el.name}</h6>
-                            <p className="small brown">{moment(el.createdAt).format("DD-MM-YYYY")}</p>
+            <Swiper
+              spaceBetween={20}
+              slidesPerView={4}
+              breakpoints={reviews}
+              speed={1500}
+              modules={[Autoplay, Navigation]}
+              autoplay={{ disableOnInteraction: false }}
+              navigation className="pt-5 px-4">
+              {productReviewArr && productReviewArr.length > 0 ? (
+                productReviewArr.map((el, index) => {
+                  return (
+                    <SwiperSlide>
+                      <div key={index} className="col-12">
+                        <div className="product-review">
+                          <div className="top">
+                            <div className="name">
+                              <div>
+                                <h6>{el.name}</h6>
+                                <p className="small brown">{moment(el.createdAt).format("DD-MM-YYYY")}</p>
+                              </div>
+                            </div>
+                            <div className="review-rating">
+                              <ReactStars edit={false} count={5} size={24} value={el.rating} activeColor="#ffd700" />
+                            </div>
+                          </div>
+                          <div className="desp">
+                            <p>
+                              {el.message} {el.rating}
+                            </p>
                           </div>
                         </div>
-                        <div className="review-rating">
-                          <ReactStars edit={false} count={5} size={24} value={el.rating} activeColor="#ffd700" />
+                      </div>
+                    </SwiperSlide>
+                  );
+                })
+              ) : (
+                <div className="col-12">
+                  <div className="product-review">
+                    <div className="top">
+                      <div className="name">
+                        <div>
+                          <h6>No Reviews found for this product</h6>
                         </div>
-                      </div>
-                      <div className="desp">
-                        <p>
-                          {el.message} {el.rating}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="col-12">
-                <div className="product-review">
-                  <div className="top">
-                    <div className="name">
-                      <div>
-                        <h6>No Reviews found for this product</h6>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </Swiper>
           </div>
         </div>
-      </section> */}
+      </section>
 
       <Modal show={reviewModal} size="lg" centered onHide={() => setReviewModal(false)}>
         <Modal.Body className="review-modal custom-modal">

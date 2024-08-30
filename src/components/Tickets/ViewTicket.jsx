@@ -71,7 +71,7 @@ export default function ViewTicket() {
                 <div className='col-12' ref={commentsContainerRef} style={{ border: "solid 1px rgba(0,0,0,0.2)", padding: 15, borderRadius: 15, minHeight: "40vh", maxHeight: "60vh", overflowY: "auto", display: "grid", placeItems: "center" }}>
                     {messageArr && messageArr.length > 0 && messageArr.map((el, index) => {
                         return (
-                            <div style={{ border: "solid 1px white", borderRadius: 5, width: "80%", marginLeft: el?.userId !== id ? "-20%" : "20%", marginBottom: 15, backgroundColor: el?.userId != id ? "#B08218" : "grey", padding: 10 }} key={index}>
+                            <div style={{ border: "solid 1px white", borderRadius: 5, width: "80%", marginLeft: el?.userId !== id ? "-20%" : "20%", marginBottom: 15, backgroundColor: el?.userId != id ? "#603200" : "grey", padding: 10 }} key={index}>
                                 <div style={{ fontSize: 17, fontWeight: "600", color: "white" }}>
                                     {el.message}
                                 </div>

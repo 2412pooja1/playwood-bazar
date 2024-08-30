@@ -156,8 +156,8 @@ export default function AddPromotion() {
         <div className="container">
             <div className="row mt-3">
                 <div className="col-12 col-md-12">
-                    <div className="right">
-                        <h3 className="heading ps-3">{isEditingModeOn ? "Edit" : "Add"} Promotions</h3>
+                    <div className="right frormcontainer">
+                        <h3 className="heading formheading ps-3">{isEditingModeOn ? "Edit" : "Add"} Promotions</h3>
                         <form className="form profile-section-container ">
                           
                           <div className="row">
@@ -242,12 +242,13 @@ export default function AddPromotion() {
                                     type="text"
                                     className="form-control"
                                     value={message}
+                                    placeholder=" Enter Message here"
                                     // disabled
                                     onChange={(e) => setMessage(e.target.value)}
                                 />
                             </div>
-                            <div className="col-md-12">
-                                <button type="button" onClick={() => { onSubmit() }} className="btn btn-custom btn-yellow mt-2">
+                            <div className="col-md-12 d-flex justify-content-end">
+                                <button type="button" onClick={() => { onSubmit() }} className="btn btn-custom btn-yellow mt-2 px-4 fs-5 me-5">
                                     Submit
                                 </button>
                             </div>

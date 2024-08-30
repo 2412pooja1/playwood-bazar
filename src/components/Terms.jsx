@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Terms() {
   return (
     <div className="dataContainer container my-5">
-      <h4 style={{ color: "#B08218" }}>1. Terms & Conditions</h4>
+      <h4 style={{ color: "#603200" }}>1. Terms & Conditions</h4>
       {/* <h5>About PLYWOOD BAZAR.COM </h5> */}
       <ul>
         <li>
@@ -37,7 +37,7 @@ export default function Terms() {
           as specified by the Company.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>2. Subscriber Obligations</h4>
+      <h4 style={{ color: "#603200" }}>2. Subscriber Obligations</h4>
       <ul>
         <li>
           2.1. The Subscriber shall provide accurate and up-to-date information
@@ -70,7 +70,7 @@ export default function Terms() {
           category which banned by the law.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>3. Intellectual Property Rights </h4>
+      <h4 style={{ color: "#603200" }}>3. Intellectual Property Rights </h4>
       <ul>
         <li>
           3.1. We Plywood Bazar.com By Dipparv Ventures LLP retains all
@@ -84,7 +84,7 @@ export default function Terms() {
           written consent of Plywood Bazar.com By Dipparv Ventures LLP.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>4. Limitation of Liability</h4>
+      <h4 style={{ color: "#603200" }}>4. Limitation of Liability</h4>
       <ul>
         <li>
           4.1. Plywood Bazar.com By Dipparv Ventures LLP shall not be liable for
@@ -99,7 +99,7 @@ export default function Terms() {
           module.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>5. Termination </h4>
+      <h4 style={{ color: "#603200" }}>5. Termination </h4>
       <ul>
         <li>
           5.1. Either party may terminate this Agreement upon written notice.
@@ -109,7 +109,7 @@ export default function Terms() {
           upon termination of the Agreement.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>6. Confidentiality</h4>
+      <h4 style={{ color: "#603200" }}>6. Confidentiality</h4>
       <ul>
         <li>
           6.1. The Parties agree to keep all confidential information obtained
@@ -121,7 +121,7 @@ export default function Terms() {
           of this Agreement.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>7. Governing Law and Jurisdiction</h4>
+      <h4 style={{ color: "#603200" }}>7. Governing Law and Jurisdiction</h4>
       <ul>
         <li>
           7.1. This Agreement shall be governed by and construed in accordance
@@ -133,7 +133,7 @@ export default function Terms() {
           in Only At Sangamner State - Maharashtra India.
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>8. Entire Agreement</h4>
+      <h4 style={{ color: "#603200" }}>8. Entire Agreement</h4>
       <ul>
         <li>
           8.1. This Agreement constitutes the entire understanding between the
@@ -219,7 +219,7 @@ export default function Terms() {
         </li>
       </ul>
 
-      <h4 style={{ color: "#B08218" }}>9.Guiedline for Reviews</h4>
+      <h4 style={{ color: "#603200" }}>9.Guiedline for Reviews</h4>
       <ul>
         <li>
           By signing or clicking in the box. of the Terms Condition, the
@@ -256,7 +256,7 @@ export default function Terms() {
         </li>
         <li></li>
       </ul>
-      <h5 style={{ color: "#B08218" }}>Prohibited Topics:</h5>
+      <h5 style={{ color: "#603200" }}>Prohibited Topics:</h5>
       <ul>
         <li>
           Promotional content: Reviews cannot be used to promote other websites
@@ -283,7 +283,7 @@ export default function Terms() {
           activities.
         </li>
       </ul>
-      <h5 style={{ color: "#B08218" }}>Consequences for Violations:</h5>
+      <h5 style={{ color: "#603200" }}>Consequences for Violations:</h5>
       <ul>
         <li>
           Removal of review: Reviews that violate these guidelines will be
@@ -306,7 +306,7 @@ export default function Terms() {
           modify the terms at your discretion.
         </li>
       </ul>
-      <h5 style={{ color: "#B08218" }}>Dispute Resolving for Reviews:</h5>
+      <h5 style={{ color: "#603200" }}>Dispute Resolving for Reviews:</h5>
       <ul>
         <li>
           Transparency: Plywood Bazar.Com communicate to Both The
@@ -324,7 +324,7 @@ export default function Terms() {
           </Link>
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>
+      <h4 style={{ color: "#603200" }}>
         10 Responsibilities of Payment transaction for The Sales & Purchase
         Transaction between Subscriber{" "}
       </h4>
@@ -345,7 +345,7 @@ export default function Terms() {
           disputes in their Way. Plywood Bazar.Com do not make any Mediation.{" "}
         </li>
       </ul>
-      <h4 style={{ color: "#B08218" }}>
+      <h4 style={{ color: "#603200" }}>
         11. We The Plywood Bazar.Com by Dipparv Ventures LLP do not Confirm any photo
         or product displayed Nor give Claims or confirmations about Profile Upload
         By the Subscriber on our app & Website.
