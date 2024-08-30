@@ -4,7 +4,7 @@ export default function Refund() {
 
     return (
         <div className='dataContainer container my-5'>
-            <h4 style={{ color: "#B08218" }}>Refund Policy</h4>
+            <h4 style={{ color: "#603200" }}>Refund Policy</h4>
             {/* <h5>About PLYWOOD BAZAR.COM </h5> */}
             <div>
                 Thank you for choosing our B2B website subscription module and advertisement
@@ -14,7 +14,7 @@ export default function Refund() {
                 purchase.
             </div>
 
-            <h4 style={{ color: "#B08218" }}>1. Eligibility for Refunds</h4>
+            <h4 style={{ color: "#603200" }}>1. Eligibility for Refunds</h4>
             <ul>
                 <li>
                     1.1 Our refund policy applies to customers who have purchased a subscription to
@@ -29,7 +29,7 @@ export default function Refund() {
                     terms specific to the subscription module & Advertisement Module
                 </li>
             </ul>
-            <h4 style={{ color: "#B08218" }}>2. Refund Requests</h4>
+            <h4 style={{ color: "#603200" }}>2. Refund Requests</h4>
             <ul>
                 <li>
                     2.1 To request a refund, please submit a written refund request to our customer
@@ -44,7 +44,7 @@ export default function Refund() {
                     eligibility criteria or if it does not comply with the terms outlined in this policy.
                 </li>
             </ul>
-            <h4 style={{ color: "#B08218" }}>3. Grounds for Refunds</h4>
+            <h4 style={{ color: "#603200" }}>3. Grounds for Refunds</h4>
             <ul>
                 <li>
                     3.1 We will consider refund requests based on the following grounds:
@@ -64,7 +64,7 @@ export default function Refund() {
                     on a case-by-case basis at our sole discretion.
                 </li>
             </ul>
-            <h4 style={{ color: "#B08218" }}>4. Refund Process</h4>
+            <h4 style={{ color: "#603200" }}>4. Refund Process</h4>
             <ul>
                 <li>
                     4.1 Upon receiving a valid refund request, we will review the request and notify you
@@ -81,7 +81,7 @@ export default function Refund() {
                 </li>
 
             </ul>
-            <h4 style={{ color: "#B08218" }}>5. License Termination</h4>
+            <h4 style={{ color: "#603200" }}>5. License Termination</h4>
             <ul>
                 <li>
                     5.1 If a refund is issued, your license to use the subscription module and
@@ -93,7 +93,7 @@ export default function Refund() {
                     and advertisement module from your systems upon termination.
                 </li>
             </ul>
-            <h4 style={{ color: "#B08218" }}>6. Amendments</h4>
+            <h4 style={{ color: "#603200" }}>6. Amendments</h4>
             <ul>
                 <li>
                     6.1 We reserve the right to modify or update this Refund Policy at any time without

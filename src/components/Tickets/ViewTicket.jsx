@@ -5,6 +5,7 @@ import { AddTicketMessage, getTicketMessagesbyId } from '../../services/UserTick
 import { toastError, toastSuccess } from '../../utils/toastutill';
 import { DisplayDate } from '../Utility/DateUtils';
 import { errorToast } from '../Utility/Toast';
+import "../../assets/css/help.css";
 
 export default function ViewTicket() {
     const params = useParams()
@@ -62,7 +63,7 @@ export default function ViewTicket() {
     }
 
     return (
-        <div className='container'>
+        <div className='container view-ticket-container'>
 
             <div className="row mt-4">
                 <h3 className=' mb-3'>Ticket for - {ticketObj?.name}</h3>
@@ -70,7 +71,7 @@ export default function ViewTicket() {
                 <div className='col-12' ref={commentsContainerRef} style={{ border: "solid 1px rgba(0,0,0,0.2)", padding: 15, borderRadius: 15, minHeight: "40vh", maxHeight: "60vh", overflowY: "auto", display: "grid", placeItems: "center" }}>
                     {messageArr && messageArr.length > 0 && messageArr.map((el, index) => {
                         return (
-                            <div style={{ border: "solid 1px white", borderRadius: 5, width: "80%", marginLeft: el?.userId !== id ? "-20%" : "20%", marginBottom: 15, backgroundColor: el?.userId != id ? "#B08218" : "grey", padding: 10 }} key={index}>
+                            <div style={{ border: "solid 1px white", borderRadius: 5, width: "80%", marginLeft: el?.userId !== id ? "-20%" : "20%", marginBottom: 15, backgroundColor: el?.userId != id ? "#603200" : "grey", padding: 10 }} key={index}>
                                 <div style={{ fontSize: 17, fontWeight: "600", color: "white" }}>
                                     {el.message}
                                 </div>
@@ -91,7 +92,7 @@ export default function ViewTicket() {
 
                 <div className="row d-flex justify-content-between my-4">
                     <textarea className="form-control col-10" style={{ width: "80%" }} onChange={(e) => setMessage(e.target.value)} value={message} name="name" type="text" />
-                    <button onClick={() => handleAddComment()} className="btn btn-custom btn-yellow mt-2" style={{ height: 40, width: "15%" }}>
+                    <button onClick={() => handleAddComment()} className="btn btn-custom btn-yellow mt-2 view-ticket-btn-submit" style={{ height: 40, width: "15%" }}>
                         send message
                     </button>
 

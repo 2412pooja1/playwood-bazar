@@ -30,6 +30,10 @@ export const updateProductApi = (formData, id) => {
 export const getSimilarProducts = async (id) => {
   return axiosApiInstance.get(`${serverUrl}/getSimilarProducts/${id}`);
 };
+
+export const getrecommondedProducts = async (id) => {
+  return axiosApiInstance.get(`${serverUrl}`);
+};
 export const deleteProductbyId = async (id) => {
   return axiosApiInstance.delete(`${serverUrl}/deleteById/${id}`);
 };
