@@ -8,7 +8,11 @@ import { getAllProducts } from "../../services/Product.service";
 import { getTicketsbyUserId } from "../../services/UserTicket.service";
 import { errorToast } from "../Utility/Toast";
 import Accordion from "react-bootstrap/Accordion";
-import "../../assets/css/help.css"
+import "../../assets/css/help.css";
+import { HiPlus } from "react-icons/hi";
+import { IoSearch } from "react-icons/io5";
+import { Table } from "react-bootstrap";
+import { FaPencilAlt, FaTrash } from "react-icons/fa";
 
 export default function UserTickets() {
   let userObj = useSelector((state) => state.auth.user);
@@ -23,28 +27,73 @@ export default function UserTickets() {
 
   const [searchQuery, setSearchQuery] = useState("");
 
+  const customStyles = {
+    tableWrapper: {
+      style: {
+        // borderRadius: '10px',
+        // boxShadow: '15px 18px 35px 0px #00000040',
+        // border: '1px solid #c4b7b7',
+        // textAlign: 'center',
+        // overflow: 'hidden',
+      },
+    },
+    headCells: {
+      style: {
+        backgroundColor: "#6c4f37",
+        color: "white",
+        fontWeight: "bold",
+        fontSize: "1.3rem",
+        display: "flex",
+        justifyContent: "center",
+        padding: "1vw 0",
+      },
+    },
+    cells: {
+      style: {
+        backgroundColor: "#f5f1e8",
+        color: "black",
+        fontWeight: "bold",
+        fontSize: "1.05rem",
+        display: "flex",
+        justifyContent: "center",
+        padding: "0.5vw 0",
+        // textWrap: 'pretty',
+      },
+    },
+  };
+
   const columns = [
     {
       name: "S.no",
       selector: (row, index) => index + 1,
       sortable: false,
-      width: "5%",
+      width: "10%",
     },
     {
       name: "Name",
       selector: (row, index) => row.name,
       sortable: false,
+      width: "60%",
     },
     {
       name: "Action",
       cell: (row, index) => (
-        <button
-          type="button"
-          onClick={() => navigate(`/View/View-Ticket/${row._id}`)}
-          className="btn btn-custom btn-yellow"
-        >
-          View Messages
-        </button>
+        <>
+          <button
+            type="button"
+            onClick={() => navigate(`/View/View-Ticket/${row._id}`)}
+            className="btn btn-custom btn-yellow action-button"
+          >
+            View Messages
+          </button>
+          <button
+            type="button"
+            // onClick={() => handleDelteProduct(`${row._id}`)}
+            className="btn btn-custom btn-yellow ms-2 action-button"
+          >
+            <FaTrash />
+          </button>
+        </>
       ),
       sortable: false,
     },
@@ -113,28 +162,35 @@ export default function UserTickets() {
   return (
     <>
       <div className="row d-flex justify-content-center">
-        <div className="col-10 mb-5">
+        <div className="col-10 mb-5 ticket-faq-container">
           {isAuthorized && (
             <>
-              <div className="row d-flex mt-5 align-items-center justify-content-between">
-                <h4 className="col-4 yellow">Your Tickets</h4>
-                <div className="col-2 d-flex justify-content-end">
-                  <Link
-                    to="/View/Add-Ticket"
-                    className="yellow-bg btn text-white subsctiption-card-button"
-                  >
-                    Create a new ticket
-                  </Link>
-                </div>
-              </div>
-              <div className="row d-flex justify-content-end mt-4">
-                <div className="col-3">
+              <div
+                className="row d-flex mt-5 align-items-center justify-content-between"
+                style={{ gap: "2vw 0" }}
+              >
+                <h4 className="col-lg-6 col-sm-12 yellow h4">Your Tickets</h4>
+                <div className="col-lg-4 col-sm-6 search-box-button-container">
                   <input
                     type="text"
                     placeholder="Search tickets here ..."
                     onChange={(e) => handleChange(e.target.value)}
                     className="form-control"
                   />
+                  <button>
+                    <IoSearch />
+                  </button>
+                </div>
+                <div className="col-lg-2 col-sm-6 d-flex justify-content-end create-button-plus-container">
+                  <Link
+                    to="/View/Add-Ticket"
+                    className="yellow-bg btn text-white subsctiption-card-button"
+                  >
+                    Create a new ticket
+                  </Link>
+                  <Link to="/View/Add-Ticket" className="hi-plus-icon">
+                    <HiPlus />
+                  </Link>
                 </div>
               </div>
               <div className="react-dataTable">
@@ -146,12 +202,13 @@ export default function UserTickets() {
                   responsive
                   columns={columns}
                   sortIcon={<BiChevronDown />}
-                  className="react-dataTable"
+                  className="react-dataTable main-datatable-container"
                   data={ticketsArr}
                   paginationServer
                   paginationTotalRows={totalElements}
                   onChangeRowsPerPage={handlePerRowsChange}
                   onChangePage={handlePageChange}
+                  customStyles={customStyles}
                   // subHeaderComponent={
                   //     // <CustomHeader
                   //     //     store={store}
@@ -180,16 +237,58 @@ export default function UserTickets() {
                             containerClassName={'pagination react-paginate justify-content-end my-2 pe-1'}
                         /> */}
               </div>
+
+              {/* <div className="ticket-table-container">
+                <Table className="ticket-table">
+                  <thead>
+                    <tr>
+                      <th>S No.</th>
+                      <th className="td-1">Name</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td className="td-1">Plywood</td>
+                      <td>
+                        <button>View Message</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td className="td-1">Plywood</td>
+                      <td>
+                        <button>View Message</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td className="td-1">Plywood</td>
+                      <td>
+                        <button>View Message</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td className="td-1">Plywood</td>
+                      <td>
+                        <button>View Message</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div> */}
             </>
           )}
 
           <div className="row d-flex mt-5 align-items-center justify-content-between"></div>
           <div className="row justify-content-center faq-container1">
-            <div className="col-12 col-md-10">
+            <div className="col-12">
               <h1>FAQ</h1>
             </div>
-            <div className="col-12 col-md-10">
-              <Accordion className="mt-3">
+            <div className="col-12">
+              <Accordion className="mt-3" defaultActiveKey="1">
                 <Accordion.Item eventKey="1">
                   <Accordion.Header>
                     {" "}

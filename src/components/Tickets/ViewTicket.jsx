@@ -5,6 +5,7 @@ import { AddTicketMessage, getTicketMessagesbyId } from '../../services/UserTick
 import { toastError, toastSuccess } from '../../utils/toastutill';
 import { DisplayDate } from '../Utility/DateUtils';
 import { errorToast } from '../Utility/Toast';
+import "../../assets/css/help.css";
 
 export default function ViewTicket() {
     const params = useParams()
@@ -62,7 +63,7 @@ export default function ViewTicket() {
     }
 
     return (
-        <div className='container'>
+        <div className='container view-ticket-container'>
 
             <div className="row mt-4">
                 <h3 className=' mb-3'>Ticket for - {ticketObj?.name}</h3>
@@ -91,7 +92,7 @@ export default function ViewTicket() {
 
                 <div className="row d-flex justify-content-between my-4">
                     <textarea className="form-control col-10" style={{ width: "80%" }} onChange={(e) => setMessage(e.target.value)} value={message} name="name" type="text" />
-                    <button onClick={() => handleAddComment()} className="btn btn-custom btn-yellow mt-2" style={{ height: 40, width: "15%" }}>
+                    <button onClick={() => handleAddComment()} className="btn btn-custom btn-yellow mt-2 view-ticket-btn-submit" style={{ height: 40, width: "15%" }}>
                         send message
                     </button>
 

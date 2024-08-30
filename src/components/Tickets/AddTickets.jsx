@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getUserById } from "../../services/User.service";
 import { createTicket } from "../../services/UserTicket.service";
 import { errorToast, successToast } from "../Utility/Toast";
+import "../../assets/css/help.css";
 
 export default function AddTickets() {
     const navigate = useNavigate()
@@ -66,7 +67,7 @@ export default function AddTickets() {
 
 
     return (
-        <div className="container">
+        <div className="container add-ticket-container">
             <div className="row m-3 pt-3">
                 <div className="col-12 col-md-12">
                     <div className="right">
@@ -84,7 +85,7 @@ export default function AddTickets() {
                             </div>
 
                             <div className="col-md-12">
-                                <button type="button" onClick={() => { onSubmit() }} className="btn btn-custom btn-yellow mt-2">
+                                <button type="button" onClick={() => { onSubmit() }} className="btn btn-custom btn-yellow mt-2 add-ticket-btn-submit">
                                     Submit
                                 </button>
                             </div>
