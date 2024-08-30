@@ -314,7 +314,7 @@ function Footer() {
               <Col lg={5}>
                 <Row>
                   <Col className="quicklinks mt-5 mt-lg-0" xs={12} lg={4}>
-                    <h5>QUICK LINKS</h5>
+                    <h5  className=" text-white">QUICK LINKS</h5>
 
                     <ul className="links">
                       <li>
@@ -361,7 +361,7 @@ function Footer() {
                     </ul>
                   </Col>
                   <Col className="product1 mt-5 mt-lg-0" xs={12} lg={8}>
-                    <h5>PRODUCT</h5>
+                    <h5 className=" text-white">PRODUCT</h5>
                     <Row>
                       <Col lg={6}>
                         <ul>
@@ -402,7 +402,7 @@ function Footer() {
                 </Row>
               </Col>
               <Col className="contactus mt-5 mt-lg-0" xs={12} lg={3}>
-                <h5>CONTACT US</h5>
+                <h5  className=" text-white">CONTACT US</h5>
                 <ul className="list-unstyled">
                   <li>
                     <IoCallOutline />

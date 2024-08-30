@@ -250,11 +250,11 @@ header .bottom-bar {
   transition: all 0.5s ease-in-out;
   position: absolute;
   left: 0px;
-  background: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1254901961);
-  border-radius: 0 0 15px 15px;
-  z-index: 99999 !important;
-  width: 200px;
+    z-index: 99999 !important;
+  width: 250px;
+  background: #EAE2D0;
+  box-shadow: 8px 4px 20px 0px #00000040;
+  border-radius: 40px;
 }
 
 .custom-search .custom-search-list li {
@@ -1302,6 +1302,7 @@ footer .footer {
   border-radius: 3.125rem;
   padding: 2vmin 3vw;
   font-weight: 300;
+  background: #5A432F !important;
 }
 
 .vlp {
@@ -1347,6 +1348,7 @@ footer .footer {
   padding: 2vh 1vw;
   font-weight: 300 !important;
   padding: 10px;
+  color: white;
 }
 
 .product-tabs ul.tabs li.active {

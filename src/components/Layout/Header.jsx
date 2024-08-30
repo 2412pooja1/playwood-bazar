@@ -666,34 +666,148 @@ function Header() {
                       </Form>
 
                       <div className=" d-flex align-items-center flex-wrap me-5">
-                        <Button className="navbtn Register rounded-pill me-2">
-                          <Link
-                            to="/Register"
-                            className=" text-white"
+                        {!isAuthorized ? (
+                          <Button className="navbtn Register rounded-pill me-2">
+                            <Link to="/Register" className="text-white">
+                              Register
+                            </Link>
+                          </Button>
+                        ) : (
+                          <Button className="navbtn rounded-pill me-2">
+                            <Link to="/" className="text-white">
+                              Subscription
+                            </Link>
+                          </Button>
+                        )}
+
+
+
+
+                        {isAuthorized ? (
+                          <div
+                            className="sign-in-btn"
 
                           >
-                            Register
-                          </Link>
-                        </Button>
-                        <Button className="navbtn rounded-pill me-2">
+                            <div
+                              className="custom-search"
 
-                          <Link
-                            to="/"
-                            className=" text-white"
+                              onClick={() => setShowSignIn(!showSignIn)}
+                            >
+
+
+
+
+                              <div className=" d-flex align-items-center">
+                                <div>
+                                  <MdAccountCircle className=" Acc_icn btn-social rounded-circle mx-2" style={{ fontSize: "2rem" }} />
+                                </div>
+                                <div className=" text-white">
+                                  {userObj?.name}<BiChevronDown />
+                                </div>
+                              </div>
+
+
+                              <div ref={wrapperRef}>
+                                <ul
+                                  style={{
+                                    display: showSignIn ? "block" : "none",
+                                  }}
+                                  className={`custom-search-list px-3`}
+                                >
+                                  {signInList.map((item, i) => {
+                                    return (
+                                      <li key={i}>
+                                        <Link to={item.link} className="userprofileoptionstext ms-4  d-flex align-items-center ">
+                                          <div className="userprofileoptionsicon">
+                                            {item.icon}
+                                          </div>
+                                          {item.name}
+                                        </Link>
+                                      </li>
+                                    );
+                                  })}
+
+                                  <li onClick={() => handleLogout()}>
+                                    <a style={{ cursor: "pointer" }}>
+                                      <div className="icon">
+                                        <AiOutlineLogout />
+                                      </div>
+                                      Logout
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div
+                            className="sign-in-btn"
+                            onClick={() => setShowSignIn(!showSignIn)}
 
                           >
-                            Subscription
-                          </Link>
-                        </Button>
-                        <Button
-                          className="Acc_icn btn-social rounded-circle mx-2"
-                          style={{ fontSize: "2rem" }}
+                            <div className="custom-search">
+                              <div
+                                className="text-dark d-flex align-items-center"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                              >
+                                {windowWidth > 992 ? (
+                                  <>
+                                    
+                                 
+                                    <div className=" d-flex align-items-center">
+                                      <div>
+                                        <MdAccountCircle className=" Acc_icn btn-social rounded-circle mx-2" style={{ fontSize: "2rem" }} />
+                                      </div>
+                                      <div className=" text-white">
+                                      Log In<BiChevronDown />
+                                      </div>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <>
+                                    <img src={images.user} alt="" />
+                                  </>
+                                )}
+                              </div>
+                              <div ref={wrapperLoggedOutRef}>
+                                <ul
+                                  style={{
+                                    display: showSignIn ? "block" : "none",
+                                  }}
+                                  className={`custom-search-list`}
+                                >
+                                  <li className="text-center bottom-li">
+                                    <button
+                                      className="yellow-bg btn text-white"
+                                      onClick={() => setSignInModal(true)}
+                                    >
+                                      Log In
+                                    </button>
+                                    <p className="text text-dark">
+                                      New to Plywood Bazar?
+                                      <Link
+                                        to="/Register"
+                                        className="brown fw-semibold justify-content-center"
+                                      >
+                                        Register here
+                                      </Link>
+                                    </p>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        )}
 
-                          onClick={() => setSignInModal(true)}
+                        {/* {isAuthorized && (
+                          <a className="nav-link position-relative" href="/notifications">
+                            <FaBell style={{ fontSize: 22 }} />
+                            {totalNotification > 0 && <span>{totalNotification}</span>}
+                          </a>
+                        )} */}
 
-                        >
-                          <MdAccountCircle />
-                        </Button>
                       </div>
                     </div>
                   </Container>
@@ -701,13 +815,13 @@ function Header() {
               </div></div>
           </Container>) : (
           <>
-            <Container className=" mblogo">  <Row className=" px-0">
-              <Col xs={6}><div className=" py-2">
+            <Container className=" mblogo">  <Row>
+              <Col xs={7}><div className=" py-2">
                 <img src={logo2} alt="" className=" img-fluid" />
               </div></Col>
               <Col xs={5}>
-                <Row className=" px-0">
-                  <Col xs={4}  className=" py-2">
+                <Row>
+                  <Col xs={4} className=" py-2">
                     <a
                       className="Acc_icn  rounded-circle "
                       href="#"
@@ -770,7 +884,7 @@ function Header() {
                       )}
                     </Form>
                   </Col>
-                  <Col xs={4}  className=" py-2">
+                  <Col xs={4} className=" py-2">
                     <Button
                       className="Acc_icn btn-social rounded-circle 
                   "
@@ -803,8 +917,8 @@ function Header() {
 
 
       </>
-
-      {/* <header className="reverheadermobile sticky-top bg-light">
+      {/* 
+      <header className="reverheadermobile sticky-top bg-light">
 
 
         <div className="middlebar_new">

@@ -262,10 +262,10 @@ function ShopDetail() {
       slidesPerView: 1,
     },
     1200: {
-      slidesPerView: 2,
+      slidesPerView: 3,
     },
     1400: {
-      slidesPerView: 2,
+      slidesPerView: 3,
     },
   }
 
@@ -309,7 +309,7 @@ function ShopDetail() {
                 <ul className="info text-dark">
                   {productObj && productObj?.brandObj && (
                     <li className="">
-                      Brand <span className="text-dark">{productObj?.brandObj?.name}</span>
+                      Brand <span className="">{productObj?.brandObj?.name}</span>
                     </li>
                   )}
                   {productObj?.specification && (
@@ -524,7 +524,7 @@ function ShopDetail() {
             <ul className="tabs">
               {ProductTabs.map((item, i) => {
                 return (
-                  <li className={item.active ? "active" : ""} key={i} onClick={() => ActiveTab(i)}>
+                  <li className={`${item.active ? "active" : ""}`} key={i} onClick={() => ActiveTab(i)}>
                     {item.name}
                   </li>
                 );
@@ -676,10 +676,10 @@ function ShopDetail() {
 
 
 
-      <section className="mb-80" style={{ background: "#FFF2E2" }}>
-        <div className="container">
+      <section className="mt-5" style={{ background: "#FFF2E2" }}>
+        <div className="container-fluid pb-4">
           <div className="title-section with-btn mb-5">
-            <h1 className="heading bottom-line brown">Reviews</h1>
+            <h1 className="heading text-start ms-lg-5 pt-3  brown">Reviews</h1>
             {auth?.isAuthorized && (
               <Link to="#" className="btn btn-custom btn-yellow" onClick={() => setReviewModal(true)}>
                 Write a review
@@ -687,56 +687,61 @@ function ShopDetail() {
             )}
           </div>
           <div className="row gy-4">
-            <Swiper
-              spaceBetween={20}
-              slidesPerView={4}
-              breakpoints={reviews}
-              speed={1500}
-              modules={[Autoplay, Navigation]}
-              autoplay={{ disableOnInteraction: false }}
-              navigation className="pt-5 px-4">
-              {productReviewArr && productReviewArr.length > 0 ? (
-                productReviewArr.map((el, index) => {
-                  return (
-                    <SwiperSlide>
-                      <div key={index} className="col-12">
-                        <div className="product-review">
-                          <div className="top">
-                            <div className="name">
-                              <div>
-                                <h6>{el.name}</h6>
-                                <p className="small brown">{moment(el.createdAt).format("DD-MM-YYYY")}</p>
-                              </div>
-                            </div>
-                            <div className="review-rating">
-                              <ReactStars edit={false} count={5} size={24} value={el.rating} activeColor="#ffd700" />
+            {productReviewArr && productReviewArr.length > 0 ? (
+              <Swiper
+                spaceBetween={20}
+                slidesPerView={4}
+                breakpoints={reviews}
+                speed={1500}
+                modules={[Autoplay, Navigation]}
+                autoplay={{ disableOnInteraction: false }}
+                navigation
+                className="pt-5 px-4"
+              >
+                {productReviewArr.map((el, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="col-12">
+                      <div className="product-review">
+                        <div className="top">
+                          <div className="name">
+                            <div>
+                              <h6>{el.name}</h6>
+                              <p className="small brown">
+                                {moment(el.createdAt).format("DD-MM-YYYY")}
+                              </p>
                             </div>
                           </div>
-                          <div className="desp">
-                            <p>
-                              {el.message} {el.rating}
-                            </p>
+                          <div className="review-rating">
+                            <ReactStars
+                              edit={false}
+                              count={5}
+                              size={24}
+                              value={el.rating}
+                              activeColor="#ffd700"
+                            />
                           </div>
                         </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })
-              ) : (
-                <div className="col-12">
-                  <div className="product-review">
-                    <div className="top">
-                      <div className="name">
-                        <div>
-                          <h6>No Reviews found for this product</h6>
+                        <div className="desp">
+                          <p>
+                            {el.message} {el.rating}
+                          </p>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            ) : (
+              <div className="col-12">
+      
+                      <div>
+                        <h6>No Reviews found for this product</h6>
+                      
                 </div>
-              )}
-            </Swiper>
+              </div>
+            )}
           </div>
+
         </div>
       </section>
 
