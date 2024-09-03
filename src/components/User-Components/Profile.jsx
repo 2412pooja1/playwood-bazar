@@ -1,21 +1,121 @@
 import moment from 'moment';
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState, useRef } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { generateImageUrl } from '../../services/url.service';
 import { getUserById } from '../../services/User.service';
 import { ROLES_CONSTANT } from '../Utility/constant';
 import { errorToast } from '../Utility/Toast';
-import { Col, Container, Row } from 'react-bootstrap';
-import iconp from "../../assets/image/home/images/icon-person.png";
-import iconb from "../../assets/image/home/images/icon-build.png";
-import { MdEdit } from "react-icons/md";
-import { IoEye } from "react-icons/io5";
+import { AiFillHome, AiOutlineLogout, AiTwotoneSetting } from "react-icons/ai";
+import { BiBell, BiChevronDown, BiSearch } from "react-icons/bi";
+import { FaUserCheck } from "react-icons/fa";
+import iconp from '../../assets/image/home/images/icon-person.png'
+import iconb from '../../assets/image/home/images/icon-build.png'
+import { GrProductHunt } from "react-icons/gr";
+import {
+    MdLocalOffer,
+    MdOutlineSubscriptions,
+    MdSportsEsports,
+    MdSubscriptions,
+} from "react-icons/md";
+import {
+    Link,
 
+    useSearchParams,
+} from "react-router-dom";
+import {
+    login,
+    logoutUser,
+    otpSend,
+} from "../../redux/features/auth/authSlice";
+import '../../assets/css/ShopDetail.css'
+import { Col, Container, Row } from 'react-bootstrap';
 export default function Profile() {
+    const dispatch = useDispatch();
+
     let role = useSelector(state => state.auth.role)
     let id = useSelector(state => state.auth.user._id)
+    const [signInList, setSignInList] = useState([
+        {
+            name: "Profile",
+            icon: <AiFillHome />,
+            link: "/My-Profile",
+        },
+        // {
+        //   name: "Post Your Requiement",
+        //   icon: <GiPostOffice />,
+        //   link: "/",
+        // },
+        {
+            name: "My Products",
+            icon: <GrProductHunt />,
+            link: "/MyProducts",
+        },
+        // {
+        //   name: "Verified Business Buyer",
+        //   icon: <FaUserCheck />,
+        //   link: "/",
+        // },
+        // {
+        //   name: "Products/Services Directory",
+        //   icon: <MdOutlineDocumentScanner />,
+        //   link: "/",
+        // },
+        // {
+        //   name: "My Orders",
+        //   icon: <AiFillGift />,
+        //   link: "/",
+        // },
+        {
+            name: "My Leads",
+            icon: <FaUserCheck />,
+            link: "/MyLeads",
+        },
+        {
+            name: "My Subscriptions",
+            icon: <MdOutlineSubscriptions />,
+            link: "/MySubscriptions",
+        },
+        // {
+        //   name: "Subscription",
+        //   icon: <MdSubscriptions />,
+        //   link: "/Subscription",
+        // },
+        {
+            name: "Topup",
+            icon: <MdSubscriptions />,
+            link: "/Topup",
+        },
+        {
+            name: "Recent Activity",
+            icon: <MdSportsEsports />,
+            link: "/Recent-Activities",
+        },
+        {
+            name: "My Flash-Sales",
+            icon: <MdLocalOffer />,
+            link: "/View/My-FlashSales",
+        },
+        {
+            name: "My Promotions",
+            icon: <MdLocalOffer />,
+            link: "/View/My-Promotions",
+        },
+        {
+            name: "Notifications",
+            icon: <AiTwotoneSetting />,
+            link: "/notifications",
+        },
+    ]);
     const [userObj, setUserObj] = useState({});
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [showSignIn, setShowSignIn] = useState(false);
+    const [otpsent, setotpsent] = useState(false);
+    const [mobile, setmobile] = useState("");
+
+    const [otp, setotp] = useState("");
+
+    const [signInModal, setSignInModal] = useState(false);
     const navigate = useNavigate()
 
     const handleGetUser = async () => {
@@ -37,311 +137,228 @@ export default function Profile() {
         handleGetUser()
 
     }, [])
+    useEffect(() => {
+        if (searchParams.get("loginTriggered")) {
+            setSignInModal(true);
+            setSearchParams((prev) => console.log(prev, "prev"));
+        }
+    }, [searchParams.get("loginTriggered")]);
+    useEffect(() => {
+        if (searchParams.get("loginTriggered")) {
+            setSignInModal(true);
+            setSearchParams((prev) => console.log(prev, "prev"));
+        }
+    }, [searchParams.get("loginTriggered")]);
+
+    const wrapperRef = useRef(null);
+    const wrapperLoggedOutRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutsideLoggedOut(event) {
+            if (
+                wrapperLoggedOutRef.current &&
+                !wrapperLoggedOutRef.current.contains(event.target)
+            ) {
+                setShowSignIn(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutsideLoggedOut);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutsideLoggedOut);
+        };
+    }, [wrapperLoggedOutRef, wrapperLoggedOutRef.current]);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                setShowSignIn(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef, wrapperRef.current]);
+
+    const handleLogout = () => {
+        // deleteToken()
+        dispatch(logoutUser());
+        setotp("");
+        setmobile("");
+        setotpsent(false);
+
+        // setIsAuthorized(false)
+    };
 
     return (
+        <>
+            <div className=' container-fluid userprofile'>
 
 
 
 
-        <div className='container my-5'>
+                <div className=' row'>
+                    <div className=' col-lg-8'></div>
+                    <div className=' col-lg-3 py-5'>
+                        <div ref={wrapperRef} className=' userprofileoptions py-3'>
 
-            <div className="row d-flex justify-content-between">
-                <div className="col-12 col-lg-6">
-                    <div className="profile-section-container">
-                        <div className="row d-flex justify-content-between ">
-                            <div className="col-6  profile-section-Heading px-4 py-3">Personal Details</div>
-                            <div className="col-6 d-flex">
-                                <button type="button " onClick={() => { navigate(`/Edit-Profile`) }} className="theme-outline-button ">
-                                    <span className='editicn'><MdEdit /></span>  <span>Edit</span>
-                                </button>
-                                <button type="button" onClick={() => { navigate(`/Supplier/${userObj?._id}`) }} className="theme-outline-button" >
-                                    <span className='editicn'> <IoEye /></span> <span>View</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div className="row profile-section-Details justify-content-center mt-4 d-flex gap-5 align-items-center px-5 py-5">
-                            <div className='col-lg-3 col-sm-12 d-flex justify-content-center align-items-center'> <img src={iconp} alt="" className=" " style={{ width: "140px" }} /></div>
-                            <div className="col-lg-9 col-sm-12   " style={{ width: "max-content", fontSize: "0.8rem", fontWeight: "500", color: "black" }}>
-                                <div className='row'>
-                                    {/* <div className="col-4 my-1">
-                                        User Name:
-                                    </div> */}
-                                    <div className="col-12 fs-3 ">
-                                        {userObj?.name}
+                            {signInList.map((item, i) => {
+                                return (
+                                    <Link to={item.link}>
+                                        <div key={i} className='row d-flex justify-content-center align-items-center boxes pt-2 pb-1 mx-5 '>
+
+                                            <div className=" col-3 d-flex justify-content-center ">
+                                                <div className='userprofileoptionsicon '>{item.icon}</div>
+                                            </div>
+                                            <div className='  col-9 d-flex justify-content-start align-items-center userprofileoptionstext fs-5'>
+                                                {item.name}
+                                            </div>
+
+                                        </div>
+                                    </Link>
+                                );
+                            })}
+                            <Link onClick={() => handleLogout()}>
+                                <div className='row d-flex justify-content-center align-items-center  pt-2 pb-1 mx-5 '>
+
+                                    <div className=" col-3 d-flex justify-content-center ">
+                                        <div className='userprofileoptionsicon '>   <AiOutlineLogout /></div>
                                     </div>
+                                    <div className='  col-9 d-flex justify-content-start align-items-center userprofileoptionstext fs-5'>
+                                        Logout
+                                    </div>
+
                                 </div>
-
-                                <div className='row'>
-                                    <div className="col-4 ">
-                                        Phone:
-                                    </div>
-                                    <div className="col-8 " >
-                                        {userObj?.phone}
-                                    </div>
-                                </div>
-                                <div className='row'>
-                                    <div className="col-4">
-                                        Role:
-                                    </div>
-                                    <div className="col-8 ">
-                                        {userObj?.role}
-                                    </div>
-                                </div>
+                            </Link>
 
 
-                                <div className='row'>
-                                    <div className="col-4 ">
-                                        Country:
-                                    </div>
-                                    <div className="col-8  " >
-                                        {userObj?.countryObj?.name ? userObj?.countryObj?.name : "N.A."}
-                                    </div>
-                                </div>
-                                <div className='row'>
-                                    <div className="col-4 ">
-                                        State:
-                                    </div>
-                                    <div className="col-8  " >
-                                        {userObj?.stateObj?.name ? userObj?.stateObj?.name : "N.A."}
-                                    </div>
-                                </div>
-                                <div className='row'>
-                                    <div className="col-4 ">
-                                        City:
-                                    </div>
-                                    <div className="col-8  ">
-                                        {userObj?.cityObj?.name ? userObj?.cityObj?.name : "N.A."}
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
+                    <div className='col-lg-1'></div>
                 </div>
-
-
-
-                <div className="col-12 col-lg-6">
-                    {
-                        role != ROLES_CONSTANT.USER &&
-                        <div className="profile-section-container profile-section-container-2">
-                            <div className="row d-flex justify-content-between ">
-                                <div className="col-6  profile-section-Heading px-4 py-3">Company Details</div>
-                                <div className="col-6 d-flex">
-                                    <button type="button " onClick={() => { navigate(`/Edit-Profile`) }} className="theme-outline-button ">
-                                        <span className='editicn'><MdEdit /></span>  <span>Edit</span>
-                                    </button>
-                                    <button type="button" onClick={() => { navigate(`/Supplier/${userObj?._id}`) }} className="theme-outline-button" >
-                                        <span className='editicn'> <IoEye /></span> <span>View</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="row profile-section-Details justify-content-center mt-4 d-flex  align-items-center px-4 py-4">
-                                <div className='col-lg-4 col-sm-12 d-flex justify-content-center align-items-center'> <img src={iconb} alt="" className=" " style={{ width: "140px" }} /></div>
-                                <div className="col-lg-8 col-sm-12   " style={{ fontSize: "0.8rem", fontWeight: "500", color: "black" }}>
-                                    <div className='row'>
-                                        {/* <div className="col-4 my-1">
-                                        User Name:
-                                    </div> */}
-                                        <div className="col-12 fs-3 ">
-                                            {userObj?.companyObj?.name}
-                                        </div>
-                                    </div>
-
-                                    <div className='row'>
-                                        <div className="col-7 ">
-                                            Email:
-                                        </div>
-                                        <div className="col-5 " >
-                                            {userObj?.companyObj?.email}
-                                        </div>
-                                    </div>
-                                    <div className='row'>
-                                        <div className="col-7">
-                                            Phone no:
-                                        </div>
-                                        <div className="col-5">
-                                            {userObj?.companyObj?.phone}
-                                        </div>
-                                    </div>
-
-
-                                    <div className='row'>
-                                        <div className="col-7 ">
-                                            Dealing With Brand Names:
-                                        </div>
-                                        <div className="col-5  " >
-                                            {userObj?.brandNames}
-                                        </div>
-                                    </div>
-                                    <div className='row'>
-                                        <div className="col-7 ">
-                                            GST Number:
-                                        </div>
-                                        <div className="col-5  " >
-                                            {userObj?.companyObj?.gstNumber}
-                                        </div>
-                                    </div>
-                                    <div className='row'>
-                                        <div className="col-7 ">
-                                            Address:
-                                        </div>
-                                        <div className="col-5  ">
-                                            {userObj?.companyObj?.address}
-                                        </div>
-                                    </div>
-                                    <div className='row'>
-                                        <div className="col-7 ">
-                                            Year of Establishment:
-                                        </div>
-                                        <div className="col-5  ">
-                                            {userObj?.companyObj?.yearOfEstablishment}
-                                        </div>
-                                    </div>
-                                    <div className='row'>
-                                        <div className="col-7 ">
-                                            Google Maps:
-                                        </div>
-                                        <div className="col-5  ">
-                                            {userObj?.companyObj?.googleMapsLink}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-
-
-
-
-                {/* <div className="col-12 col-lg-6">
-                    {
-                        role != ROLES_CONSTANT.USER &&
-                        <div className="profile-section-container rounded">
-                            <div className="profile-section-Heading">Company Details</div>
-
-                            <div className="row mt-4 d-flex justify-content-between">
-                                <div className="col-5 my-1">
-                                    Company Name:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.companyObj?.name}
-                                </div>
-                                <div className="col-5 my-1">
-                                    Company Email:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.companyObj?.email}
-                                </div>
-                                <div className="col-5 my-1">
-                                    Company Phone:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.companyObj?.phone}
-                                </div>
-                                <div className="col-5 my-1">
-                                    Dealing With Brand Names:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.brandNames}
-                                </div>
-                                <div className="col-5 my-1">
-                                Number of Employees:
-                            </div>
-                            <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                {userObj?.companyObj?.noofepmployee}
-                            </div>
-                                <div className="col-5 my-1">
-                                    GST Number:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.companyObj?.gstNumber}
-                                </div>
-                                <div className="col-5 my-1">
-                                    Address:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.companyObj?.address}
-                                </div>
-
-
-
-                                <div className="col-5 my-1">
-                                    Nature of your business:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.companyObj?.natureOfBusiness}
-                                </div>
-                                <div className="col-5 my-1">
-                                    Annual Turnover:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.companyObj?.annualTurnover}
-                                </div>
-
-                                <div className="col-5 my-1">
-                                    Year of Establishment:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.companyObj?.yearOfEstablishment}
-                                </div>
-                                <div className="col-5 my-1">
-                                    Legal Status:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.companyObj?.legalStatus}
-                                </div>
-                                <div className="col-5 my-1">
-                                    Company Ceo Name:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.companyObj?.companyCeo}
-                                </div>
-                                <div className="col-5 my-1">
-                                    Google Maps Link:
-                                </div>
-                                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
-                                    {userObj?.companyObj?.googleMapsLink}
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div> */}
             </div>
+            <div className='container my-5'>
+
+                <Container className='py-5'>
+                    <h1>Profile</h1>
+                    <Row >
+                        <Col lg={6} className='profile-section-container-left px-4 d-flex flex-column gap-3'>
+                            <Row>
+                                <Col lg={8}>Personal Ditails</Col>
+                                <Col lg={2}>Edite</Col>
+                                <Col lg={2}>View</Col>
+                            </Row>
+
+                            <Row className='profile-section-container-left-info px-5 py-2  gap-3'>
+                                <Col lg={3} className='d-flex justify-content-center align-items-center'>  <img src={iconp} alt="" className="profile-section-container-img " /></Col>
+                                <Col lg={8} className='pt-4 '>
+                                    <Row className='px-4 pb-3 fs-2 text-black fw-semibold'> {userObj?.name}</Row>
+
+                                    <Row className='d-flex justify-content-center pb-5' style={{fontSize:"0.75rem", color:"black", fontWeight:"500"}}>
+                                     
+                                        <Row>
+                                            <Col lg={3} className='profile-section-container-text'>Phone No.</Col>
+                                            <Col lg={9}>{userObj?.phone}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col lg={3} className='profile-section-container-text'>Role</Col>
+                                            <Col lg={9}> {userObj?.role}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col lg={3} className='profile-section-container-text'>Country</Col>
+                                            <Col lg={9}>{userObj?.countryObj?.name ? userObj?.countryObj?.name : "N.A."}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col lg={3} className='profile-section-container-text'>State</Col>
+                                            <Col lg={9}>{userObj?.stateObj?.name ? userObj?.stateObj?.name : "N.A."}</Col>
+                                        </Row>
+                                      
+
+                                       
+                                        <Row>
+                                            <Col lg={3}className='profile-section-container-text'>City</Col>
+                                            <Col lg={9}>{userObj?.cityObj?.name ? userObj?.cityObj?.name : "N.A."}</Col>
+                                        </Row>
+                                       
+                                    </Row>
+                                </Col>
+                            </Row>
+
+                        </Col>
 
 
+                        <Col lg={6} className='profile-section-container-left px-4 d-flex flex-column gap-3'>
+                            <Row>
+                                <Col lg={8}>Personal Ditails</Col>
+                                <Col lg={2}>Edite</Col>
+                                <Col lg={2}>View</Col>
+                            </Row>
 
+                            <Row className='profile-section-container-left-info px-5 py-3 gap-3'>
+                                <Col lg={3} className='d-flex justify-content-center align-items-center'>  <img src={iconb} alt="" className="profile-section-container-img " /></Col>
+                                <Col lg={8} className=' '>
+                                    <Row className='px-4 pb-3 fs-2 text-black fw-semibold'>{userObj?.companyObj?.name}</Row>
 
+                                    <Row className='d-flex justify-content-center align-items-center'style={{fontSize:"0.75rem",color:"black", fontWeight:"500"}}>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Email</Col>
+                                            <Col > {userObj?.companyObj?.email}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Phone No.</Col>
+                                            <Col >{userObj?.companyObj?.phone}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Dealing With Brand Name:</Col>
+                                            <Col >{userObj?.brandNames}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>GST Number</Col>
+                                            <Col > {userObj?.companyObj?.gstNumber}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Address</Col>
+                                            <Col >{userObj?.companyObj?.address}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Year Of Estabilish:</Col>
+                                            <Col>  {userObj?.companyObj?.yearOfEstablishment}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Google Map</Col>
+                                            <Col >{userObj?.companyObj?.googleMapsLink}</Col>
+                                        </Row>
+                                     
+                                    </Row>
+                                </Col>
+                            </Row>
 
+                        </Col>
+                    </Row>
+                </Container>
 
-
-
-
-
-
-
-            <div className="row">
-                {
-                    role != ROLES_CONSTANT.USER &&
-                    <div>
-                        <div className="row d-flex justify-content-between">
-                            <div className="col-6  profile-section-Heading px-4 py-3">Subscription Status</div>
-                            <div className="col-12 col-sm-6 col-md-6 col-lg-6 pt-2 d-flex justify-content-end">
-                                {
-                                    userObj?.subscriptionEndDate &&
-                                    <div className="theme-outline-button">
-                                        Subscription ends On -  {moment(userObj?.subscriptionEndDate).format("DD-MM-YYYY")}  ({userObj?.isBlocked ? "Blocked Subscription" : "Active Subscription"})
-                                    </div>
-                                }
+                <div className="row">
+                    {
+                        role != ROLES_CONSTANT.USER &&
+                        <div>
+                            <div className="row d-flex justify-content-between">
+                                <div className="col-6  profile-section-Heading px-4 py-3">Subscription Status</div>
+                                <div className="col-12 col-sm-6 col-md-6 col-lg-6 pt-2 d-flex justify-content-end">
+                                    {
+                                        userObj?.subscriptionEndDate &&
+                                        <div className="theme-outline-button">
+                                            Subscription ends On -  {moment(userObj?.subscriptionEndDate).format("DD-MM-YYYY")}  ({userObj?.isBlocked ? "Blocked Subscription" : "Active Subscription"})
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                        </div>
-                        <div className="row mt-4 d-flex justify-content-between">
-                            <div className="col-12">
-                                <div className="row d-flex justify-content-between profile-section-container">
-                                    {/* <h4 className="col-12">
+                            <div className="row mt-4 d-flex justify-content-between">
+                                <div className="col-12">
+                                    <div className="row d-flex justify-content-between profile-section-container">
+                                        {/* <h4 className="col-12">
                                     {userObj?.userSubscriptionMessage}
                                 </h4> */}
-                                    {/* <h6 className="mt-3 p-3 theme-outline-button" style={{ width: "30%" }}>
+                                        {/* <h6 className="mt-3 p-3 theme-outline-button" style={{ width: "30%" }}>
                                     <div style={{ fontSize: 25, fontWeight: 600, color: "rgba(0,0,0,0.5)" }}>
                                         Advertisement balance
                                     </div>
@@ -364,94 +381,260 @@ export default function Profile() {
                                     </div>
                                 </h6> */}
 
-                                    <div className="col-12 col-md-3 py-3">
-                                        <div className=" porfilebox">              
-                                        <h6> {userObj?.numberOfAdvertisement ? userObj?.numberOfAdvertisement : 0} </h6>          
-                                            <h4 > Advertisement balance  </h4>
+                                        <div className="col-12 col-md-3 py-3">
+                                            <div className=" porfilebox">
+                                                <h6> {userObj?.numberOfAdvertisement ? userObj?.numberOfAdvertisement : 0} </h6>
+                                                <h4 > Advertisement balance  </h4>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="col-12 col-md-3 py-3">
-                                        <div className="porfilebox" >
-                                            <h6>{userObj?.advertisementDays ? userObj?.advertisementDays : 0}</h6>
-                                            <h4>Advertisement balance (Days)</h4>
+                                        <div className="col-12 col-md-3 py-3">
+                                            <div className="porfilebox" >
+                                                <h6>{userObj?.advertisementDays ? userObj?.advertisementDays : 0}</h6>
+                                                <h4>Advertisement balance (Days)</h4>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="col-12 col-md-3 py-3">
-                                        <div className=" porfilebox">
-                                            <h6>{userObj?.numberOfSales ? userObj?.numberOfSales : 0}</h6>
-                                            <h4>Flash sale balance</h4>
+                                        <div className="col-12 col-md-3 py-3">
+                                            <div className=" porfilebox">
+                                                <h6>{userObj?.numberOfSales ? userObj?.numberOfSales : 0}</h6>
+                                                <h4>Flash sale balance</h4>
+                                            </div>
                                         </div>
+                                        <div className="col-12 col-md-3 py-3">
+                                            <h6 className="porfilebox">
+                                                <h6>  {userObj?.saleDays ? userObj?.saleDays : 0} </h6>
+                                                <h4> Flash sale balance (Days)</h4>
+
+                                            </h6>
+                                        </div>
+
+
                                     </div>
-                                    <div className="col-12 col-md-3 py-3">
-                                        <h6 className="porfilebox">
-                                            <h6>  {userObj?.saleDays ? userObj?.saleDays : 0} </h6>
-                                            <h4> Flash sale balance (Days)</h4>
-                                               
-                                        </h6>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div className="row d-flex justify-content-between">
+                    <div className="col-12 col-lg-6">
+                        <div className="profile-section-container">
+                            <div className="row d-flex justify-content-between">
+                                <div className="col-6 pt-2 profile-section-Heading">Personal Details</div>
+                                <div className="col-6 text-end">
+                                    <button type="button" onClick={() => { navigate(`/Edit-Profile`) }} className="theme-outline-button" style={{ display: 'unset' }}>
+                                        Edit
+                                    </button>
+                                    <button type="button" onClick={() => { navigate(`/Supplier/${userObj?._id}`) }} className="theme-outline-button" style={{ display: 'unset', marginLeft: 15 }}>
+                                        View Profile
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="row mt-4 d-flex justify-content-between">
+                                <div className="row mt-4">
+                                    <div className="col-5 my-1">
+                                        User Name:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.name}
+                                    </div>
+                                    <div className="col-5 my-1">
+                                        Phone:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.phone}
+                                    </div>
+                                    <div className="col-5 my-1">
+                                        Role:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.role}
                                     </div>
 
 
+                                    <div className="col-5 my-1">
+                                        Country:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.countryObj?.name ? userObj?.countryObj?.name : "N.A."}
+                                    </div>
+                                    <div className="col-5 my-1">
+                                        State:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.stateObj?.name ? userObj?.stateObj?.name : "N.A."}
+                                    </div>
+                                    <div className="col-5 my-1">
+                                        City:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.cityObj?.name ? userObj?.cityObj?.name : "N.A."}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                }
-            </div>
+                    <div className="col-12 col-lg-6">
+                        {
+                            role != ROLES_CONSTANT.USER &&
+                            <div className="profile-section-container rounded">
+                                <div className="profile-section-Heading">Company Details</div>
+                                <div className="row mt-4 d-flex justify-content-between">
+                                    <div className="col-5 my-1">
+                                        Company Name:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.companyObj?.name}
+                                    </div>
+                                    <div className="col-5 my-1">
+                                        Company Email:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.companyObj?.email}
+                                    </div>
+                                    <div className="col-5 my-1">
+                                        Company Phone:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.companyObj?.phone}
+                                    </div>
+                                    <div className="col-5 my-1">
+                                        Dealing With Brand Names:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.brandNames}
+                                    </div>
+                                    {/* <div className="col-5 my-1">
+                    Number of Employees:
+                 </div>
+                 <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                    {userObj?.companyObj?.noofepmployee}
+                 </div> */}
+                                    <div className="col-5 my-1">
+                                        GST Number:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.companyObj?.gstNumber}
+                                    </div>
+                                    <div className="col-5 my-1">
+                                        Address:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.companyObj?.address}
+                                    </div>
 
 
-            {/* {
-                role != ROLES_CONSTANT.USER &&
-                <div style={{ width: "100%" }} className="profile-section-container rounded">
-                    <div className="profile-section-Heading">Documents Uploaded</div>
-                    <div className="row mt-4 d-flex justify-content-between">
-                        {
-                            userObj?.documents && userObj?.documents.length > 0 && userObj?.documents.map((el, index) => {
-                                return (
-                                    <div className="col-12 pt-4" key={index}>
-                                        <div className="row">
-                                            <div className="col-12 col-lg-4" style={{ fontSize: 20, fontWeight: "500", textTransform: "capitalize", color: "rgba(0,0,0,0.4)" }} >
-                                                {el.name}
-                                            </div>
-                                            <div className="col-12 col-lg-8">
-                                                <a target={"_blank"} href={generateImageUrl(el.image)}><img style={{ height: 200 }} src={generateImageUrl(el.image)} alt="" /></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    {/* <div className="col-5 my-1">
+                        Nature of your business:
                     </div>
-                    <hr />
-                    <div className="profile-section-Heading mt-4">Images Uploaded</div>
-                    <div className="row mt-4 d-flex justify-content-between">
-                        {
-                            userObj?.imagesArr && userObj?.imagesArr.length > 0 && userObj?.imagesArr.map((el, index) => {
-                                return (
-                                    <div className="col-6 col-md-2 border rounded d-flex justify-content-center align-items-center py-3" key={index}>
-                                        <a target={"_blank"} href={generateImageUrl(el.image)}><img style={{ height: 150, width: 150 }} src={generateImageUrl(el.image)} alt="" /></a>
-                                    </div>
-                                )
-                            })
-                        }
+                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                        {userObj?.companyObj?.natureOfBusiness}
+                    </div> */}
+                                    {/* <div className="col-5 my-1">
+                        Annual Turnover:
                     </div>
-                    <hr />
-                    <div className="profile-section-Heading mt-4">Videos Uploaded</div>
-                    <div className="row mt-4 d-flex justify-content-between gap-1">
-                        {
-                            userObj?.videoArr && userObj?.videoArr.length > 0 && userObj?.videoArr.map((el, index) => {
-                                return (
-                                    <div className="col-6 col-md-2  border rounded d-flex justify-content-center align-items-center py-3" key={index}>
-                                        <a target={"_blank"} href={generateImageUrl(el.video)}>
-                                            <video height={100} width={100} src={generateImageUrl(el.video)} />
-                                        </a>
+                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                        {userObj?.companyObj?.annualTurnover}
+                    </div> */}
+
+                                    <div className="col-5 my-1">
+                                        Year of Establishment:
                                     </div>
-                                )
-                            })
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.companyObj?.yearOfEstablishment}
+                                    </div>
+                                    {/* <div className="col-5 my-1">
+                        Legal Status:
+                    </div>
+                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                        {userObj?.companyObj?.legalStatus}
+                    </div> */}
+                                    {/* <div className="col-5 my-1">
+                        Company Ceo Name:
+                    </div>
+                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                        {userObj?.companyObj?.companyCeo}
+                    </div> */}
+                                    <div className="col-5 my-1">
+                                        Google Maps Link:
+                                    </div>
+                                    <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                                        {userObj?.companyObj?.googleMapsLink}
+                                    </div>
+                                </div>
+                            </div>
                         }
                     </div>
                 </div>
-            } */}
 
-        </div >
+                {/* {
+                    role != ROLES_CONSTANT.USER &&
+                    <div style={{ width: "100%" }} className="profile-section-container rounded">
+                        <div className="profile-section-Heading">Documents Uploaded</div>
+                        <div className="row mt-4 d-flex justify-content-between">
+                            {
+                                userObj?.documents && userObj?.documents.length > 0 && userObj?.documents.map((el, index) => {
+                                    return (
+                                        <div className="col-12 pt-4" key={index}>
+                                            <div className="row">
+                                                <div className="col-12 col-lg-4" style={{ fontSize: 20, fontWeight: "500", textTransform: "capitalize", color: "rgba(0,0,0,0.4)" }} >
+                                                    {el.name}
+                                                </div>
+                                                <div className="col-12 col-lg-8">
+                                                    <a target={"_blank"} href={generateImageUrl(el.image)}><img style={{ height: 200 }} src={generateImageUrl(el.image)} alt="" /></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                        <hr />
+                        <div className="profile-section-Heading mt-4">Images Uploaded</div>
+                        <div className="row mt-4 d-flex justify-content-between">
+                            {
+                                userObj?.imagesArr && userObj?.imagesArr.length > 0 && userObj?.imagesArr.map((el, index) => {
+                                    return (
+                                        <div className="col-6 col-md-2 border rounded d-flex justify-content-center align-items-center py-3" key={index}>
+                                            <a target={"_blank"} href={generateImageUrl(el.image)}><img style={{ height: 150, width: 150 }} src={generateImageUrl(el.image)} alt="" /></a>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                        <hr />
+                        <div className="profile-section-Heading mt-4">Videos Uploaded</div>
+                        <div className="row mt-4 d-flex justify-content-between gap-1">
+                            {
+                                userObj?.videoArr && userObj?.videoArr.length > 0 && userObj?.videoArr.map((el, index) => {
+                                    return (
+                                        <div className="col-6 col-md-2  border rounded d-flex justify-content-center align-items-center py-3" key={index}>
+                                            <a target={"_blank"} href={generateImageUrl(el.video)}>
+                                                <video height={100} width={100} src={generateImageUrl(el.video)} />
+                                            </a>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+                } */}
+
+            </div >
+        </>
     )
 }

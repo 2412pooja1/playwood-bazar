@@ -250,11 +250,11 @@ header .bottom-bar {
   transition: all 0.5s ease-in-out;
   position: absolute;
   left: 0px;
-  background: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1254901961);
-  border-radius: 0 0 15px 15px;
-  z-index: 99999 !important;
-  width: 200px;
+    z-index: 99999 !important;
+  width: 250px;
+  background: #EAE2D0;
+  box-shadow: 8px 4px 20px 0px #00000040;
+  border-radius: 40px;
 }
 
 .custom-search .custom-search-list li {
@@ -1306,6 +1306,7 @@ footer .footer {
   border-radius: 3.125rem;
   padding: 2vmin 3vw;
   font-weight: 300;
+  background: #5A432F !important;
 }
 
 .vlp {
@@ -1351,6 +1352,7 @@ footer .footer {
   padding: 2vh 1vw;
   font-weight: 300 !important;
   padding: 10px;
+  color: white;
 }
 
 .product-tabs ul.tabs li.active {
@@ -1675,17 +1677,39 @@ footer .footer {
 
 .supplier-profile .box {
   display: flex;
+  flex-direction: column;
+  margin: 10px;
+  height: 200px;
+  display: flex;
   gap: 1pc;
-  background: #fff;
   padding: 2pc 1pc;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1254901961);
   border: 1px solid transparent;
   transition: all 0.5s;
+  background: #FFF7EE;
+  box-shadow: 6px 4px 20px 0px #00000040;
+
+
 }
 
 .supplier-profile .box .icon {
-  font-size: 30px;
+ 
+  height: 100px;
+  width: 100px;
+  background: #EBCCAC;
+  box-shadow: 0px 4px 4px 0px #00000040 inset;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ margin-top: -70px;
+ margin-left: -40px;
+ padding: 20px;
+
+}
+
+.supplier-profile .box .icon img{
+  width: 50px;
 }
 
 .supplier-profile .box .content h5 {
@@ -1780,13 +1804,61 @@ footer .footer {
   bottom: 30px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+.profile-section-container-left
+
+
+
+.profile-section-container-left-info{
+  background: #F5F1E8;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  border-radius: 150px;
+  
+}
+.profile-section-container-text{
+  color: #7F4E15;
+  font-weight: 600;
+
+}
+
+
+.moto-bg{
+  background-image: url(../image/home/images/Woddybg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.moto-bg li{
+  list-style-type:disc;
+  color: #000;
+}
+
+
+
+
+
+
+
+
+
 .profile-section-container {
   min-height: 150px;
   /* box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.123); */
   padding: 30px !important;
   border-radius: 20px !important;
   margin-bottom: 50px;
-  max-width: max-content;
+  max-width: 100%;
 
 }
 
