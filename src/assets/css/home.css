@@ -874,13 +874,13 @@
     background: none;
   }
 
-  .custom-container .main_conatiner {
-    /* display: flex;
+  /* .custom-container .main_conatiner {
+    display: flex;
     justify-content: center;
-    align-items: center; */
-    /* gap: 2.5vmin; */
-    /* width: 100%; */
-  }
+    align-items: center; 
+    gap: 2.5vmin;
+    width: 100%;
+  } */
 
   .custom-container h1 {
     font-size: 1.2rem;

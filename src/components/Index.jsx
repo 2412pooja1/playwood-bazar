@@ -1142,6 +1142,52 @@ function Index() {
         <img src={playbanner} className=" img-fluid  " alt="" />
       </section>
 
+
+
+
+
+
+      <section>
+        <Container className="dealership-opportunities-container">
+          <Row>Dealership Opportunities</Row>
+          <Row>
+            <Col>
+              <div>
+                <div></div>
+                <div></div>
+              </div>
+            </Col>
+            <Col>
+              <div>
+                <div></div>
+                <div></div>
+              </div>
+            </Col>
+            <Col>
+              <div>
+                <div></div>
+                <div></div>
+              </div>
+            </Col>
+            <Col>
+              <div>
+                <div></div>
+                <div></div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
+
+
+
+
+
+
+
+
+
       <section style={{ backgroundColor: "#F5F1E8" }}>
         <p className="text-center fw-bold m-3" style={{ fontSize: "55px" }}>
           States
