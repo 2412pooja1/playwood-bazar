@@ -751,13 +751,13 @@ function Index() {
                           <div className="newprdcrd">
                             <img
                               src={generateImageUrl(el.image)}
-                              alt=""
-                              className="img-fluid"
+                              alt="" 
+                              className="img-fluid img1"
                             />
                             <div className="d-flex justify-content-center">
                               <LuPhoneCall className="phn rounded-circle p-2" />
                             </div>
-                            <h6 className="fs-6">{el.message}</h6>
+                            <h6 className="fs-6 msg1" >{el.message}</h6>
                             <button
                               onClick={() =>
                                 navigate(`/ShopDetail/${el?.productSlug}`)
@@ -935,7 +935,7 @@ function Index() {
                                 <img
                                   src={generateImageUrl(el.productId.mainImage)}
                                   alt=""
-                                  className="img-fluid ims"
+                                  className="img-fluid ims img1 "
                                 />
                                 <div className="overlyasper"></div>
                               </Link>
@@ -1141,6 +1141,52 @@ function Index() {
       <section>
         <img src={playbanner} className=" img-fluid  " alt="" />
       </section>
+
+
+
+
+
+
+      <section>
+        <Container className="dealership-opportunities-container">
+          <Row>Dealership Opportunities</Row>
+          <Row>
+            <Col>
+              <div>
+                <div></div>
+                <div></div>
+              </div>
+            </Col>
+            <Col>
+              <div>
+                <div></div>
+                <div></div>
+              </div>
+            </Col>
+            <Col>
+              <div>
+                <div></div>
+                <div></div>
+              </div>
+            </Col>
+            <Col>
+              <div>
+                <div></div>
+                <div></div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
+
+
+
+
+
+
+
+
 
       <section style={{ backgroundColor: "#F5F1E8" }}>
         <p className="text-center fw-bold m-3" style={{ fontSize: "55px" }}>
