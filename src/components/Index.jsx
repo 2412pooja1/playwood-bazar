@@ -751,8 +751,8 @@ function Index() {
                           <div className="newprdcrd">
                             <img
                               src={generateImageUrl(el.image)}
-                              alt=""
-                              className="img-fluid"
+                              alt="" 
+                              className="img-fluid img"
                             />
                             <div className="d-flex justify-content-center">
                               <LuPhoneCall className="phn rounded-circle p-2" />

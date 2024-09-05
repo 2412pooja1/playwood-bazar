@@ -9,6 +9,8 @@ import { errorToast } from '../Utility/Toast';
 import { AiFillHome, AiOutlineLogout, AiTwotoneSetting } from "react-icons/ai";
 import { BiBell, BiChevronDown, BiSearch } from "react-icons/bi";
 import { FaUserCheck } from "react-icons/fa";
+import iconp from '../../assets/image/home/images/icon-person.png'
+import iconb from '../../assets/image/home/images/icon-build.png'
 import { GrProductHunt } from "react-icons/gr";
 import {
     MdLocalOffer,
@@ -27,6 +29,7 @@ import {
     otpSend,
 } from "../../redux/features/auth/authSlice";
 import '../../assets/css/ShopDetail.css'
+import { Col, Container, Row } from 'react-bootstrap';
 export default function Profile() {
     const dispatch = useDispatch();
 
@@ -190,6 +193,10 @@ export default function Profile() {
     return (
         <>
             <div className=' container-fluid userprofile'>
+
+
+
+
                 <div className=' row'>
                     <div className=' col-lg-8'></div>
                     <div className=' col-lg-3 py-5'>
@@ -232,13 +239,110 @@ export default function Profile() {
             </div>
             <div className='container my-5'>
 
+                <Container className='py-5'>
+                    <h1>Profile</h1>
+                    <Row >
+                        <Col lg={6} className='profile-section-container-left px-4 d-flex flex-column gap-3'>
+                            <Row>
+                                <Col lg={8}>Personal Ditails</Col>
+                                <Col lg={2}>Edite</Col>
+                                <Col lg={2}>View</Col>
+                            </Row>
+
+                            <Row className='profile-section-container-left-info px-5 py-2  gap-3'>
+                                <Col lg={3} className='d-flex justify-content-center align-items-center'>  <img src={iconp} alt="" className="profile-section-container-img " /></Col>
+                                <Col lg={8} className='pt-4 '>
+                                    <Row className='px-4 pb-3 fs-2 text-black fw-semibold'> {userObj?.name}</Row>
+
+                                    <Row className='d-flex justify-content-center pb-5' style={{fontSize:"0.75rem", color:"black", fontWeight:"500"}}>
+                                     
+                                        <Row>
+                                            <Col lg={3} className='profile-section-container-text'>Phone No.</Col>
+                                            <Col lg={9}>{userObj?.phone}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col lg={3} className='profile-section-container-text'>Role</Col>
+                                            <Col lg={9}> {userObj?.role}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col lg={3} className='profile-section-container-text'>Country</Col>
+                                            <Col lg={9}>{userObj?.countryObj?.name ? userObj?.countryObj?.name : "N.A."}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col lg={3} className='profile-section-container-text'>State</Col>
+                                            <Col lg={9}>{userObj?.stateObj?.name ? userObj?.stateObj?.name : "N.A."}</Col>
+                                        </Row>
+                                      
+
+                                       
+                                        <Row>
+                                            <Col lg={3}className='profile-section-container-text'>City</Col>
+                                            <Col lg={9}>{userObj?.cityObj?.name ? userObj?.cityObj?.name : "N.A."}</Col>
+                                        </Row>
+                                       
+                                    </Row>
+                                </Col>
+                            </Row>
+
+                        </Col>
+
+
+                        <Col lg={6} className='profile-section-container-left px-4 d-flex flex-column gap-3'>
+                            <Row>
+                                <Col lg={8}>Personal Ditails</Col>
+                                <Col lg={2}>Edite</Col>
+                                <Col lg={2}>View</Col>
+                            </Row>
+
+                            <Row className='profile-section-container-left-info px-5 py-3 gap-3'>
+                                <Col lg={3} className='d-flex justify-content-center align-items-center'>  <img src={iconb} alt="" className="profile-section-container-img " /></Col>
+                                <Col lg={8} className=' '>
+                                    <Row className='px-4 pb-3 fs-2 text-black fw-semibold'>{userObj?.companyObj?.name}</Row>
+
+                                    <Row className='d-flex justify-content-center align-items-center'style={{fontSize:"0.75rem",color:"black", fontWeight:"500"}}>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Email</Col>
+                                            <Col > {userObj?.companyObj?.email}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Phone No.</Col>
+                                            <Col >{userObj?.companyObj?.phone}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Dealing With Brand Name:</Col>
+                                            <Col >{userObj?.brandNames}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>GST Number</Col>
+                                            <Col > {userObj?.companyObj?.gstNumber}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Address</Col>
+                                            <Col >{userObj?.companyObj?.address}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Year Of Estabilish:</Col>
+                                            <Col>  {userObj?.companyObj?.yearOfEstablishment}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className='profile-section-container-text'>Google Map</Col>
+                                            <Col >{userObj?.companyObj?.googleMapsLink}</Col>
+                                        </Row>
+                                     
+                                    </Row>
+                                </Col>
+                            </Row>
+
+                        </Col>
+                    </Row>
+                </Container>
 
                 <div className="row">
                     {
                         role != ROLES_CONSTANT.USER &&
                         <div>
                             <div className="row d-flex justify-content-between">
-                                <div className="col-12 col-sm-6 col-md-6 col-lg-6 pt-2 profile-section-Heading">Subscription Status</div>
+                                <div className="col-6  profile-section-Heading px-4 py-3">Subscription Status</div>
                                 <div className="col-12 col-sm-6 col-md-6 col-lg-6 pt-2 d-flex justify-content-end">
                                     {
                                         userObj?.subscriptionEndDate &&
@@ -250,63 +354,56 @@ export default function Profile() {
                             </div>
                             <div className="row mt-4 d-flex justify-content-between">
                                 <div className="col-12">
-                                    <div className="row d-flex justify-content-between">
+                                    <div className="row d-flex justify-content-between profile-section-container">
                                         {/* <h4 className="col-12">
-                        {userObj?.userSubscriptionMessage}
-                    </h4> */}
+                                    {userObj?.userSubscriptionMessage}
+                                </h4> */}
                                         {/* <h6 className="mt-3 p-3 theme-outline-button" style={{ width: "30%" }}>
-                        <div style={{ fontSize: 25, fontWeight: 600, color: "rgba(0,0,0,0.5)" }}>
-                            Advertisement balance
-                        </div>
-                        <div className='mt-3' style={{ fontSize: 20, color: "black", fontWeight: 300 }}>
-                            {userObj?.numberOfPromotions ? userObj?.numberOfPromotions : 0}
-                        </div>
-                    </h6>
-                    <h6 className="mt-3 p-3 theme-outline-button" style={{ width: "30%" }}>
-                        <div style={{ fontSize: 25, fontWeight: 600, color: "rgba(0,0,0,0.5)" }}>
-                            Flashsale balance
-                        </div>
-                        <div className='mt-3' style={{ fontSize: 20, color: "black", fontWeight: 300 }}>{userObj?.numberOfSales ? userObj?.numberOfSales : 0}</div>
-                    </h6>
-                    <h6 className="mt-3 p-3 theme-outline-button" style={{ width: "30%" }}>
-                        <div style={{ fontSize: 25, fontWeight: 600, color: "rgba(0,0,0,0.5)" }}>
-                            Flashsale balance (Days)
-                        </div>
-                        <div className='mt-3' style={{ fontSize: 20, color: "black", fontWeight: 300 }}>
-                            {userObj?.saleDays ? userObj?.saleDays : 0}
-                        </div>
-                    </h6> */}
+                                    <div style={{ fontSize: 25, fontWeight: 600, color: "rgba(0,0,0,0.5)" }}>
+                                        Advertisement balance
+                                    </div>
+                                    <div className='mt-3' style={{ fontSize: 20, color: "black", fontWeight: 300 }}>
+                                        {userObj?.numberOfPromotions ? userObj?.numberOfPromotions : 0}
+                                    </div>
+                                </h6>
+                                <h6 className="mt-3 p-3 theme-outline-button" style={{ width: "30%" }}>
+                                    <div style={{ fontSize: 25, fontWeight: 600, color: "rgba(0,0,0,0.5)" }}>
+                                        Flashsale balance
+                                    </div>
+                                    <div className='mt-3' style={{ fontSize: 20, color: "black", fontWeight: 300 }}>{userObj?.numberOfSales ? userObj?.numberOfSales : 0}</div>
+                                </h6>
+                                <h6 className="mt-3 p-3 theme-outline-button" style={{ width: "30%" }}>
+                                    <div style={{ fontSize: 25, fontWeight: 600, color: "rgba(0,0,0,0.5)" }}>
+                                        Flashsale balance (Days)
+                                    </div>
+                                    <div className='mt-3' style={{ fontSize: 20, color: "black", fontWeight: 300 }}>
+                                        {userObj?.saleDays ? userObj?.saleDays : 0}
+                                    </div>
+                                </h6> */}
 
-                                        <div className="col-12 col-md-6">
-                                            <div className="mt-3 p-3 profile-section-container porfilebox">
-                                                <h4 >
-                                                    Advertisement balance
-                                                </h4>
-                                                <h6>
-                                                    {userObj?.numberOfAdvertisement ? userObj?.numberOfAdvertisement : 0}
-                                                </h6>
+                                        <div className="col-12 col-md-3 py-3">
+                                            <div className=" porfilebox">
+                                                <h6> {userObj?.numberOfAdvertisement ? userObj?.numberOfAdvertisement : 0} </h6>
+                                                <h4 > Advertisement balance  </h4>
                                             </div>
                                         </div>
-                                        <div className="col-12 col-md-6">
-                                            <div className="mt-3 p-3 profile-section-container porfilebox" >
-                                                <h4>Advertisement balance (Days)</h4>
+                                        <div className="col-12 col-md-3 py-3">
+                                            <div className="porfilebox" >
                                                 <h6>{userObj?.advertisementDays ? userObj?.advertisementDays : 0}</h6>
+                                                <h4>Advertisement balance (Days)</h4>
                                             </div>
                                         </div>
-                                        <div className="col-12 col-md-6">
-                                            <div className="mt-3 p-3 profile-section-container porfilebox">
-                                                <h4>Flashsale balance</h4>
-                                                <h6 className='mt-3'>{userObj?.numberOfSales ? userObj?.numberOfSales : 0}</h6>
+                                        <div className="col-12 col-md-3 py-3">
+                                            <div className=" porfilebox">
+                                                <h6>{userObj?.numberOfSales ? userObj?.numberOfSales : 0}</h6>
+                                                <h4>Flash sale balance</h4>
                                             </div>
                                         </div>
-                                        <div className="col-12 col-md-6">
-                                            <h6 className="mt-3 p-3 profile-section-container porfilebox">
-                                                <h4>
-                                                    Flashsale balance (Days)
-                                                </h4>
-                                                <h6>
-                                                    {userObj?.saleDays ? userObj?.saleDays : 0}
-                                                </h6>
+                                        <div className="col-12 col-md-3 py-3">
+                                            <h6 className="porfilebox">
+                                                <h6>  {userObj?.saleDays ? userObj?.saleDays : 0} </h6>
+                                                <h4> Flash sale balance (Days)</h4>
+
                                             </h6>
                                         </div>
 
@@ -407,10 +504,10 @@ export default function Profile() {
                                     </div>
                                     {/* <div className="col-5 my-1">
                     Number of Employees:
-                </div>
-                <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
+                 </div>
+                 <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
                     {userObj?.companyObj?.noofepmployee}
-                </div> */}
+                 </div> */}
                                     <div className="col-5 my-1">
                                         GST Number:
                                     </div>
@@ -484,7 +581,7 @@ export default function Profile() {
                     </div>
                 </div>
 
-                {
+                {/* {
                     role != ROLES_CONSTANT.USER &&
                     <div style={{ width: "100%" }} className="profile-section-container rounded">
                         <div className="profile-section-Heading">Documents Uploaded</div>
@@ -535,7 +632,7 @@ export default function Profile() {
                             }
                         </div>
                     </div>
-                }
+                } */}
 
             </div >
         </>

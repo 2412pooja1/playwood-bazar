@@ -27,6 +27,19 @@ import StarRatings from "react-star-ratings";
 import moment from "moment";
 import ReactStars from "react-rating-stars-component";
 import { MdOutlineEmail } from "react-icons/md";
+import bagicn from '../../assets/image/home/images/bagicn.png'
+import icn365 from '../../assets/image/home/images/365icn.png'
+import customericn from '../../assets/image/home/images/customericn.png'
+import telephone from '../../assets/image/home/images/telephone.png'
+import gsticn from '../../assets/image/home/images/gsticn.png'
+import birthdate from '../../assets/image/home/images/birthdateicn.png'
+
+
+
+
+
+
+
 
 function Supplier() {
   const [quoteModal, setQuoteModal] = useState(false);
@@ -471,20 +484,41 @@ function Supplier() {
         if (item.active && item.tab === "2") {
           return (
             <>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              {/* profile */}
               <section className="supplier-profile mb-80">
                 <div className="container">
                   <p className="text-center my-5">{supplierObj?.longDescription}</p>
-                  <div className="row gy-4">
-                    <div className="col-12 col-md-4">
-                      <div className="box">
-                        <div className="icon brown"><MdAddBusiness /></div>
-                        <div className="content">
-                          <h5 className="brown">Nature of Business</h5>
-                          <p>{supplierObj?.companyObj?.natureOfBusiness ? supplierObj?.companyObj?.natureOfBusiness : "Not provided"} </p>
+                  <div className="row ">
+                    <div className="row d-flex align-items-center justify-content-center">
+
+                      <div className="col-lg-3 col-md-4 " >
+                        <div className="box ">
+                          <div className="icon brown"><img className="img-fluid" src={bagicn} alt="" /></div>
+                          <div className="content">
+                            <h5 className="brown">Nature of Business</h5>
+                            <p>{supplierObj?.companyObj?.natureOfBusiness ? supplierObj?.companyObj?.natureOfBusiness : "Not provided"} </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    {/* <div className="col-12 col-md-4">
+                      {/* <div className="col-12 col-md-4">
                       <div className="box">
                         <div className="icon brown"><FaUserFriends /></div>
                         <div className="content">
@@ -493,25 +527,29 @@ function Supplier() {
                         </div>
                       </div>
                     </div> */}
-                    <div className="col-12 col-md-4">
-                      <div className="box">
-                        <div className="icon brown"><BsCalendarWeek /></div>
-                        <div className="content">
-                          <h5 className="brown">Year of Establishment</h5>
-                          <p>{supplierObj?.companyObj?.yearOfEstablishment ? supplierObj?.companyObj?.yearOfEstablishment : "Not provided"}</p>
+                      <div className="col-lg-3 col-md-4">
+                        <div className="box">
+
+                          <div className="icon brown"><img className="img-fluid" src={icn365} alt="" /></div>
+                          <div className="content">
+                            <h5 className="brown">Year of Establishment</h5>
+                            <p>{supplierObj?.companyObj?.yearOfEstablishment ? supplierObj?.companyObj?.yearOfEstablishment : "Not provided"}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="col-12 col-md-4">
-                      <div className="box">
-                        <div className="icon brown"><GiChart /></div>
-                        <div className="content">
-                          <h5 className="brown">Contact Person Name</h5>
-                          <p>{supplierObj?.name ? supplierObj?.name : "Not provided"}</p>
+
+                    <div className="row d-flex align-items-center justify-content-center">
+                      <div className="col-lg-3 col-md-4 py-5">
+                        <div className="box">
+                          <div className="icon brown"><img className="img-fluid" src={customericn} alt="" /></div>
+                          <div className="content">
+                            <h5 className="brown">Contact Person Name</h5>
+                            <p>{supplierObj?.name ? supplierObj?.name : "Not provided"}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    {/* <div className="col-12 col-md-4">
+                      {/* <div className="col-12 col-md-4">
                       <div className="box">
                         <div className="icon brown"><MdImportExport /></div>
                         <div className="content">
@@ -519,26 +557,40 @@ function Supplier() {
                           <p>{supplierObj?.companyObj?.iecCode ? supplierObj?.companyObj?.iecCode : "Not provided"} </p>
                         </div>
                       </div>
-                    </div> */}
-                    <div className="col-12 col-md-4">
-                      <div className="box">
-                        <div className="icon brown"><GiScales /></div>
-                        <div className="content">
-                          <h5 className="brown">Landline</h5>
-                          <p>{currentUserHasActiveSubscription ? supplierObj?.landline ? supplierObj?.landline : "Not provided" : "You do not have a valid subscription"}</p>
+                     </div> */}
+                      <div className="col-lg-3 col-md-4">
+                        <div className="box">
+                          <div className="icon brown"><img className="img-fluid" src={telephone} alt="" /></div>
+                          <div className="content">
+                            <h5 className="brown">Landline</h5>
+                            <p>{currentUserHasActiveSubscription ? supplierObj?.landline ? supplierObj?.landline : "Not provided" : "You do not have a valid subscription"}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="col-12 col-md-4">
-                      <div className="box">
-                        <div className="icon brown"><BsFillCheckCircleFill /></div>
-                        <div className="content">
-                          <h5 className="brown">GST No.</h5>
-                          <p>{supplierObj?.companyObj?.gstNumber ? supplierObj?.companyObj?.gstNumber : "Not provided"} </p>
+
+
+
+                    <div className="row d-flex align-items-center justify-content-center">
+                      <div className="col-lg-3 col-md-4">
+                        <div className="box">
+                          <div className="icon brown"><img className="img-fluid" src={gsticn} alt="" /></div>
+                          <div className="content">
+                            <h5 className="brown">Contact Person Name</h5>
+                            <p>{supplierObj?.companyObj?.gstNumber ? supplierObj?.companyObj?.gstNumber : "Not provided"}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    {/* <div className="col-12 col-md-4">
+                      {/* <div className="col-lg-3 col-md-4">
+                        <div className="box">
+                        <div className="icon brown"><img className="img-fluid" src={bagicn} alt="" /></div>
+                          <div className="content">
+                            <h5 className="brown">GST No.</h5>
+                            <p>{supplierObj?.companyObj?.gstNumber ? supplierObj?.companyObj?.gstNumber : "Not provided"} </p>
+                          </div>
+                        </div>
+                      </div> */}
+                      {/* <div className="col-12 col-md-4">
                       <div className="box">
                         <div className="icon brown"><BsFillCheckCircleFill /></div>
                         <div className="content">
@@ -547,18 +599,61 @@ function Supplier() {
                         </div>
                       </div>
                     </div> */}
-                    <div className="col-12 col-md-4">
-                      <div className="box">
-                        <div className="icon brown"><ImOffice /></div>
-                        <div className="content">
-                          <h5 className="brown">Birthdate</h5>
-                          <p>{supplierObj?.aniversaryDate ? moment(supplierObj?.aniversaryDate).format("YYYY-MM-DD") : "Not provided"}</p>
+                      <div className="col-lg-3 col-md-4 ">
+                        <div className="box">
+                          <div className="icon brown"><img className="img-fluid" src={birthdate} alt="" /></div>
+                          <div className="content">
+                            <h5 className="brown">Birthdate</h5>
+                            <p>{supplierObj?.aniversaryDate ? moment(supplierObj?.aniversaryDate).format("YYYY-MM-DD") : "Not provided"}</p>
+                          </div>
                         </div>
                       </div>
+                      {/* <div className="col-lg-3 col-md-4">
+                        <div className="box">
+                          <div className="icon brown"><img className="img-fluid" src={bagicn} alt="" /></div>
+                          <div className="content">
+                            <h5 className="brown">Birthdate</h5>
+                            <p>{supplierObj?.aniversaryDate ? moment(supplierObj?.aniversaryDate).format("YYYY-MM-DD") : "Not provided"}</p>
+                          </div>
+                        </div>
+                      </div> */}
+
                     </div>
                   </div>
                 </div>
               </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </>
           );
         }
