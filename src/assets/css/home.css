@@ -3,12 +3,17 @@
   justify-content: center;
   align-items: center;
 }
+.msg1{
+  height: 50px;
+}
 
 .categoriesback {
 
   background-color: #f5f1e8;
 }
-
+.img1{
+  height: 200px;
+}
 
 .categoriescircle {
   background-color: #5a432f;
