@@ -414,7 +414,7 @@ export default function Profile() {
                         </div>
                     }
                 </div>
-                <div className="row d-flex justify-content-between">
+                {/* <div className="row d-flex justify-content-between">
                     <div className="col-12 col-lg-6">
                         <div className="profile-section-container">
                             <div className="row d-flex justify-content-between">
@@ -508,7 +508,7 @@ export default function Profile() {
                  <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
                     {userObj?.companyObj?.noofepmployee}
                  </div> */}
-                                    <div className="col-5 my-1">
+                                    {/* <div className="col-5 my-1">
                                         GST Number:
                                     </div>
                                     <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
@@ -519,7 +519,7 @@ export default function Profile() {
                                     </div>
                                     <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
                                         {userObj?.companyObj?.address}
-                                    </div>
+                                    </div> */}
 
 
 
@@ -551,12 +551,12 @@ export default function Profile() {
                         {userObj?.companyObj?.annualTurnover}
                     </div> */}
 
-                                    <div className="col-5 my-1">
+                                    {/* <div className="col-5 my-1">
                                         Year of Establishment:
                                     </div>
                                     <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
                                         {userObj?.companyObj?.yearOfEstablishment}
-                                    </div>
+                                    </div> */}
                                     {/* <div className="col-5 my-1">
                         Legal Status:
                     </div>
@@ -569,7 +569,7 @@ export default function Profile() {
                     <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
                         {userObj?.companyObj?.companyCeo}
                     </div> */}
-                                    <div className="col-5 my-1">
+                                    {/* <div className="col-5 my-1">
                                         Google Maps Link:
                                     </div>
                                     <div className="col-7  my-1" style={{ wordBreak: "break-all" }}>
@@ -579,7 +579,7 @@ export default function Profile() {
                             </div>
                         }
                     </div>
-                </div>
+                </div> */} 
 
                 {/* {
                     role != ROLES_CONSTANT.USER &&

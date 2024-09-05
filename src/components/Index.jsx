@@ -581,7 +581,7 @@ function Index() {
               </p>
               <div className=" d-flex justify-content-center">
                 <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
-                  1 Get Deal
+                  Get Quote
                 </button>
               </div>
             </Col>
@@ -601,7 +601,7 @@ function Index() {
               </p>
               <div className=" d-flex justify-content-center">
                 <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
-                  1 Get Deal
+                  Get Quote
                 </button>
               </div>
             </Col>
@@ -621,7 +621,7 @@ function Index() {
               </p>
               <div className=" d-flex justify-content-center">
                 <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
-                  1 Get Deal
+                  Get Quote
                 </button>
               </div>
             </Col>
@@ -641,7 +641,7 @@ function Index() {
               </p>
               <div className=" d-flex justify-content-center">
                 <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
-                  1 Get Deal
+                  Get Quote
                 </button>
               </div>
             </Col>
@@ -671,7 +671,7 @@ function Index() {
                   </span>
                   <span className="Rs-1">₹3360</span>
                 </div>
-                <button>1 Get Deal</button>
+                <button>Get Quote</button>
               </div>
             </Col>
             <Col className="d-flex justify-content-center align-items-center py-4" xxl={3} xl={3} lg={6} md={6} sm={6} xs={6}>
@@ -687,7 +687,7 @@ function Index() {
                   </span>
                   <span className="Rs-1">₹3360</span>
                 </div>
-                <button>1 Get Deal</button>
+                <button>Get Quote</button>
               </div>
             </Col>
             <Col className="d-flex justify-content-center align-items-center py-4" xxl={3} xl={3} lg={6} md={6} sm={6} xs={6}>
@@ -703,7 +703,7 @@ function Index() {
                   </span>
                   <span className="Rs-1">₹3360</span>
                 </div>
-                <button>1 Get Deal</button>
+                <button>Get Quote</button>
               </div>
             </Col>
             <Col className="d-flex justify-content-center align-items-center py-4" xxl={3} xl={3} lg={6} md={6} sm={6} xs={6}>
@@ -719,7 +719,7 @@ function Index() {
                   </span>
                   <span className="Rs-1">₹3360</span>
                 </div>
-                <button>1 Get Deal</button>
+                <button>Get Quote</button>
               </div>
             </Col>
           </Row>
