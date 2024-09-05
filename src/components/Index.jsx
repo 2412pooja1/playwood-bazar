@@ -573,7 +573,7 @@ function Index() {
               </p>
               <div className=" d-flex justify-content-center">
                 <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
-                  1 Get Deal
+                  Get Quote
                 </button>
               </div>
             </Col>
@@ -593,7 +593,7 @@ function Index() {
               </p>
               <div className=" d-flex justify-content-center">
                 <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
-                  1 Get Deal
+                  Get Quote
                 </button>
               </div>
             </Col>
@@ -613,7 +613,7 @@ function Index() {
               </p>
               <div className=" d-flex justify-content-center">
                 <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
-                  1 Get Deal
+                  Get Quote
                 </button>
               </div>
             </Col>
@@ -633,7 +633,7 @@ function Index() {
               </p>
               <div className=" d-flex justify-content-center">
                 <button className="text-center fs-5 fw-bold text-white prdbtn px-4 py-2">
-                  1 Get Deal
+                  Get Quote
                 </button>
               </div>
             </Col>
@@ -671,7 +671,7 @@ function Index() {
                   </span>
                   <span className="Rs-1">₹3360</span>
                 </div>
-                <button>1 Get Deal</button>
+                <button>Get Quote</button>
               </div>
             </Col>
             <Col
@@ -695,7 +695,7 @@ function Index() {
                   </span>
                   <span className="Rs-1">₹3360</span>
                 </div>
-                <button>1 Get Deal</button>
+                <button>Get Quote</button>
               </div>
             </Col>
             <Col
@@ -719,7 +719,7 @@ function Index() {
                   </span>
                   <span className="Rs-1">₹3360</span>
                 </div>
-                <button>1 Get Deal</button>
+                <button>Get Quote</button>
               </div>
             </Col>
             <Col
@@ -743,7 +743,7 @@ function Index() {
                   </span>
                   <span className="Rs-1">₹3360</span>
                 </div>
-                <button>1 Get Deal</button>
+                <button>Get Quote</button>
               </div>
             </Col>
           </Row>
@@ -778,13 +778,13 @@ function Index() {
                           <div className="newprdcrd">
                             <img
                               src={generateImageUrl(el.image)}
-                              alt=""
-                              className="img-fluid"
+                              alt="" 
+                              className="img-fluid img1"
                             />
                             <div className="d-flex justify-content-center">
                               <LuPhoneCall className="phn rounded-circle p-2" />
                             </div>
-                            <h6 className="fs-6">{el.message}</h6>
+                            <h6 className="fs-6 msg1" >{el.message}</h6>
                             <button
                               onClick={() =>
                                 navigate(`/ShopDetail/${el?.productSlug}`)
@@ -962,7 +962,7 @@ function Index() {
                                 <img
                                   src={generateImageUrl(el.productId.mainImage)}
                                   alt=""
-                                  className="img-fluid ims"
+                                  className="img-fluid ims img1 "
                                 />
                                 <div className="overlyasper"></div>
                               </Link>

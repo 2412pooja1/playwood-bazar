@@ -712,12 +712,12 @@ function Header() {
                                   style={{
                                     display: showSignIn ? "block" : "none",
                                   }}
-                                  className={`custom-search-list px-3`}
+                                  className={`custom-search-list`}
                                 >
                                   {signInList.map((item, i) => {
                                     return (
                                       <li key={i}>
-                                        <Link to={item.link} className="userprofileoptionstext ms-4  d-flex align-items-center ">
+                                        <Link to={item.link} className="userprofileoptionstext">
                                           <div className="userprofileoptionsicon">
                                             {item.icon}
                                           </div>
@@ -754,14 +754,14 @@ function Header() {
                               >
                                 {windowWidth > 992 ? (
                                   <>
-                                    
-                                 
+
+
                                     <div className=" d-flex align-items-center">
                                       <div>
                                         <MdAccountCircle className=" Acc_icn btn-social rounded-circle mx-2" style={{ fontSize: "2rem" }} />
                                       </div>
                                       <div className=" text-white">
-                                      Log In<BiChevronDown />
+                                        Log In<BiChevronDown />
                                       </div>
                                     </div>
                                   </>
@@ -815,101 +815,570 @@ function Header() {
               </div></div>
           </Container>) : (
           <>
-            <Container className=" mblogo">  <Row>
-              <Col xs={7}><div className=" py-2">
-                <img src={logo2} alt="" className=" img-fluid" />
-              </div></Col>
-              <Col xs={5}>
-                <Row>
-                  <Col xs={4} className=" py-2">
-                    <a
-                      className="Acc_icn  rounded-circle "
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setShowSearchBar(!showSearchBar);
-                      }}
-                    >
-                      <FiSearch />
-                    </a>
-                    <Form
-                      className={`Search_section d-flex  justify-content-end flex-grow-1 position-relative ${showSearchBar ? '' : 'collapsed'}`}
-                      onClick={() => setShowSearchBar(true)}
-                      ref={formRef}
-                    >
-                      {showSearchBar && (
-                        <>
-                          <Form.Control
-                            type="search"
-                            className="searchbar rounded-pill"
-                            placeholder={checkSearchMode()}
-                            aria-label="Search"
-                            value={searchText}
-                            onChange={(e) => handleSearchText(e.target.value)}
-                          />
-                          <button
-                            className="btn-close   bg-white rounded-circle p-3 fw-bolder"
-                            style={{ right: '3rem' }} // Positioning the close bu0tton
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setShowSearchBar(false);
-                            }}
-                          >
+            <header className="reverheadermobile sticky-top bg-light">
 
-                          </button>
-                        </>
-                      )}
 
-                      {searchText !== "" && showSearchBar && (
-                        <div className="searchBox listsearch">
-
-                          {searchResultArr && searchResultArr.length > 0 ? (
-                            searchResultArr.map((el, index) => (
-                              <div key={index}>
-                                <Link
-                                  to={`/Supplier/${el?._id}`}
-                                  onClick={() => setShowSearchBar(false)}
+              <div className="middlebar_new">
+                <div className="container-fluid">
+                  <div className="row align-items-center">
+                    <div className="col-lg-4">
+                      <Link to="/" className="navbar-brand d-lg-block d-none">
+                        <img
+                          src={images.logo}
+                          alt=""
+                          className="main-logo img-fluid"
+                        />
+                      </Link>
+                    </div>
+                    <div className="col-lg-8 col-12">
+                      <div className="middlebody">
+                        <div className="row align-items-center">
+                          <div className="col-8 col-lg-6">
+                       
+                                <form
+                                  className="search-bar"
+                                  onClick={() => {
+                                    setSearchBy(!searchBy);
+                                  }}
                                   onFocus={() => setShowSearchBar(true)}
                                 >
-                                  <p>{el?.companyObj?.name}</p>
-                                </Link>
-                              </div>
-                            ))
-                          ) : (
-                            <div>
-                              <p>No results found</p>
+                                  <div
+                                    className="custom-search mobileserach "
+
+                                  >
+                                    <button
+                                      className="yellow-bg btn text-white h-100 rounded-0"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        navigate("/Shop");
+                                      }}
+
+                                    >
+                                      Search
+                                    </button>
+
+                                  </div>
+                                  <div className="form-control flex-1">
+                                    <input
+                                      type="search"
+                                      placeholder={checkSearchMode()}
+                                      aria-label="Search"
+                                      value={searchText}
+                                      onChange={(e) =>
+                                        handleSearchText(e.target.value)
+                                      }
+                                    />
+                                    <div className="icon">
+                                      <BiSearch />
+                                    </div>
+                                  </div>
+                                  {searchText != "" && showSearchBar && (
+                                    <div className="searchBox listsearch">
+                                      <div
+                                        className="searchBoxCloseIcon"
+                                        onClick={() => {
+                                          setShowSearchBar(false);
+                                        }}
+                                      >
+                                        X
+                                      </div>
+                                      {searchResultArr &&
+                                        searchResultArr.length > 0 ? (
+                                        searchResultArr.map((el, index) => {
+                                          return (
+                                            <div key={index}>
+                                              <Link
+                                                to={`/Supplier/${el?._id}`}
+                                                onClick={() =>
+                                                  setShowSearchBar(false)
+                                                }
+                                                onFocus={() => setShowSearchBar(true)}
+                                              >
+                                                <p>{el?.companyObj?.name}</p>
+                                              </Link>
+                                            </div>
+                                          );
+                                        })
+                                      ) : (
+                                        <div>
+                                          <p>No results found</p>
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+                                </form>
+                            
+                          </div>
+                          <div className="col-4 col-lg-6">
+                            <div className="flex_row d-flex mobile_right">
+                              {windowWidth > 992 ? (
+                                <>
+                                  <Nav>
+                                    <NavLink className="nav-link" to="/">
+                                      Home
+                                    </NavLink>
+
+                                    <NavLink
+                                      className="nav-link"
+                                      to="/View/My-Tickets"
+                                    >
+                                      Help
+                                    </NavLink>
+
+                                    <NavLink className="nav-link" to="/View/blogs">
+                                      Blogs
+                                    </NavLink>
+                                    {isAuthorized && (
+                                      <a
+                                        className="nav-link position-relative"
+                                        href="/notifications"
+                                      >
+                                        <FaBell style={{ fontSize: 22 }} />
+                                        {totalNotification > 0 && (
+                                          <span>{totalNotification}</span>
+                                        )}
+                                      </a>
+                                    )}
+                                  </Nav>
+                                </>
+                              ) : (
+                                ""
+                              )}
+
+                              {isAuthorized ? (
+                                <div
+                                  className="sign-in-btn"
+
+                                >
+                                  <div
+                                    className="custom-search"
+
+                                    onClick={() => setShowSignIn(!showSignIn)}
+                                  >
+                                    <button
+                                      className="text-dark d-flex align-items-center"
+
+                                    >
+                                      <img src={images.user} alt="" />
+                                      {userObj?.name}
+                                      <BiChevronDown />
+                                    </button>
+                                    <div ref={wrapperRef}>
+                                      <ul
+                                        style={{
+                                          display: showSignIn ? "block" : "none",
+                                        }}
+                                        className={`custom-search-list`}
+                                      >
+                                        {signInList.map((item, i) => {
+                                          return (
+                                            <li key={i}>
+                                              <Link to={item.link}>
+                                                <div className="icon">
+                                                  {item.icon}
+                                                </div>
+                                                {item.name}
+                                              </Link>
+                                            </li>
+                                          );
+                                        })}
+
+                                        <li onClick={() => handleLogout()}>
+                                          <a style={{ cursor: "pointer" }}>
+                                            <div className="icon">
+                                              <AiOutlineLogout />
+                                            </div>
+                                            Logout
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              ) : (
+                                <div
+                                  className="sign-in-btn"
+                                  onClick={() => setShowSignIn(!showSignIn)}
+
+                                >
+                                  <div className="custom-search">
+                                    <button
+                                      className="text-dark d-flex align-items-center"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                      }}
+                                    >
+                                      {windowWidth > 992 ? (
+                                        <>
+                                          <img src={images.user} alt="" /> Log In{" "}
+                                          <BiChevronDown />
+                                        </>
+                                      ) : (
+                                        <>
+                                          <img src={images.user} alt="" />
+                                        </>
+                                      )}
+                                    </button>
+                                    <div ref={wrapperLoggedOutRef}>
+                                      <ul
+                                        style={{
+                                          display: showSignIn ? "block" : "none",
+                                        }}
+                                        className={`custom-search-list`}
+                                      >
+                                        <li className="text-center bottom-li">
+                                          <button
+                                            className="yellow-bg btn text-white"
+                                            onClick={() => setSignInModal(true)}
+                                          >
+                                            Log In
+                                          </button>
+                                          <p className="text text-dark">
+                                            New to Plywood Bazar?
+                                            <Link
+                                              to="/Register"
+                                              className="brown fw-semibold justify-content-center"
+                                            >
+                                              Register here
+                                            </Link>
+                                          </p>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
                             </div>
-                          )}
+                          </div>
                         </div>
-                      )}
-                    </Form>
-                  </Col>
-                  <Col xs={4} className=" py-2">
-                    <Button
-                      className="Acc_icn btn-social rounded-circle 
-                  "
-                      style={{ fontSize: "2rem" }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                      onClick={() => setSignInModal(true)}
+              {mobileshowmenu && (
+                <div className="mobileheader d-lg-none">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-6">
+                        <Link to="/">
+                          <img
+                            src={images.logo}
+                            alt=""
+                            className="img-fluid mobile-logo d-lg-none"
+                          />
+                        </Link>
+                      </div>
+                      <div className="col-6">
+                        <Navbar
+                          onToggle={() => toggleOffCanvas()}
+                          expanded={navbartollge}
+                          expand="lg"
+                          className="bottom-bar topnavigation p-0"
+                        >
+                          <Container fluid>
+                            <Navbar.Toggle aria-controls="bottomNavbar-expand-lg" />
 
+                            <Navbar.Offcanvas
+                              className="mainnavigation"
+
+
+                              id={`offcanvasNavbar-expand-lg`}
+                              aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
+                              placement="end"
+                            >
+                              <Offcanvas.Header closeButton>
+                                <Offcanvas.Title id="bottomNavbarLabel-expand-lg">
+                                  <img
+                                    src={images.logo}
+                                    alt=""
+                                    className="img-fluid mobile-logo d-lg-none"
+                                  />
+                                </Offcanvas.Title>
+                              </Offcanvas.Header>
+                              <Offcanvas.Body>
+                                <Nav className="flex-grow-1">
+                                  <>
+                                    {categoryArr &&
+                                      categoryArr.map((category, index) => (
+                                        <div
+                                          className="nav-link mobile_accroid"
+                                          key={index}
+                                        >
+                                          <Accordion className="mobile_accroid">
+                                            <Accordion.Item eventKey="0">
+                                              <Accordion.Header className="headeraccrodion">
+                                                <Link
+                                                  to={`/Shop?categories=${category._id}`}
+                                                >
+                                                  {category?.name}
+                                                </Link>
+                                              </Accordion.Header>
+                                              <Accordion.Body>
+                                                {category.subCategoryArr &&
+                                                  category.subCategoryArr.length >
+                                                  0 && (
+                                                    <div
+                                                      className="custom-dropdown"
+                                                      key={index}
+                                                    >
+                                                      <div className="container h-100">
+                                                        <div className="custom-dropdown-inner">
+                                                          <ul className="category-list">
+                                                            {category.subCategoryArr &&
+                                                              category.subCategoryArr.map(
+                                                                (
+                                                                  subcategory,
+                                                                  index2
+                                                                ) => (
+                                                                  <li key={index2}>
+                                                                    <a
+                                                                      href={`/Shop?categories=${category._id}&sub=${subcategory.slug}`}
+                                                                      className="link"
+                                                                    >
+                                                                      {
+                                                                        subcategory.name
+                                                                      }
+                                                                    </a>
+                                                                  </li>
+                                                                )
+                                                              )}
+                                                          </ul>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  )}
+                                              </Accordion.Body>
+                                            </Accordion.Item>
+                                          </Accordion>
+                                        </div>
+                                      ))}
+                                    <Nav className="mobile_botm_border">
+                                      <NavLink
+                                        onClick={() => (setNavbartollge = false)}
+                                        className="nav-link"
+                                        to="/"
+                                      >
+                                        Home
+                                      </NavLink>
+                                      <NavLink
+                                        onClick={() => (setNavbartollge = false)}
+                                        className="nav-link"
+                                        to="/Shop"
+                                      >
+                                        View Products
+                                      </NavLink>
+
+                                      <NavLink
+                                        onClick={() => (setNavbartollge = false)}
+                                        className="nav-link"
+                                        to="/View/My-Tickets"
+                                      >
+                                        Help
+                                      </NavLink>
+
+                                      <NavLink
+                                        onClick={() => (setNavbartollge = false)}
+                                        className="nav-link"
+                                        to="/View/blogs"
+                                      >
+                                        Blogs
+                                      </NavLink>
+                                    </Nav>
+                                  </>
+                                </Nav>
+                              </Offcanvas.Body>
+                            </Navbar.Offcanvas>
+                          </Container>
+                        </Navbar>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {showcatgoryNav && (
+                <Navbar
+                  onToggle={() => toggleOffCanvas()}
+                  expanded={navbartollge}
+                  expand="lg"
+                  ref={wrapper2Ref}
+                  className="bottom-bar sticky-top topnavigation"
+                >
+                  <Container fluid>
+                    <Navbar.Toggle aria-controls="bottomNavbar-expand-lg" />
+                    <Link to="/">
+                      <img
+                        src={images.logo}
+                        alt=""
+                        className="img-fluid mobile-logo d-lg-none"
+                      />
+                    </Link>
+
+                    <Navbar.Offcanvas
+                      className="mainnavigation"
+
+
+                      id={`offcanvasNavbar-expand-lg`}
+                      aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
+                      placement="end"
                     >
-                      <MdAccountCircle />
-                    </Button>
-                  </Col>
-                  <Col xs={4} className=" py-2">
-                    <Button
-                      className="Acc_icn btn-social rounded-circle"
-                      style={{ fontSize: "2rem" }}
+                      <Offcanvas.Header closeButton>
+                        <Offcanvas.Title id="bottomNavbarLabel-expand-lg">
+                          <img
+                            src={images.logo}
+                            alt=""
+                            className="img-fluid mobile-logo d-lg-none"
+                          />
+                        </Offcanvas.Title>
+                      </Offcanvas.Header>
+                      <Offcanvas.Body className="topheader_scroll">
+                        <Nav className="flex-grow-1 webkitnone">
+                          {windowWidth < 992 ? (
+                            <>
+                              {categoryArr &&
+                                categoryArr.map((category, index) => (
+                                  <div
+                                    className="nav-link mobile_accroid"
+                                    key={index}
+                                  >
+                                    <Accordion className="mobile_accroid">
+                                      <Accordion.Item eventKey="0">
+                                        <Accordion.Header className="headeraccrodion">
+                                          <Link
+                                            to={`/Shop?categories=${category._id}`}
+                                          >
+                                            {category?.name}
+                                          </Link>
+                                        </Accordion.Header>
+                                        <Accordion.Body>
+                                          {category.subCategoryArr &&
+                                            category.subCategoryArr.length > 0 && (
+                                              <div
+                                                className="custom-dropdown"
+                                                key={index}
+                                              >
+                                                <div className="container h-100">
+                                                  <div className="custom-dropdown-inner">
+                                                    <ul className="category-list">
+                                                      {category.subCategoryArr &&
+                                                        category.subCategoryArr.map(
+                                                          (subcategory, index2) => (
+                                                            <li key={index2}>
+                                                              <a
+                                                                href={`/Shop?categories=${category._id}&sub=${subcategory.slug}`}
+                                                                className="link"
+                                                              >
+                                                                {subcategory.name}
+                                                              </a>
+                                                            </li>
+                                                          )
+                                                        )}
+                                                    </ul>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            )}
+                                        </Accordion.Body>
+                                      </Accordion.Item>
+                                    </Accordion>
+                                  </div>
+                                ))}
+                              <Nav className="mobile_botm_border">
+                                <NavLink
+                                  onClick={() => (setNavbartollge = false)}
+                                  className="nav-link"
+                                  to="/"
+                                >
+                                  Home
+                                </NavLink>
+                                <NavLink
+                                  onClick={() => (setNavbartollge = false)}
+                                  className="nav-link"
+                                  to="/Shop"
+                                >
+                                  View Products
+                                </NavLink>
 
-                      onClick={() => setSignInModal(true)}
+                                <NavLink
+                                  onClick={() => (setNavbartollge = false)}
+                                  className="nav-link"
+                                  to="/View/My-Tickets"
+                                >
+                                  Help
+                                </NavLink>
 
-                    >
-                      <MdAccountCircle />
-                    </Button>
-                  </Col>
-                </Row>
-              </Col>
-            </Row></Container>
+                                <NavLink
+                                  onClick={() => (setNavbartollge = false)}
+                                  className="nav-link"
+                                  to="/View/blogs"
+                                >
+                                  Blogs
+                                </NavLink>
+                              </Nav>
+                            </>
+                          ) : (
+                            <>
+                              {categoryArr &&
+                                categoryArr.map((category, index) => (
+                                  <>
+                                    <div
+
+                                      className={`nav-link ${activeCategory == category?._id
+                                        ? "active"
+                                        : ""
+                                        }`}
+                                      key={index}
+                                      onClick={() => handleCheckCategory(category)}
+                                    >
+                                      <Link to="/">{category?.name} </Link>
+
+
+                                    </div>
+                                    {category.checked &&
+                                      category.subCategoryArr &&
+                                      category.subCategoryArr.length > 0 ? (
+                                      <div className="megamenheader">
+                                        <div className="container">
+                                          <div className="row">
+                                            {category.subCategoryArr &&
+                                              category.subCategoryArr.length > 0 && (
+                                                <div className="col-12">
+                                                  <ul className="category-list">
+                                                    {category.subCategoryArr &&
+                                                      category.subCategoryArr.map(
+                                                        (subcategory, index2) => (
+                                                          <li key={index2}>
+                                                            <a
+                                                              href={`/Shop?categories=${category._id}&sub=${subcategory.slug}`}
+                                                              className="link"
+                                                            >
+                                                              {subcategory.name}
+                                                            </a>
+                                                          </li>
+                                                        )
+                                                      )}
+                                                  </ul>
+                                                </div>
+                                              )}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      ""
+                                    )}
+                                  </>
+                                ))}
+                            </>
+                          )}
+                        </Nav>
+                      </Offcanvas.Body>
+                    </Navbar.Offcanvas>
+                  </Container>
+                </Navbar>
+              )}
+            </header> 
 
 
 

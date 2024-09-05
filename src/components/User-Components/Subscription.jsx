@@ -3,6 +3,7 @@ import { getAllsubscription } from '../../services/Subscription.service'
 import { buySubscription } from '../../services/UserSubscription.service';
 import { errorToast, successToast } from '../Utility/Toast'
 import { useSelector } from 'react-redux';
+import "../../assets/css/Subscription.css"
 
 export default function Subscription() {
 
@@ -56,7 +57,7 @@ export default function Subscription() {
     }
 
     return (
-        <div className='container-fluid subscription-container'>
+        <div className='container-fluid subscription-container subscription-card-container'>
             <div className="container">
                 <div className="subsctiption-heading">
                     Our Subscriptions
